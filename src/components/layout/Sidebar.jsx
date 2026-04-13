@@ -84,15 +84,16 @@ export default function Sidebar() {
             <span>AI Tools</span>
           </NavLink>
 
-          <NavLink to="/dashboard/goals" className="rs-menu-item" onClick={() => setOpen(false)}>
-            <Flag size={18} />
-            <span>My Goals</span>
+          <NavLink to="/dashboard/saved-colleges" className="rs-menu-item" onClick={() => setOpen(false)}>
+            <Folder size={18} />
+            <span>Saved Colleges</span>
           </NavLink>
 
           <NavLink to="/dashboard/documents" className="rs-menu-item" onClick={() => setOpen(false)}>
             <Folder size={18} />
             <span>Documents</span>
           </NavLink>
+
 
           <NavLink to="/dashboard/customer-support" className="rs-menu-item" onClick={() => setOpen(false)}>
             <Headphones size={18} />

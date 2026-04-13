@@ -1,0 +1,166 @@
+/* OVERLAY */
+.cm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(243, 237, 231, 0.6); /* soft beige blur */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* MODAL */
+.cm-modal {
+  width: 420px;
+  max-width: 90%;
+  padding: 30px 25px;
+
+  background: #f3ede7;
+  border-radius: 20px;
+
+  /* claymorphism effect */
+  box-shadow: 
+    8px 8px 18px #d8d1c7,
+    -8px -8px 18px #ffffff;
+
+  position: relative;
+  animation: cmFade 0.3s ease;
+}
+
+/* ANIMATION */
+@keyframes cmFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* CLOSE BUTTON */
+.cm-close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  color: #8a5a3b;
+}
+
+/* HEADER */
+.cm-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cm-header h2 {
+  margin-bottom: 6px;
+  color: #5a3e2b;
+}
+
+.cm-header p {
+  font-size: 14px;
+  color: #8a5a3b;
+}
+
+/* FORM */
+.cm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* INPUTS */
+.cm-form input,
+.cm-form select,
+.cm-form textarea {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  background: #f3ede7;
+
+  /* inner clay effect */
+  box-shadow: 
+    inset 4px 4px 8px #d8d1c7,
+    inset -4px -4px 8px #ffffff;
+
+  font-size: 14px;
+  color: #5a3e2b;
+  width: 100%;
+}
+
+/* TEXTAREA */
+.cm-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+.cm-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* SUBMIT BUTTON */
+.cm-submit {
+  margin-top: 10px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: #8a5a3b;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  box-shadow: 
+    5px 5px 12px #d8d1c7,
+    -5px -5px 12px #ffffff;
+}
+
+.cm-submit:hover {
+  transform: translateY(-2px);
+  background: #6f472f;
+}
+
+/* SUCCESS STATE */
+.cm-success {
+  text-align: center;
+  padding: 20px;
+}
+
+.cm-success h2 {
+  color: #5a3e2b;
+  margin-bottom: 10px;
+}
+
+.cm-success p {
+  color: #6f6f6f;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .cm-modal {
+    padding: 25px 18px;
+  }
+
+    .cm-row {
+    flex-direction: column;
+  }
+
+}

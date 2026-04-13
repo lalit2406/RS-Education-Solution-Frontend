@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "../../src/styles/pages/programs.css";
 import Footer from "../components/layout/Footer";
+import CounsellingModal from "../components/dashboard/CounsellingModal";
 
 export default function Program() {
-
   // ✅ STATE
   const [activeCategory, setActiveCategory] = useState("All");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState("");
 
   // ✅ PROGRAM DATA (moved from static JSX → dynamic)
   const programs = [
@@ -74,7 +76,6 @@ export default function Program() {
   return (
     <>
       <div className="program-page">
-
         {/* HERO SECTION */}
         <section className="program-hero">
           <div className="program-hero-left">
@@ -85,15 +86,13 @@ export default function Program() {
             </h1>
 
             <p className="program-desc">
-              Navigate through a sanctuary of educational opportunities.
-              We connect ambitious students with premier institutions across
+              Navigate through a sanctuary of educational opportunities. We
+              connect ambitious students with premier institutions across
               Engineering, Medicine, and Management.
             </p>
 
             <div className="program-hero-buttons">
-              <button className="program-btn primary">
-                View All Courses
-              </button>
+              <button className="program-btn primary">View All Courses</button>
               <button className="program-btn secondary">
                 Speak to Counselor
               </button>
@@ -107,7 +106,6 @@ export default function Program() {
             />
           </div>
         </section>
-
 
         {/* CATEGORY FILTER */}
         <section className="program-categories">
@@ -161,10 +159,8 @@ export default function Program() {
           </button>
         </section>
 
-
         {/* COURSES GRID */}
         <section className="program-courses">
-
           {filteredPrograms.map((program) => (
             <div className="program-card" key={program.id}>
               <img src={program.image} alt="" />
@@ -172,21 +168,31 @@ export default function Program() {
                 <span className="program-tag">{program.category}</span>
                 <h3>{program.title}</h3>
 
-                <p><strong>Duration:</strong> {program.duration}</p>
-                <p><strong>Eligibility:</strong> {program.eligibility}</p>
-                <p><strong>Career Scope:</strong> {program.career}</p>
+                <p>
+                  <strong>Duration:</strong> {program.duration}
+                </p>
+                <p>
+                  <strong>Eligibility:</strong> {program.eligibility}
+                </p>
+                <p>
+                  <strong>Career Opportunities:</strong> {program.career}
+                </p>
 
-                <button>Enroll Now</button>
+                <button
+                  onClick={() => {
+                    setSelectedProgram(program.title);
+                    setIsModalOpen(true);
+                  }}
+                >
+                  Get Guidance
+                </button>
               </div>
             </div>
           ))}
-
         </section>
-
 
         {/* PHILOSOPHY SECTION */}
         <section className="program-philosophy">
-
           <div className="program-philo-image">
             <img src="/src/assets/images/office.png" alt="" />
           </div>
@@ -197,9 +203,9 @@ export default function Program() {
             </h2>
 
             <p>
-              We don't just provide admissions; we curate journeys.
-              Each student is matched with a program through a rigorous
-              evaluation of aptitude, ambition, and institutional culture.
+              We don't just provide admissions; we curate journeys. Each student
+              is matched with a program through a rigorous evaluation of
+              aptitude, ambition, and institutional culture.
             </p>
 
             <div className="program-stats">
@@ -213,9 +219,13 @@ export default function Program() {
               </div>
             </div>
           </div>
-
         </section>
 
+        <CounsellingModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          program={selectedProgram}
+        />
       </div>
       <Footer />
     </>

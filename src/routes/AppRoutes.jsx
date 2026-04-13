@@ -22,14 +22,15 @@ import DashboardLayout from "../components/layout/DashboardLayout";
 
 // Dashboard
 import DashboardHome from "../pages/dashboard/DashboardHome";
+import DashboardAITools from "../pages/dashboard/DashboardAITools";
 import Documents from "../pages/dashboard/Documents";
 import Profile from "../pages/dashboard/Profile";
 import CustomerSupport from "../pages/dashboard/CustomerSupport";
+import SavedColleges from "../pages/dashboard/SavedColleges";
 
 export default function AppRoutes() {
   return (
     <Routes>
-
       {/* ================= PUBLIC ROUTES ================= */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
@@ -40,59 +41,40 @@ export default function AppRoutes() {
       <Route path="/set-password" element={<SetPassword />} />
 
       {/* ================= PROTECTED ROUTES ================= */}
-      <Route
-        path="/services"
-        element={
-         
-            <Services />
-       
-        }
-      />
+      <Route path="/services" element={<Services />} />
 
-      <Route
-        path="/programs"
-        element={
-         
-            <Programs />
-         
-        }
-      />
+      <Route path="/programs" element={<Programs />} />
 
-      <Route
-        path="/ai-tools"
-        element={
-        
-            <AITools />
-         
-        }
-      />
+      <Route path="/Ai-tools" element={<AITools />} />
 
-      <Route
-        path="/contact"
-        element={
-          
-            <Contact />
-         
-        }
-      />
+      <Route path="/contact" element={<Contact />} />
 
       <Route
         path="/dashboard"
         element={
-           <DashboardLayout>
-      <DashboardHome />
-    </DashboardLayout>
+          <DashboardLayout>
+            <DashboardHome />
+          </DashboardLayout>
         }
       />
 
       <Route
-  path="/dashboard/documents"
-  element={
-    <DashboardLayout>
-      <Documents />
-    </DashboardLayout>
-  }
-/>
+        path="/dashboard/ai-tools"
+        element={
+          <DashboardLayout>
+            <AITools />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/dashboard/documents"
+        element={
+          <DashboardLayout>
+            <Documents />
+          </DashboardLayout>
+        }
+      />
 
       <Route
         path="/dashboard/profile"
@@ -112,9 +94,16 @@ export default function AppRoutes() {
         }
       />
 
-
-
-    </Routes>
     
+
+      <Route
+        path="/dashboard/saved-colleges"
+        element={
+          <DashboardLayout>
+            <SavedColleges />
+          </DashboardLayout>
+        }
+      />
+    </Routes>
   );
 }
