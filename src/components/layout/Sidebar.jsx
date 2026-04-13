@@ -11,23 +11,6 @@ export default function Sidebar() {
 
   const { user, loading } = useUser();
 
-  // const [user, setUser] = useState({
-  //   name: "",
-  //   email: "",
-  // });
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const res = await getMeUser();
-  //       setUser(res.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchUser();
-  // }, []);
 
   // 🔹 Blur content when sidebar opens
   useEffect(() => {
@@ -77,15 +60,6 @@ export default function Sidebar() {
           >
             <Brain size={18} />
             <span>AI Tools</span>
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/goals"
-            className="rs-menu-item"
-            onClick={() => setOpen(false)}
-          >
-            <Flag size={18} />
-            <span>My Goals</span>
           </NavLink>
 
           <NavLink
