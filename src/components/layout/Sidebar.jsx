@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Brain,
-  Flag,
-  Folder,
-  Headphones,
-} from "lucide-react";
+import { LayoutDashboard, Brain, Flag, Folder, Headphones } from "lucide-react";
 
 import "../../styles/layout/sidebar.css";
 // import { getMeUser } from "../../services/authService";
@@ -51,10 +45,7 @@ export default function Sidebar() {
   return (
     <>
       {/* 🔥 MOBILE HAMBURGER (below navbar) */}
-      <button
-        className="sidebar-toggle"
-        onClick={() => setOpen(!open)}
-      >
+      <button className="sidebar-toggle" onClick={() => setOpen(!open)}>
         <span></span>
         <span></span>
         <span></span>
@@ -62,39 +53,64 @@ export default function Sidebar() {
 
       {/* 🔥 OVERLAY */}
       {open && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setOpen(false)}
-        ></div>
+        <div className="sidebar-overlay" onClick={() => setOpen(false)}></div>
       )}
 
       {/* SIDEBAR */}
       <aside className={`rs-sidebar ${open ? "open" : ""}`}>
-
-
         {/* MENU */}
         <nav className="rs-sidebar-menu">
-          <NavLink to="/dashboard" end className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard"
+            end
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
             <LayoutDashboard size={18} />
             <span>Dashboard</span>
           </NavLink>
 
-          <NavLink to="/dashboard/ai-tools" className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/ai-tools"
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
             <Brain size={18} />
             <span>AI Tools</span>
           </NavLink>
 
-          <NavLink to="/dashboard/goals" className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/goals"
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
             <Flag size={18} />
             <span>My Goals</span>
           </NavLink>
 
-          <NavLink to="/dashboard/documents" className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/documents"
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
             <Folder size={18} />
             <span>Documents</span>
           </NavLink>
 
-          <NavLink to="/dashboard/customer-support" className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/study-planner"
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
+            <Brain size={18} />
+            <span>Study Planner</span>
+          </NavLink>
+
+          <NavLink
+            to="/dashboard/customer-support"
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
             <Headphones size={18} />
             <span>Customer Support</span>
           </NavLink>

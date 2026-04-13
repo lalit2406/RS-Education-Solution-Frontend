@@ -23,13 +23,13 @@ import DashboardLayout from "../components/layout/DashboardLayout";
 // Dashboard
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import Documents from "../pages/dashboard/Documents";
+import StudyPlanner from "../pages/dashboard/StudyPlanner";
 import Profile from "../pages/dashboard/Profile";
 import CustomerSupport from "../pages/dashboard/CustomerSupport";
 
 export default function AppRoutes() {
   return (
     <Routes>
-
       {/* ================= PUBLIC ROUTES ================= */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
@@ -40,59 +40,40 @@ export default function AppRoutes() {
       <Route path="/set-password" element={<SetPassword />} />
 
       {/* ================= PROTECTED ROUTES ================= */}
-      <Route
-        path="/services"
-        element={
-         
-            <Services />
-       
-        }
-      />
+      <Route path="/services" element={<Services />} />
 
-      <Route
-        path="/programs"
-        element={
-         
-            <Programs />
-         
-        }
-      />
+      <Route path="/programs" element={<Programs />} />
 
-      <Route
-        path="/ai-tools"
-        element={
-        
-            <AITools />
-         
-        }
-      />
+      <Route path="/ai-tools" element={<AITools />} />
 
-      <Route
-        path="/contact"
-        element={
-          
-            <Contact />
-         
-        }
-      />
+      <Route path="/contact" element={<Contact />} />
 
       <Route
         path="/dashboard"
         element={
-           <DashboardLayout>
-      <DashboardHome />
-    </DashboardLayout>
+          <DashboardLayout>
+            <DashboardHome />
+          </DashboardLayout>
         }
       />
 
       <Route
-  path="/dashboard/documents"
-  element={
-    <DashboardLayout>
-      <Documents />
-    </DashboardLayout>
-  }
-/>
+        path="/dashboard/documents"
+        element={
+          <DashboardLayout>
+            <Documents />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/dashboard/study-planner"
+        element={
+          <DashboardLayout>
+            <StudyPlanner />
+          </DashboardLayout>
+        }
+      />
 
       <Route
         path="/dashboard/profile"
@@ -111,10 +92,6 @@ export default function AppRoutes() {
           </DashboardLayout>
         }
       />
-
-
-
     </Routes>
-    
   );
 }

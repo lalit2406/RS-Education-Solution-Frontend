@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../../styles/dashboard/dashboardHome.css";
+
 import {
   BookOpen,
   CheckCircle,
@@ -10,41 +14,70 @@ import {
 } from "lucide-react";
 
 export default function DashboardHome() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const fetchDashboard = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/dashboard`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+      );
+
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboard();
+
+    const refetch = () => fetchDashboard();
+
+    window.addEventListener("tasksUpdated", refetch);
+
+    return () => window.removeEventListener("tasksUpdated", refetch);
+  }, []);
+
+  if (loading) return <p>Loading dashboard...</p>;
+
   return (
     <div className="rs-dashboard-home">
-
       {/* HEADER */}
       <div className="rs-dashboard-header">
         <div>
-          <h1>Welcome back, Alex!</h1>
-          <p>You have 3 application deadlines approaching this month.</p>
+          <h1>Welcome back, {data?.user?.name || "User"}!</h1>
+          <p>Track your tasks and documents in one place.</p>
         </div>
-
-        <button className="rs-dashboard-primary-btn">
-          + Start New Application
-        </button>
       </div>
 
       {/* STATS */}
       <div className="rs-dashboard-stats">
-
         <div className="rs-dashboard-stat-card">
           <div className="rs-dashboard-stat-icon">
             <BookOpen size={18} />
           </div>
           <div>
             <p>SAVED COLLEGES</p>
-            <h2>14</h2>
+            <h2>0</h2>
           </div>
         </div>
 
-       <div className="rs-dashboard-stat-card">
+        <div className="rs-dashboard-stat-card">
           <div className="rs-dashboard-stat-icon">
             <CheckCircle size={18} />
           </div>
           <div>
             <p>ACTIVE TASKS</p>
-            <h2>08</h2>
+            <h2>{data?.stats?.tasks || 0}</h2>
           </div>
         </div>
 
@@ -54,7 +87,7 @@ export default function DashboardHome() {
           </div>
           <div>
             <p>COMPLETION %</p>
-            <h2>68%</h2>
+            <h2>{data?.stats?.progress || 0}%</h2>
           </div>
         </div>
 
@@ -64,91 +97,42 @@ export default function DashboardHome() {
           </div>
           <div>
             <p>DOCUMENTS</p>
-            <h2>22</h2>
+            <h2>{data?.stats?.documents || 0}</h2>
           </div>
         </div>
-
-      </div>
-
-      {/* MAIN CARD */}
-      <div className="rs-main-card">
-
-        <div className="rs-main-left">
-          <div className="rs-image-placeholder">
-            <span>PRIMARY FOCUS</span>
-          </div>
-        </div>
-
-        <div className="rs-main-right">
-
-          <div className="rs-main-header">
-            <h2>Master of Architecture</h2>
-            <span>3 Weeks Remaining</span>
-          </div>
-
-          <p className="rs-subtitle">
-            Royal Institute of Technology • Portfolio Submission Phase
-          </p>
-
-          <div className="rs-progress-wrapper">
-            <div className="rs-progress-label">
-              <span>Overall Progress</span>
-              <span>75%</span>
-            </div>
-
-            <div className="rs-progress">
-              <div className="rs-progress-bar" style={{ width: "75%" }}></div>
-            </div>
-          </div>
-
-          <div className="rs-main-actions">
-            <button className="rs-dashboard-secondary-btn">
-              Resume Application
-            </button>
-
-            <button className="rs-dashboard-link-btn">
-              View Requirements
-            </button>
-          </div>
-
-        </div>
-
       </div>
 
       {/* NEW SECTION */}
       <div className="rs-bottom-grid">
-
         {/* LEFT SIDE */}
         <div className="rs-tasks-section">
-
           <div className="rs-section-header">
             <h3>Upcoming Tasks</h3>
             <span>View All</span>
           </div>
+          {data?.tasks?.length === 0 && <p>No tasks yet</p>}
 
-          <div className="rs-task-card">
-            <Circle size={16} />
-            <div>
-              <h4>Upload Portfolio Drafts</h4>
-              <p>Architecture • Due in 2 days</p>
-            </div>
-          </div>
-
-          <div className="rs-task-card warning">
-            <AlertCircle size={16} />
-            <div>
-              <h4>Submit English Proficiency Score</h4>
-              <p>General • Due Today</p>
-            </div>
-          </div>
-
-          <div className="rs-task-card completed">
-            <Check size={16} />
-            <div>
-              <h4>Request Recommendation Letters</h4>
-              <p>Completed yesterday</p>
-            </div>
-          </div>
+          {data?.tasks
+            ?.filter((task) => task.status === "pending")
+            .map((task) => (
+              <div
+                key={task._id}
+                className={`rs-task-card ${
+                  task.status === "completed" ? "completed" : ""
+                }`}
+              >
+                <Circle size={16} />
+                <div>
+                  <h4>{task.title}</h4>
+                  <p>
+                    {task.category} •{" "}
+                    {task.dueDate
+                      ? new Date(task.dueDate).toLocaleDateString()
+                      : "No deadline"}
+                  </p>
+                </div>
+              </div>
+            ))}
 
           {/* AI TOOLS */}
           <div className="rs-ai-tools">
@@ -161,12 +145,10 @@ export default function DashboardHome() {
               <div className="rs-ai-card">Planner</div>
             </div>
           </div>
-
         </div>
 
         {/* RIGHT SIDE */}
         <div className="rs-recommend-section">
-
           <div className="rs-section-header">
             <h3>Recommended for You</h3>
           </div>
@@ -184,11 +166,8 @@ export default function DashboardHome() {
             <p>Cambridge, MA • Research Excellence</p>
             <button>View Details</button>
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }

@@ -1,0 +1,259 @@
+/* PAGE CONTAINER */
+.sp-container {
+  padding: 30px;
+  background: #f3ede7;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.sp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.sp-header h2 {
+  color: #5a3e2b;
+}
+
+.sp-header p {
+  color: #7a6a5a;
+  font-size: 14px;
+}
+
+/* ADD BUTTON */
+.sp-add-btn {
+  padding: 12px 22px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+
+  background: #8a5a3b;
+  color: #fff;
+
+  box-shadow:
+    5px 5px 12px #d8d1c7,
+    -5px -5px 12px #ffffff;
+
+  transition: 0.3s ease;
+}
+
+.sp-add-btn:hover {
+  transform: translateY(-2px);
+  background: #6f472f;
+}
+
+/* ===================== */
+/* PROGRESS CARD */
+/* ===================== */
+
+.sp-progress-card {
+  padding: 25px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+
+  background: #f3ede7;
+
+  box-shadow:
+    8px 8px 18px #d8d1c7,
+    -8px -8px 18px #ffffff;
+}
+
+/* TOP */
+.sp-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sp-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #a08b78;
+}
+
+.sp-progress-info {
+  font-size: 13px;
+  color: #7a6a5a;
+}
+
+/* PERCENT */
+.sp-progress-percent {
+  font-size: 48px;
+  color: #8a5a3b;
+  margin: 10px 0;
+}
+
+/* BAR */
+.sp-progress-bar {
+  width: 100%;
+  height: 12px;
+  border-radius: 10px;
+  background: #e0d9cf;
+
+  overflow: hidden;
+}
+
+.sp-progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #b07a4f, #8c5a2b);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+/* STATS */
+.sp-stats {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.sp-stats div {
+  flex: 1;
+  padding: 15px;
+  border-radius: 15px;
+
+  background: #f3ede7;
+
+  box-shadow:
+    inset 4px 4px 8px #d8d1c7,
+    inset -4px -4px 8px #ffffff;
+}
+
+.sp-stats span {
+  font-size: 12px;
+  color: #8a5a3b;
+}
+
+.sp-stats h3 {
+  margin-top: 5px;
+  color: #5a3e2b;
+}
+
+/* ===================== */
+/* GRID */
+/* ===================== */
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* SECTION */
+.sp-section h3 {
+  margin-bottom: 15px;
+  color: #5a3e2b;
+}
+
+/* CARD */
+.sp-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px;
+  margin-bottom: 15px;
+
+  border-radius: 18px;
+
+  background: #f3ede7;
+
+  box-shadow:
+    6px 6px 14px #d8d1c7,
+    -6px -6px 14px #ffffff;
+
+  transition: 0.3s ease;
+}
+
+.sp-card:hover {
+  transform: translateY(-3px);
+}
+
+/* LEFT CONTENT */
+.sp-card-left h4 {
+  margin-bottom: 4px;
+  color: #3d2b1f;
+}
+
+.sp-card-left p {
+  font-size: 13px;
+  color: #7a6a5a;
+}
+
+/* COMPLETED */
+.sp-card.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+/* ACTIONS */
+.sp-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.sp-actions button {
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* EDIT */
+.sp-actions .edit {
+  background: #e6e3d4;
+  color: #5a3e2b;
+}
+
+/* DELETE */
+.sp-actions .delete {
+  background: #f5d7d7;
+  color: #a94442;
+}
+
+/* DELETE CONFIRM */
+.sp-delete-confirm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 12px;
+  color: #7a6a5a;
+}
+
+.sp-delete-confirm button {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+/* YES */
+.sp-yes {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* NO */
+.sp-no {
+  background: #e6e3d4;
+  color: #5a3e2b;
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media (max-width: 768px) {
+  .sp-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-stats {
+    flex-direction: column;
+  }
+}
