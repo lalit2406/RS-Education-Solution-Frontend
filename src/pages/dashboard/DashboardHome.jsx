@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "../../styles/dashboard/dashboardHome.css";
 
 import {
@@ -9,14 +8,11 @@ import {
   PieChart,
   Folder,
   Circle,
-  AlertCircle,
-  Check,
 } from "lucide-react";
 
 export default function DashboardHome() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   const fetchDashboard = async () => {
     try {
