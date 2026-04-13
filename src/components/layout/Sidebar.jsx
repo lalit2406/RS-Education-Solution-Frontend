@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Brain,
-  Flag,
-  Folder,
-  Headphones,
-} from "lucide-react";
+import { LayoutDashboard, Brain, Flag, Folder, Headphones } from "lucide-react";
 
 import "../../styles/layout/sidebar.css";
 // import { getMeUser } from "../../services/authService";
@@ -17,23 +11,6 @@ export default function Sidebar() {
 
   const { user, loading } = useUser();
 
-  // const [user, setUser] = useState({
-  //   name: "",
-  //   email: "",
-  // });
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const res = await getMeUser();
-  //       setUser(res.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchUser();
-  // }, []);
 
   // 🔹 Blur content when sidebar opens
   useEffect(() => {
@@ -51,10 +28,7 @@ export default function Sidebar() {
   return (
     <>
       {/* 🔥 MOBILE HAMBURGER (below navbar) */}
-      <button
-        className="sidebar-toggle"
-        onClick={() => setOpen(!open)}
-      >
+      <button className="sidebar-toggle" onClick={() => setOpen(!open)}>
         <span></span>
         <span></span>
         <span></span>
@@ -62,24 +36,28 @@ export default function Sidebar() {
 
       {/* 🔥 OVERLAY */}
       {open && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setOpen(false)}
-        ></div>
+        <div className="sidebar-overlay" onClick={() => setOpen(false)}></div>
       )}
 
       {/* SIDEBAR */}
       <aside className={`rs-sidebar ${open ? "open" : ""}`}>
-
-
         {/* MENU */}
         <nav className="rs-sidebar-menu">
-          <NavLink to="/dashboard" end className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard"
+            end
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
             <LayoutDashboard size={18} />
             <span>Dashboard</span>
           </NavLink>
 
-          <NavLink to="/dashboard/ai-tools" className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/ai-tools"
+            className="rs-menu-item"
+            onClick={() => setOpen(false)}
+          >
             <Brain size={18} />
             <span>AI Tools</span>
           </NavLink>

@@ -24,6 +24,7 @@ import DashboardLayout from "../components/layout/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import DashboardAITools from "../pages/dashboard/DashboardAITools";
 import Documents from "../pages/dashboard/Documents";
+import StudyPlanner from "../pages/dashboard/StudyPlanner";
 import Profile from "../pages/dashboard/Profile";
 import CustomerSupport from "../pages/dashboard/CustomerSupport";
 import SavedColleges from "../pages/dashboard/SavedColleges";
