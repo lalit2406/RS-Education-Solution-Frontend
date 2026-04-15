@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import "../../styles/dashboard/ticketmodal.css";
 import { FaTimes, FaCheck } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function TicketModal({ isOpen, onClose }) {
-  const [username, setUsername] = useState("");
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user) {
+  return null; // or redirect
+}
+
+  const [username, setUsername] = useState(user?.name || "");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState(user?.email || "");
 
   useEffect(() => {
     if (isOpen) document.body.classList.add("modal-open");
@@ -15,29 +23,54 @@ export default function TicketModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = () => {
-    if (!username || !category || !description) return;
+ const handleSubmit = async () => {
+  if (!category || !description) {
+    toast.error("Please fill all fields");
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await fetchaxios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/tickets/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        category,
+        description,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to submit ticket");
+    }
+
+    toast.success("Ticket submitted successfully 🎉");
 
     setSubmitted(true);
 
     setTimeout(() => {
       setSubmitted(false);
-      setUsername("");
       setCategory("");
       setDescription("");
       onClose();
     }, 2000);
-  };
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong ❌");
+  }
+};
 
   return (
     <div className="rs-dashboard-cs-ticket-overlay">
       <div className="rs-dashboard-cs-ticket-modal">
-
         {/* CLOSE */}
-        <button
-          className="rs-dashboard-cs-ticket-close"
-          onClick={onClose}
-        >
+        <button className="rs-dashboard-cs-ticket-close" onClick={onClose}>
           <FaTimes />
         </button>
 
@@ -52,9 +85,8 @@ export default function TicketModal({ isOpen, onClose }) {
             {/* USERNAME */}
             <input
               type="text"
-              placeholder="Your Name"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              readOnly
               className="rs-dashboard-cs-ticket-input"
             />
 

@@ -98,6 +98,7 @@ export default function Login() {
       const res = await loginUser(formData);
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       await loginUserContext(); // 🔥 IMPORTANT
 
@@ -155,6 +156,7 @@ export default function Login() {
       // ✅ VERIFIED USER → LOGIN
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
 
         await loginUserContext();
 

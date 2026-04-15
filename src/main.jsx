@@ -35,6 +35,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               padding: "12px 16px",
               fontSize: "13px",
               marginTop: "65px",
+              zIndex: 2000000,
             },
           }}
         />

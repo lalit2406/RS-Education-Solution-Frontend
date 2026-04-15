@@ -261,6 +261,17 @@
   font-size: 14px;
 }
 
+.input-error {
+  border: 2px solid #e74c3c !important;
+}
+
+.input-error-text {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
 /* ============================= */
 /* CONFIRM BUTTON */
 /* ============================= */

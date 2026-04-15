@@ -16,7 +16,7 @@ import SetPassword from "../pages/auth/SetPassword";
 
 // Protected Route
 import ProtectedRoute from "./ProtectedRoute";
-
+import AdminDashboard from "../pages/admin/AdminDashboard";
 // Layout
 import DashboardLayout from "../components/layout/DashboardLayout";
 
@@ -44,6 +44,8 @@ export default function AppRoutes() {
 
       {/* ================= PROTECTED ROUTES ================= */}
       <Route path="/services" element={<Services />} />
+
+      <Route path="/admin" element={<AdminDashboard />} />
 
       <Route path="/programs" element={<Programs />} />
 

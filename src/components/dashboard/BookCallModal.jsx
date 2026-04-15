@@ -5,8 +5,9 @@ import {
   FaCheck,
   FaChevronLeft,
   FaChevronRight,
-  FaCalendarAlt
+  FaCalendarAlt,
 } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function BookCallModal({ isOpen, onClose }) {
   const today = new Date();
@@ -15,7 +16,11 @@ export default function BookCallModal({ isOpen, onClose }) {
   const [selectedFullDate, setSelectedFullDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [bookingDone, setBookingDone] = useState(false);
+
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState(""); // 🔥 NEW
 
   const times = ["09:00 AM", "10:30 AM", "01:00 PM", "02:30 PM"];
 
@@ -23,8 +28,18 @@ export default function BookCallModal({ isOpen, onClose }) {
     { label: "Today", offset: 0 },
     { label: "Tomorrow", offset: 1 },
     { label: "In 2 Days", offset: 2 },
-    { label: "Next Week", offset: 7 }
+    { label: "Next Week", offset: 7 },
   ];
+
+  useEffect(() => {
+    if (isOpen) {
+      setPhone("");
+      setPhoneError(""); // 🔥 RESET
+      setSelectedFullDate(null);
+      setSelectedTime(null);
+      setShowCalendar(false);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) document.body.classList.add("modal-open");
@@ -49,21 +64,84 @@ export default function BookCallModal({ isOpen, onClose }) {
     return date < new Date(today.setHours(0, 0, 0, 0));
   };
 
-  const handleBooking = () => {
-    if (!selectedFullDate || !selectedTime) return;
-    setBookingDone(true);
+  // 🔥 HANDLE BOOKING WITH INLINE VALIDATION
+  const handleBooking = async () => {
+    // RESET ERROR
+    setPhoneError("");
 
-    setTimeout(() => {
-      setBookingDone(false);
-      onClose();
-    }, 2000);
+    if (!phone.trim()) {
+      setPhoneError("Phone number is required");
+      return;
+    }
+
+    if (!/^[0-9]{10}$/.test(phone.trim())) {
+      setPhoneError("Enter valid 10-digit phone number");
+      return;
+    }
+
+    if (!selectedFullDate || !selectedTime) {
+      toast.error("Please select date & time 📅");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const token = localStorage.getItem("token");
+
+      const res = await fetchaxios.get(
+              `${import.meta.env.VITE_API_BASE_URL}/api/bookings/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          phone,
+          date: selectedFullDate.toDateString(),
+          time: selectedTime,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Booking failed");
+      }
+
+      toast.success("Call booked successfully 📞");
+
+      setBookingDone(true);
+
+      setTimeout(() => {
+        setBookingDone(false);
+        setPhone("");
+        setPhoneError("");
+        setSelectedFullDate(null);
+        setSelectedTime(null);
+        setShowCalendar(false);
+        onClose();
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      toast.error("Booking failed ❌");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="rs-dashboard-cs-modal-overlay">
       <div className="rs-dashboard-cs-modal">
-
-        <button className="rs-dashboard-cs-modal-close" onClick={onClose}>
+        <button
+          className="rs-dashboard-cs-modal-close"
+          onClick={() => {
+            setPhone("");
+            setPhoneError("");
+            setSelectedFullDate(null);
+            setSelectedTime(null);
+            setShowCalendar(false);
+            onClose();
+          }}
+        >
           <FaTimes />
         </button>
 
@@ -73,6 +151,25 @@ export default function BookCallModal({ isOpen, onClose }) {
               <h2>Book a Call</h2>
               <span>Select your preferred schedule</span>
             </div>
+
+            {/* 🔥 PHONE INPUT */}
+            <input
+              type="tel"
+              placeholder="Enter your phone number"
+              value={phone}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                setPhoneError(""); // clear error on typing
+              }}
+              className={`rs-dashboard-cs-ticket-input ${
+                phoneError ? "input-error" : ""
+              }`}
+            />
+
+            {/* 🔥 ERROR MESSAGE */}
+            {phoneError && (
+              <p className="input-error-text">{phoneError}</p>
+            )}
 
             {/* QUICK DATES */}
             {!showCalendar && (
@@ -86,7 +183,8 @@ export default function BookCallModal({ isOpen, onClose }) {
                       <div
                         key={index}
                         className={`rs-dashboard-cs-quick-date ${
-                          selectedFullDate?.toDateString() === date.toDateString()
+                          selectedFullDate?.toDateString() ===
+                          date.toDateString()
                             ? "active"
                             : ""
                         }`}
@@ -99,7 +197,6 @@ export default function BookCallModal({ isOpen, onClose }) {
                   })}
                 </div>
 
-                {/* OPEN CALENDAR BUTTON */}
                 <button
                   className="rs-dashboard-cs-open-calendar"
                   onClick={() => setShowCalendar(true)}
@@ -109,49 +206,6 @@ export default function BookCallModal({ isOpen, onClose }) {
               </>
             )}
 
-            {/* CALENDAR (ONLY WHEN NEEDED) */}
-            {showCalendar && (
-              <>
-                <div className="rs-dashboard-cs-calendar-header">
-                  <FaChevronLeft onClick={() => setCurrentDate(new Date(year, month - 1))} />
-                  <span>
-                    {currentDate.toLocaleString("default", {
-                      month: "long",
-                      year: "numeric"
-                    })}
-                  </span>
-                  <FaChevronRight onClick={() => setCurrentDate(new Date(year, month + 1))} />
-                </div>
-
-                <div className="rs-dashboard-cs-calendar-grid">
-                  {["S","M","T","W","T","F","S"].map((d) => (
-                    <div key={d} className="day-label">{d}</div>
-                  ))}
-
-                  {days.map((day, index) => {
-                    const disabled = isPastDate(day);
-
-                    return (
-                      <div
-                        key={index}
-                        className={`day ${disabled ? "disabled" : ""}`}
-                        onClick={() => {
-                          if (!disabled) {
-                            const date = new Date(year, month, day);
-                            setSelectedFullDate(date);
-                            setShowCalendar(false);
-                          }
-                        }}
-                      >
-                        {day}
-                      </div>
-                    );
-                  })}
-                </div>
-              </>
-            )}
-
-            {/* TIME */}
             {selectedFullDate && (
               <div className="rs-dashboard-cs-times">
                 {times.map((t) => (
@@ -169,24 +223,19 @@ export default function BookCallModal({ isOpen, onClose }) {
               </div>
             )}
 
-            {/* SUMMARY */}
             {selectedFullDate && selectedTime && (
               <div className="rs-dashboard-cs-summary">
-                <p>
-                  📅 {selectedFullDate.toDateString()}
-                </p>
-                <p>
-                  ⏰ {selectedTime}
-                </p>
+                <p>📅 {selectedFullDate.toDateString()}</p>
+                <p>⏰ {selectedTime}</p>
               </div>
             )}
 
-            {/* BUTTON */}
             <button
               className="rs-dashboard-cs-confirm"
               onClick={handleBooking}
+              disabled={loading}
             >
-              Confirm Booking →
+              {loading ? "Booking..." : "Confirm Booking →"}
             </button>
           </>
         ) : (
@@ -196,7 +245,6 @@ export default function BookCallModal({ isOpen, onClose }) {
             <p>Your session has been scheduled.</p>
           </div>
         )}
-
       </div>
     </div>
   );

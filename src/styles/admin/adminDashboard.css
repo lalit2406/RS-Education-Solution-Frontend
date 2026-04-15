@@ -1,0 +1,176 @@
+/* 🌿 ROOT CONTAINER */
+.admin-container {
+  padding: 30px;
+  background: #f5efe6; /* soft beige */
+  min-height: 100vh;
+  font-family: "Times New Roman", serif;
+}
+
+/* 🏷 TITLE */
+.admin-title {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #5a4634;
+}
+
+/* 🧩 GRID */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* 🧱 CARD (CLAYMORPHISM) */
+.admin-card {
+  background: #f5efe6;
+  border-radius: 20px;
+  padding: 20px;
+  
+  /* Clay effect */
+  box-shadow:
+    8px 8px 16px #d6cfc4,
+    -8px -8px 16px #ffffff;
+
+  transition: 0.3s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 👤 NAME */
+.admin-card h3 {
+  margin: 0;
+  color: #3e2f23;
+}
+
+/* 📧 EMAIL */
+.email {
+  font-size: 13px;
+  color: #8a7a6a;
+  margin-bottom: 10px;
+}
+
+/* 🏷 CATEGORY TAG */
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #e6d5c3;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+/* 📝 DESCRIPTION */
+.desc {
+  font-size: 14px;
+  color: #4b3a2f;
+  margin-bottom: 10px;
+}
+
+/* 🔄 STATUS */
+.status {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.status.Pending {
+  color: #c08a00;
+}
+
+.status.Resolved {
+  color: #2e7d32;
+}
+
+/* 🎯 BUTTON GROUP */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* 🔘 BUTTONS */
+.actions button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  background: #f5efe6;
+  box-shadow:
+    4px 4px 8px #d6cfc4,
+    -4px -4px 8px #ffffff;
+
+  transition: 0.2s;
+}
+
+.actions button:hover {
+  transform: scale(1.05);
+}
+
+/* 🎯 RESOLVE BUTTON */
+.actions button:first-child {
+  color: #2e7d32;
+}
+
+/* 🎯 PENDING BUTTON */
+.actions button:last-child {
+  color: #c08a00;
+}
+
+/* 🎯 FILTER BAR */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-bar button {
+  padding: 8px 15px;
+  border-radius: 12px;
+  border: none;
+  background: #f5efe6;
+  box-shadow: 4px 4px 8px #d6cfc4, -4px -4px 8px #ffffff;
+  cursor: pointer;
+}
+
+.filter-bar .active {
+  background: #e6d5c3;
+}
+
+/* 🏷 SECTION TITLE */
+.section-title {
+  margin: 20px 0 10px;
+  color: #5a4634;
+}
+
+/* 📊 STATS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+/* 🧱 STAT CARD (CLAY STYLE) */
+.stat-card {
+  background: #f5efe6;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+
+  box-shadow:
+    8px 8px 16px #d6cfc4,
+    -8px -8px 16px #ffffff;
+}
+
+.stat-card h3 {
+  font-size: 14px;
+  color: #7a6654;
+}
+
+.stat-card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3e2f23;
+}
