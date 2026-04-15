@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // ✅ added
 import "../../styles/dashboard/dashboardHome.css";
 
 import {
@@ -13,6 +14,8 @@ import {
 export default function DashboardHome() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate(); // ✅ added
 
   const fetchDashboard = async () => {
     try {
@@ -33,15 +36,20 @@ export default function DashboardHome() {
     }
   };
 
-  useEffect(() => {
-    fetchDashboard();
+useEffect(() => {
+  fetchDashboard();
 
-    const refetch = () => fetchDashboard();
+  const refetchTasks = () => fetchDashboard();
+  const refetchSaved = () => fetchDashboard();
 
-    window.addEventListener("tasksUpdated", refetch);
+  window.addEventListener("tasksUpdated", refetchTasks);
+  window.addEventListener("savedCollegesUpdated", refetchSaved);
 
-    return () => window.removeEventListener("tasksUpdated", refetch);
-  }, []);
+  return () => {
+    window.removeEventListener("tasksUpdated", refetchTasks);
+    window.removeEventListener("savedCollegesUpdated", refetchSaved);
+  };
+}, []);
 
   if (loading) return <p>Loading dashboard...</p>;
 
@@ -57,16 +65,22 @@ export default function DashboardHome() {
 
       {/* STATS */}
       <div className="rs-dashboard-stats">
-        <div className="rs-dashboard-stat-card">
+
+        {/* ✅ UPDATED SAVED COLLEGES CARD ONLY */}
+        <div
+          className="rs-dashboard-stat-card rs-clickable"
+          onClick={() => navigate("/dashboard/saved-colleges")}
+        >
           <div className="rs-dashboard-stat-icon">
             <BookOpen size={18} />
           </div>
           <div>
             <p>SAVED COLLEGES</p>
-            <h2>0</h2>
+            <h2>{data?.savedColleges || 0}</h2>
           </div>
         </div>
 
+        {/* REST SAME */}
         <div className="rs-dashboard-stat-card">
           <div className="rs-dashboard-stat-icon">
             <CheckCircle size={18} />

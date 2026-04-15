@@ -28,6 +28,7 @@ import StudyPlanner from "../pages/dashboard/StudyPlanner";
 import Profile from "../pages/dashboard/Profile";
 import CustomerSupport from "../pages/dashboard/CustomerSupport";
 import SavedColleges from "../pages/dashboard/SavedColleges";
+import CollegeRecommendation from "../pages/dashboard/CollegeRecommendation";
 
 export default function AppRoutes() {
   return (
@@ -49,6 +50,11 @@ export default function AppRoutes() {
       <Route path="/Ai-tools" element={<AITools />} />
 
       <Route path="/contact" element={<Contact />} />
+
+      <Route
+  path="/dashboard/saved-colleges"
+  element={<SavedColleges />}
+/>
 
       <Route
         path="/dashboard"
@@ -107,10 +113,10 @@ export default function AppRoutes() {
     
 
       <Route
-        path="/dashboard/saved-colleges"
+        path="/dashboard/college-recommendation"
         element={
           <DashboardLayout>
-            <SavedColleges />
+            <CollegeRecommendation />
           </DashboardLayout>
         }
       />

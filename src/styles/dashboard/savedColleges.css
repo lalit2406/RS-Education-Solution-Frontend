@@ -1,0 +1,126 @@
+/* WRAPPER */
+.sc-wrapper {
+  padding: 20px;
+}
+
+.sc-back-link {
+  text-decoration: none;
+}
+
+.sc-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #e6d6c7;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #7a4e2d;
+}
+
+
+/* HEADER */
+.sc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sc-header h2 {
+  color: #4b3621;
+    display: flex;
+     align-items: center;
+     gap: 10px;
+}
+
+.sc-header span {
+  background: #e6d6c7;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #7a4e2d;
+}
+
+/* EMPTY */
+.sc-empty {
+  text-align: center;
+  padding: 40px;
+  color: #8a6a55;
+}
+
+/* GRID */
+.sc-grid {
+  display: grid;
+  gap: 16px;
+}
+
+/* CARD */
+.sc-card {
+  background: #f3ede7;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow:
+    6px 6px 12px #e0d8cf,
+    -6px -6px 12px #ffffff;
+}
+
+/* TOP */
+.sc-card-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sc-card-top h3 {
+  color: #4b3621;
+}
+
+.sc-card-top p {
+  font-size: 13px;
+  color: #8a6a55;
+}
+
+/* BUTTON */
+.sc-remove-btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #ffdddd;
+  color: #b91c1c;
+  cursor: pointer;
+}
+
+/* STATS */
+.sc-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.sc-stats div {
+  flex: 1;
+  text-align: center;
+  background: #f3ede7;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow:
+    inset 3px 3px 6px #e0d8cf,
+    inset -3px -3px 6px #ffffff;
+}
+
+.sc-stats span {
+  font-size: 11px;
+  color: #8a6a55;
+}
+
+.sc-stats p {
+  font-weight: 600;
+  color: #4b3621;
+}
+
+/* REASON */
+.sc-reason {
+  margin-top: 12px;
+  font-size: 13px;
+  background: #efe4da;
+  padding: 10px;
+  border-radius: 12px;
+}

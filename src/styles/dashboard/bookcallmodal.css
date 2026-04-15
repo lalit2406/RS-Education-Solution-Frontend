@@ -64,6 +64,9 @@
   border: none;
   cursor: pointer;
   transition: 0.3s;
+      display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .rs-dashboard-cs-modal-close:hover {

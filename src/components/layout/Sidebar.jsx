@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Brain, Flag, Folder, Headphones } from "lucide-react";
+import { LayoutDashboard, Brain, Folder, Headphones } from "lucide-react";
+import {FaUniversity,FaRobot} from "react-icons/fa";
 
 import "../../styles/layout/sidebar.css";
-// import { getMeUser } from "../../services/authService";
+
 import { useUser } from "../../context/UserContext";
 
 export default function Sidebar() {
@@ -58,13 +59,13 @@ export default function Sidebar() {
             className="rs-menu-item"
             onClick={() => setOpen(false)}
           >
-            <Brain size={18} />
+            <FaRobot size={18} />
             <span>AI Tools</span>
           </NavLink>
 
-          <NavLink to="/dashboard/saved-colleges" className="rs-menu-item" onClick={() => setOpen(false)}>
-            <Folder size={18} />
-            <span>Saved Colleges</span>
+          <NavLink to="/dashboard/college-recommendation" className="rs-menu-item" onClick={() => setOpen(false)}>
+            <FaUniversity size={18} />
+            <span>College Recommendations</span>
           </NavLink>
 
           <NavLink to="/dashboard/study-planner" className="rs-menu-item" onClick={() => setOpen(false)}>
