@@ -100,6 +100,7 @@ export default function Navbar() {
             <NavLink to="/dashboard" onClick={closeMenu}>
               Dashboard
             </NavLink>
+             {user?.role === "admin" && <NavLink to="/admin" onClick={closeMenu} >Admin</NavLink>}
           </div>
 
           <div className="drawer-actions">

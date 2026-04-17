@@ -1,204 +1,138 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import "../../styles/admin/adminDashboard.css";
+import Tickets from "../../components/admin/Tickets";
+import Bookings from "../../components/admin/Bookings";
+import { socket } from "../../socket";
 
 export default function AdminDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (!user || user.role !== "admin") {
-    return (
-      <div style={{ padding: "30px", color: "#5a4634" }}>
-        <h2>Access Denied 🚫</h2>
-        <p>You are not authorized to view this page.</p>
-      </div>
-    );
+    return <h2 style={{ padding: "30px" }}>Access Denied 🚫</h2>;
   }
-  const [tickets, setTickets] = useState([]);
-  const [filteredTickets, setFilteredTickets] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("All");
+
+  const [activeTab, setActiveTab] = useState("all");
+
+  const [stats, setStats] = useState({
+    totalTickets: 0,
+    pending: 0,
+    resolved: 0,
+    bookings: 0,
+  });
+
+  useEffect(() => {
+  const handleNewTicket = (ticket) => {
+    setStats((prev) => ({
+      ...prev,
+      totalTickets: prev.totalTickets + 1,
+      pending:
+        ticket.status === "Pending"
+          ? prev.pending + 1
+          : prev.pending,
+      resolved:
+        ticket.status === "Resolved"
+          ? prev.resolved + 1
+          : prev.resolved,
+    }));
+  };
+
+  const handleNewBooking = () => {
+    setStats((prev) => ({
+      ...prev,
+      bookings: prev.bookings + 1,
+    }));
+  };
+
+  socket.on("new-ticket", handleNewTicket);
+  socket.on("new-booking", handleNewBooking);
+
+  return () => {
+    socket.off("new-ticket", handleNewTicket);
+    socket.off("new-booking", handleNewBooking);
+  };
+}, []);
 
   const token = localStorage.getItem("token");
 
-  // ===============================
-  // 📦 FETCH TICKETS
-  // ===============================
-  const fetchTickets = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      const data = await res.json();
-      setTickets(data);
-      setFilteredTickets(data);
-    } catch (err) {
-      toast.error("Failed to load tickets ❌");
-    }
-  };
-
-  // ===============================
-  // 📞 FETCH BOOKINGS
-  // ===============================
-  const fetchBookings = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/bookings/all`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      const data = await res.json();
-      setBookings(data);
-    } catch (err) {
-      toast.error("Failed to load bookings ❌");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchTickets();
-    fetchBookings();
+    fetchStats();
   }, []);
 
-  // ===============================
-  // 🔄 UPDATE STATUS
-  // ===============================
-  const updateStatus = async (id, status) => {
+  const fetchStats = async () => {
     try {
-      await fetch(
-              `${import.meta.env.VITE_API_BASE_URL}/api/tickets/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status }),
+      const [tRes, bRes] = await Promise.all([
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/all`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+      ]);
+
+      const tickets = await tRes.json();
+      const bookings = await bRes.json();
+
+      setStats({
+        totalTickets: tickets.length,
+        pending: tickets.filter((t) => t.status === "Pending").length,
+        resolved: tickets.filter((t) => t.status === "Resolved").length,
+        bookings: bookings.length,
       });
-
-      toast.success("Status updated ✅");
-      fetchTickets();
     } catch (err) {
-      toast.error("Update failed ❌");
+      console.error(err);
     }
   };
-
-  // ===============================
-  // 🎯 FILTER LOGIC
-  // ===============================
-  const handleFilter = (type) => {
-    setFilter(type);
-
-    if (type === "All") {
-      setFilteredTickets(tickets);
-    } else {
-      setFilteredTickets(tickets.filter((t) => t.status === type));
-    }
-  };
-
-  // 📊 STATS CALCULATION
-  const totalTickets = tickets.length;
-  const pendingTickets = tickets.filter((t) => t.status === "Pending").length;
-  const resolvedTickets = tickets.filter((t) => t.status === "Resolved").length;
-  const totalBookings = bookings.length;
 
   return (
     <div className="admin-container">
       <h1 className="admin-title">Admin Dashboard</h1>
 
-      {/* ===============================
-    📊 ANALYTICS CARDS
-================================ */}
+      {/* ================= STATS ================= */}
       <div className="stats-grid">
         <div className="stat-card">
           <h3>Total Tickets</h3>
-          <p>{totalTickets}</p>
+          <p>{stats.totalTickets}</p>
         </div>
 
         <div className="stat-card">
           <h3>Pending</h3>
-          <p>{pendingTickets}</p>
+          <p>{stats.pending}</p>
         </div>
 
         <div className="stat-card">
           <h3>Resolved</h3>
-          <p>{resolvedTickets}</p>
+          <p>{stats.resolved}</p>
         </div>
 
         <div className="stat-card">
           <h3>Bookings</h3>
-          <p>{totalBookings}</p>
+          <p>{stats.bookings}</p>
         </div>
       </div>
 
-      {/* ===============================
-          📊 FILTER BUTTONS
-      =============================== */}
-      <div className="filter-bar">
-        {["All", "Pending", "Resolved"].map((f) => (
+      {/* ================= TABS ================= */}
+      <div className="category-tabs">
+        {["all", "tickets", "bookings"].map((tab) => (
           <button
-            key={f}
-            className={filter === f ? "active" : ""}
-            onClick={() => handleFilter(f)}
+            key={tab}
+            className={activeTab === tab ? "active" : ""}
+            onClick={() => setActiveTab(tab)}
           >
-            {f}
+            {tab.toUpperCase()}
           </button>
         ))}
       </div>
 
-      {/* ===============================
-          🎫 TICKETS
-      =============================== */}
-      <h2 className="section-title">Tickets</h2>
-
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="admin-grid">
-          {filteredTickets.map((ticket) => (
-            <div key={ticket._id} className="admin-card">
-              <h3>{ticket.name}</h3>
-              <p className="email">{ticket.email}</p>
-
-              <div className="tag">{ticket.category}</div>
-
-              <p className="desc">{ticket.description}</p>
-
-              <p className={`status ${ticket.status}`}>{ticket.status}</p>
-
-              <div className="actions">
-                <button onClick={() => updateStatus(ticket._id, "Resolved")}>
-                  Resolve
-                </button>
-
-                <button onClick={() => updateStatus(ticket._id, "Pending")}>
-                  Pending
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* ================= CONTENT ================= */}
+      {activeTab === "all" && (
+        <>
+          <Tickets showControls={false} />
+          <Bookings showControls={false} />
+        </>
       )}
 
-      {/* ===============================
-          📞 BOOKINGS
-      =============================== */}
-      <h2 className="section-title">Bookings</h2>
-
-      <div className="admin-grid">
-        {bookings.map((b) => (
-          <div key={b._id} className="admin-card">
-            <h3>{b.name}</h3>
-            <p className="email">{b.email}</p>
-            <p className="desc">📞 {b.phone}</p>
-
-            <p className="desc">📅 {b.date}</p>
-            <p className="desc">⏰ {b.time}</p>
-          </div>
-        ))}
-      </div>
+      {activeTab === "tickets" && <Tickets showControls={true} />}
+      {activeTab === "bookings" && <Bookings showControls={true} />}
     </div>
   );
 }
