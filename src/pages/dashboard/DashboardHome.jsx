@@ -43,7 +43,15 @@ useEffect(() => {
   fetchDashboard();
 
   const refetchTasks = () => fetchDashboard();
-  const refetchSaved = () => fetchDashboard();
+ const refetchSaved = (e) => {
+  const change = e.detail?.change || 0;
+
+  // ✅ instant UI update
+  setData((prev) => ({
+    ...prev,
+    savedColleges: (prev?.savedColleges || 0) + change,
+  }));
+};
 
   window.addEventListener("tasksUpdated", refetchTasks);
   window.addEventListener("savedCollegesUpdated", refetchSaved);

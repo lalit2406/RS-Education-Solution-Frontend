@@ -35,7 +35,11 @@ export default function SavedColleges() {
     try {
       await unsaveCollegeApi(collegeId);
 
-       window.dispatchEvent(new Event("savedCollegesUpdated"));
+       window.dispatchEvent(
+  new CustomEvent("savedCollegesUpdated", {
+    detail: { change: -1 },
+  })
+);
 
     } catch (err) {
       console.log(err);

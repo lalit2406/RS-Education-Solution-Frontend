@@ -138,7 +138,11 @@ export default function CollegeRecommendation() {
         });
       }
 
-       window.dispatchEvent(new Event("savedCollegesUpdated"));
+       window.dispatchEvent(
+  new CustomEvent("savedCollegesUpdated", {
+    detail: { change: isSaved ? -1 : 1 },
+  })
+);
        
     } catch (err) {
       console.log(err);
