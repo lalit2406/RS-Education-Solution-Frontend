@@ -120,7 +120,7 @@ export default function Tickets({ showControls = true }) {
 
   const currentTickets = showControls
     ? searched.slice(indexOfLast - itemsPerPage, indexOfLast)
-    : searched.slice(0, 3);
+    : searched.slice(0, 4);
 
   const totalPages = Math.max(1, Math.ceil(searched.length / itemsPerPage));
 

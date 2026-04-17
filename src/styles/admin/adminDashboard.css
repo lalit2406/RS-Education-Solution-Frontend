@@ -47,6 +47,10 @@
   transform: translateY(-5px);
 }
 
+.admin-card.unread {
+  border-left: 4px solid #007bff;
+}
+
 .card-content {
   flex-grow: 1;
 }

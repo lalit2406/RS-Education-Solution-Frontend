@@ -3,6 +3,8 @@ import "../../styles/admin/adminDashboard.css";
 import Tickets from "../../components/admin/Tickets";
 import Bookings from "../../components/admin/Bookings";
 import { socket } from "../../socket";
+import Contacts from "../../components/admin/Contacts";
+import toast from "react-hot-toast";
 
 export default function AdminDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -40,24 +42,27 @@ export default function AdminDashboard() {
     };
 
     const handleTicketUpdated = () => {
-      fetchStats(); // ✅ correct place to refresh
+      fetchStats();
     };
 
     const handleTicketDeleted = () => {
       fetchStats();
     };
 
-    socket.on("ticket-deleted", handleTicketDeleted);
-
     socket.on("new-ticket", handleNewTicket);
     socket.on("new-booking", handleNewBooking);
     socket.on("ticket-updated", handleTicketUpdated);
+    socket.on("ticket-deleted", handleTicketDeleted);
+    socket.on("new-contact", () => {
+      toast.success("New Contact Message 📩");
+    });
 
     return () => {
       socket.off("new-ticket", handleNewTicket);
       socket.off("new-booking", handleNewBooking);
       socket.off("ticket-updated", handleTicketUpdated);
       socket.off("ticket-deleted", handleTicketDeleted);
+      socket.off("new-contact");
     };
   }, []);
 
@@ -121,7 +126,7 @@ export default function AdminDashboard() {
 
       {/* ================= TABS ================= */}
       <div className="category-tabs">
-        {["all", "tickets", "bookings"].map((tab) => (
+        {["all", "tickets", "bookings", "contacts"].map((tab) => (
           <button
             key={tab}
             className={activeTab === tab ? "active" : ""}
@@ -137,11 +142,13 @@ export default function AdminDashboard() {
         <>
           <Tickets showControls={false} />
           <Bookings showControls={false} />
+          <Contacts showControls={false} />
         </>
       )}
 
       {activeTab === "tickets" && <Tickets showControls={true} />}
       {activeTab === "bookings" && <Bookings showControls={true} />}
+      {activeTab === "contacts" && <Contacts showControls={true} />}
     </div>
   );
 }

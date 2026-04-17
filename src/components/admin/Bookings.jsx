@@ -51,7 +51,7 @@ export default function Bookings({ showControls = true }) {
 
   const currentBookings = showControls
     ? filtered.slice(indexOfLast - itemsPerPage, indexOfLast)
-    : filtered.slice(0, 3);
+    : filtered.slice(0, 4);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
 
