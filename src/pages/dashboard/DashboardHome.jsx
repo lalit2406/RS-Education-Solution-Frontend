@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // ✅ added
+import { useNavigate,useLocation } from "react-router-dom"; // ✅ added
 import "../../styles/dashboard/dashboardHome.css";
 
 import {
@@ -16,6 +16,7 @@ export default function DashboardHome() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate(); // ✅ added
+  const location = useLocation();
 
   const fetchDashboard = async () => {
     try {
@@ -27,6 +28,8 @@ export default function DashboardHome() {
           },
         },
       );
+
+      console.log("DASHBOARD DATA:", res.data);
 
       setData(res.data);
     } catch (err) {
@@ -49,7 +52,7 @@ useEffect(() => {
     window.removeEventListener("tasksUpdated", refetchTasks);
     window.removeEventListener("savedCollegesUpdated", refetchSaved);
   };
-}, []);
+}, [location.pathname]);
 
   if (loading) return <p>Loading dashboard...</p>;
 

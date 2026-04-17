@@ -126,7 +126,7 @@ export default function CollegeRecommendation() {
       toast.success("Saved ❤️", { id: TOAST_ID });
     }
 
-    window.dispatchEvent(new Event("savedCollegesUpdated"));
+   
 
     try {
       if (isSaved) {
@@ -137,6 +137,9 @@ export default function CollegeRecommendation() {
           collegeId: id,
         });
       }
+
+       window.dispatchEvent(new Event("savedCollegesUpdated"));
+       
     } catch (err) {
       console.log(err);
       toast.error("Something went wrong", { id: TOAST_ID });

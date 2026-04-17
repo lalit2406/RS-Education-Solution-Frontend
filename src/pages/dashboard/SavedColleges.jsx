@@ -30,10 +30,13 @@ export default function SavedColleges() {
   /* ================= REMOVE ================= */
   const handleRemove = async (collegeId) => {
     setScColleges((prev) => prev.filter((c) => c.collegeId !== collegeId));
-    window.dispatchEvent(new Event("savedCollegesUpdated"));
+   
 
     try {
       await unsaveCollegeApi(collegeId);
+
+       window.dispatchEvent(new Event("savedCollegesUpdated"));
+
     } catch (err) {
       console.log(err);
     }
