@@ -59,6 +59,7 @@
   box-shadow:
     8px 8px 18px rgba(163, 138, 110, 0.25),
     -8px -8px 18px rgba(255, 255, 255, 0.9);
+    z-index: 1;
 }
 
 /* HOVER */
@@ -195,6 +196,8 @@
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
+  position: relative;
+  z-index: 10;
 
   box-shadow: 0 10px 25px rgba(139, 94, 52, 0.3);
   transition: all 0.3s ease;

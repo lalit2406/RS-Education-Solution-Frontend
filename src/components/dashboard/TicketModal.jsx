@@ -7,8 +7,8 @@ export default function TicketModal({ isOpen, onClose }) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (!user) {
-  return null; // or redirect
-}
+    return null; // or redirect
+  }
 
   const [username, setUsername] = useState(user?.name || "");
   const [category, setCategory] = useState("");
@@ -23,52 +23,56 @@ export default function TicketModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
- const handleSubmit = async () => {
-  if (!category || !description) {
-    toast.error("Please fill all fields");
-    return;
-  }
-
-  try {
-    const token = localStorage.getItem("token");
-
-    const res = await fetch(
-            `${import.meta.env.VITE_API_BASE_URL}/api/tickets/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        category,
-        description,
-      }),
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to submit ticket");
+  const handleSubmit = async () => {
+    if (!category || !description) {
+      toast.error("Please fill all fields");
+      return;
     }
 
-    toast.success("Ticket submitted successfully 🎉");
+    try {
+      const token = localStorage.getItem("token");
 
-    setSubmitted(true);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/tickets/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            category,
+            description,
+          }),
+        },
+      );
 
-    setTimeout(() => {
-      setSubmitted(false);
-      setCategory("");
-      setDescription("");
-      onClose();
-    }, 2000);
+      if (!res.ok) {
+        throw new Error("Failed to submit ticket");
+      }
 
-  } catch (error) {
-    console.error(error);
-    toast.error("Something went wrong ❌");
-  }
-};
+      toast.success("Ticket submitted successfully 🎉");
+
+      setSubmitted(true);
+
+      setTimeout(() => {
+        setSubmitted(false);
+        setCategory("");
+        setDescription("");
+        onClose();
+      }, 2000);
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong ❌");
+    }
+  };
 
   return (
-    <div className="rs-dashboard-cs-ticket-overlay">
-      <div className="rs-dashboard-cs-ticket-modal">
+    <div className="rs-dashboard-cs-ticket-overlay" onClick={onClose}>
+      <div
+        className="rs-dashboard-cs-ticket-modal"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* CLOSE */}
         <button className="rs-dashboard-cs-ticket-close" onClick={onClose}>
           <FaTimes />

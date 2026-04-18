@@ -61,6 +61,13 @@
   color: #3e2f23;
 }
 
+.rs-admin-service {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8a5a3b;
+  margin: 4px 0;
+}
+
 /* 📧 EMAIL */
 .email {
   font-size: 13px;

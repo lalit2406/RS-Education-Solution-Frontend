@@ -90,6 +90,12 @@
   color: #6b6b6b;
 }
 
+.rs-dashboard-cs-service-name {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
 /* ============================= */
 /* QUICK DATES */
 /* ============================= */
@@ -153,73 +159,6 @@
 }
 
 /* ============================= */
-/* CALENDAR HEADER */
-/* ============================= */
-.rs-dashboard-cs-calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-  font-weight: 600;
-}
-
-.rs-dashboard-cs-calendar-header svg {
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 50%;
-  background: #efe7dc;
-  transition: 0.3s;
-}
-
-.rs-dashboard-cs-calendar-header svg:hover {
-  background: #8a5a3b;
-  color: white;
-}
-
-/* ============================= */
-/* CALENDAR GRID */
-/* ============================= */
-.rs-dashboard-cs-calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-}
-
-.day-label {
-  text-align: center;
-  font-size: 12px;
-  color: #888;
-}
-
-/* DAY */
-.day {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #efe7dc;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-}
-
-.day:hover:not(.disabled) {
-  transform: scale(1.05);
-}
-
-.day.active {
-  background: #8a5a3b;
-  color: white;
-  transform: scale(1.1);
-}
-
-.day.disabled {
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-/* ============================= */
 /* TIME SLOTS */
 /* ============================= */
 .rs-dashboard-cs-times {
@@ -247,6 +186,64 @@
 .rs-dashboard-cs-time.active {
   background: #8a5a3b;
   color: white;
+}
+
+.rs-dashboard-cs-calendar {
+  margin-top: 10px;
+}
+
+.rs-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rs-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.rs-calendar-day {
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  background: #efe7dc;
+  cursor: pointer;
+}
+
+.rs-calendar-day:hover {
+  background: #e6ded3;
+}
+
+.rs-calendar-day.active {
+  background: #8a5a3b;
+  color: white;
+}
+
+.rs-calendar-day.today {
+  border: 2px solid #8a5a3b;
+}
+
+.rs-calendar-day.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+  background: #ddd;
+}
+
+.rs-calendar-day.disabled:hover {
+  transform: none;
+  background: #ddd;
+}
+
+.rs-calendar-back {
+  margin-top: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #8a5a3b;
 }
 
 /* ============================= */
@@ -325,10 +322,5 @@
 
   .rs-dashboard-cs-times {
     grid-template-columns: 1fr;
-  }
-
-  .day {
-    height: 36px;
-    font-size: 13px;
   }
 }

@@ -9,9 +9,7 @@ import {
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 
-export default function BookCallModal({ isOpen, onClose }) {
-  const today = new Date();
-
+export default function BookCallModal({ isOpen, onClose, service }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedFullDate, setSelectedFullDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -33,17 +31,24 @@ export default function BookCallModal({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
       setPhone("");
       setPhoneError(""); // 🔥 RESET
       setSelectedFullDate(null);
       setSelectedTime(null);
       setShowCalendar(false);
     }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen) document.body.classList.add("modal-open");
-    else document.body.classList.remove("modal-open");
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -60,8 +65,13 @@ export default function BookCallModal({ isOpen, onClose }) {
 
   const isPastDate = (day) => {
     if (!day) return true;
+
     const date = new Date(year, month, day);
-    return date < new Date(today.setHours(0, 0, 0, 0));
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return date < today;
   };
 
   // 🔥 HANDLE BOOKING WITH INLINE VALIDATION
@@ -79,6 +89,11 @@ export default function BookCallModal({ isOpen, onClose }) {
       return;
     }
 
+    if (!service) {
+      toast.error("Service not selected ❌");
+      return;
+    }
+
     if (!selectedFullDate || !selectedTime) {
       toast.error("Please select date & time 📅");
       return;
@@ -90,18 +105,21 @@ export default function BookCallModal({ isOpen, onClose }) {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-              `${import.meta.env.VITE_API_BASE_URL}/api/bookings/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/bookings/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            phone,
+            date: selectedFullDate.toDateString(),
+            time: selectedTime,
+            service,
+          }),
         },
-        body: JSON.stringify({
-          phone,
-          date: selectedFullDate.toDateString(),
-          time: selectedTime,
-        }),
-      });
+      );
 
       if (!res.ok) {
         throw new Error("Booking failed");
@@ -129,8 +147,11 @@ export default function BookCallModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="rs-dashboard-cs-modal-overlay">
-      <div className="rs-dashboard-cs-modal">
+    <div className="rs-dashboard-cs-modal-overlay" onClick={onClose}>
+      <div
+        className="rs-dashboard-cs-modal"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           className="rs-dashboard-cs-modal-close"
           onClick={() => {
@@ -149,6 +170,9 @@ export default function BookCallModal({ isOpen, onClose }) {
           <>
             <div className="rs-dashboard-cs-modal-header">
               <h2>Book a Call</h2>
+              {service && (
+                <p className="rs-dashboard-cs-service-name">For: {service}</p>
+              )}
               <span>Select your preferred schedule</span>
             </div>
 
@@ -167,44 +191,135 @@ export default function BookCallModal({ isOpen, onClose }) {
             />
 
             {/* 🔥 ERROR MESSAGE */}
-            {phoneError && (
-              <p className="input-error-text">{phoneError}</p>
-            )}
+            {phoneError && <p className="input-error-text">{phoneError}</p>}
 
             {/* QUICK DATES */}
-            {!showCalendar && (
-              <>
-                <div className="rs-dashboard-cs-quick-dates">
-                  {quickDates.map((item, index) => {
-                    const date = new Date();
-                    date.setDate(date.getDate() + item.offset);
+            <>
+              <div className="rs-dashboard-cs-quick-dates">
+                {quickDates.map((item, index) => {
+                  const date = new Date();
+                  date.setDate(date.getDate() + item.offset);
 
-                    return (
-                      <div
-                        key={index}
-                        className={`rs-dashboard-cs-quick-date ${
-                          selectedFullDate?.toDateString() ===
-                          date.toDateString()
-                            ? "active"
-                            : ""
-                        }`}
-                        onClick={() => setSelectedFullDate(date)}
-                      >
-                        <span>{item.label}</span>
-                        <small>{date.toDateString().slice(0, 10)}</small>
-                      </div>
-                    );
-                  })}
+                  return (
+                    <div
+                      key={index}
+                      className={`rs-dashboard-cs-quick-date ${
+                        selectedFullDate?.toDateString() === date.toDateString()
+                          ? "active"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+
+                        if (date < today) return;
+
+                        setSelectedFullDate(date);
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      <small>{date.toDateString().slice(0, 10)}</small>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button
+                className="rs-dashboard-cs-open-calendar"
+                onClick={() => setShowCalendar((prev) => !prev)}
+              >
+                <FaCalendarAlt /> Pick another date
+              </button>
+              {showCalendar && (
+                <div className="rs-dashboard-cs-calendar">
+                  {/* HEADER */}
+                  <div className="rs-calendar-header">
+                    <button
+                      onClick={() => {
+                        const prev = new Date(year, month - 1);
+
+                        const today = new Date();
+
+                        if (
+                          prev.getFullYear() < today.getFullYear() ||
+                          (prev.getFullYear() === today.getFullYear() &&
+                            prev.getMonth() < today.getMonth())
+                        ) {
+                          return; // 🔥 strict month block
+                        }
+
+                        setCurrentDate(prev);
+                      }}
+                    >
+                      <FaChevronLeft />
+                    </button>
+
+                    <span>
+                      {currentDate.toLocaleString("default", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+
+                    <button
+                      onClick={() => setCurrentDate(new Date(year, month + 1))}
+                    >
+                      <FaChevronRight />
+                    </button>
+                  </div>
+
+                  {/* DAYS */}
+                  <div className="rs-calendar-grid">
+                    {days.map((day, i) => {
+                      const isToday =
+                        day &&
+                        new Date(year, month, day).toDateString() ===
+                          new Date().toDateString();
+
+                      return (
+                        <div
+                          key={i}
+                          className={`rs-calendar-day
+        ${isToday ? "today" : ""}
+        ${
+          day &&
+          selectedFullDate?.getDate() === day &&
+          selectedFullDate?.getMonth() === month
+            ? "active"
+            : ""
+        }
+        ${isPastDate(day) ? "disabled" : ""}
+      `}
+                          onClick={() => {
+                            if (!day) return;
+
+                            const selectedDate = new Date(year, month, day);
+
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+
+                            if (selectedDate < today) return;
+
+                            setSelectedFullDate(selectedDate);
+                            setShowCalendar(false);
+                          }}
+                        >
+                          {day || ""}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* BACK BUTTON */}
+                  <button
+                    className="rs-calendar-back"
+                    onClick={() => setShowCalendar(false)}
+                  >
+                    ← Back
+                  </button>
                 </div>
-
-                <button
-                  className="rs-dashboard-cs-open-calendar"
-                  onClick={() => setShowCalendar(true)}
-                >
-                  <FaCalendarAlt /> Pick another date
-                </button>
-              </>
-            )}
+              )}
+            </>
 
             {selectedFullDate && (
               <div className="rs-dashboard-cs-times">

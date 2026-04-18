@@ -43,8 +43,10 @@ export default function Bookings({ showControls = true }) {
     setBookings(data);
   };
 
-  const filtered = bookings.filter((b) =>
-    (b.name || "").toLowerCase().includes(search.toLowerCase()),
+  const filtered = bookings.filter(
+    (b) =>
+      (b.name || "").toLowerCase().includes(search.toLowerCase()) ||
+      (b.service || "").toLowerCase().includes(search.toLowerCase()),
   );
 
   const indexOfLast = currentPage * itemsPerPage;
@@ -75,10 +77,21 @@ export default function Bookings({ showControls = true }) {
             <h3>{b.name}</h3>
             <p className="email">{b.email}</p>
             <p className="desc">📞 {b.phone}</p>
+
+            {/* 🔥 NEW (SERVICE INFO) */}
+            {b.service && (
+              <p className="rs-admin-service">🎯 Service: {b.service}</p>
+            )}
+
             <p className="desc">📅 {b.date}</p>
             <p className="desc">⏰ {b.time}</p>
 
-            <a className="whatsapp-link" href={`https://wa.me/91${b.phone}`} target="_blank" rel="noopener noreferrer">
+            <a
+              className="whatsapp-link"
+              href={`https://wa.me/91${b.phone}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaWhatsapp />
             </a>
           </div>
