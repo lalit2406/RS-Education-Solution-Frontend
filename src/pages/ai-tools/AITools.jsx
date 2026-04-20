@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ai-tools/ai-tools.css";
+import DocumentAnalyzer from "./DocumentAnalyzer";
 import {
   FaRobot,
   FaFileAlt,
@@ -35,6 +36,7 @@ const tools = [
     desc: "Instant document data extraction and summarization for complex research papers.",
     rating: 4.7,
     action: "Upload Docs",
+    route: "/tools/document-analyzer",
     icon: <FaDatabase />,
     color: "#eac8a6",
   },
@@ -68,6 +70,7 @@ const tools = [
     desc: "Predict scholarship chances.",
     rating: 4.5,
     action: "Check Now",
+     route: "/tools/scholarship-prediction",
     icon: <FaMoneyBillWave />,
     color: "#e6d5c3",
   },

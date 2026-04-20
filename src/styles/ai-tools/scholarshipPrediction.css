@@ -1,0 +1,630 @@
+/* ==========================================
+   Scholarship Prediction Final Premium UI
+   Theme: Soft Beige + Claymorphism
+========================================== */
+
+.schp-page {
+  min-height: 100vh;
+  padding: 60px 100px;
+  background:
+    radial-gradient(circle at top right, #fbf7f3 0%, transparent 30%),
+    radial-gradient(circle at left center, #f8f2eb 0%, transparent 35%),
+    #f3ede7;
+  font-family: Inter, sans-serif;
+  color: #1f1f1f;
+}
+
+/* Topbar */
+
+.schp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.schp-back-btn {
+  text-decoration: none;
+  color: #8a5a3b;
+  background: #f8f1ea;
+  border: 1px solid #eadccf;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow:
+    -6px -6px 12px rgba(255, 255, 255, 0.8),
+    8px 8px 18px rgba(166, 140, 112, 0.12);
+  transition: 0.25s ease;
+}
+
+.schp-back-btn:hover {
+  transform: translateY(-2px);
+}
+
+.schp-top-pill {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8a5a3b, #a96d44);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 10px 18px rgba(138, 90, 59, 0.22);
+}
+
+/* Hero */
+
+.schp-hero-box {
+  margin-bottom: 30px;
+}
+
+.schp-mini-pill {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #f7eee6;
+  color: #8a5a3b;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.schp-hero-title {
+  margin: 0 0 10px;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+
+.schp-hero-sub {
+  margin: 0;
+  max-width: 760px;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* Layout */
+
+.schp-layout-grid {
+  display: grid;
+  grid-template-columns: 430px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.schp-left-zone,
+.schp-right-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Clay Cards */
+
+.schp-clay-card {
+  background: #f5efea;
+  border-radius: 30px;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    -10px -10px 18px rgba(255, 255, 255, 0.7),
+    12px 12px 24px rgba(169, 143, 114, 0.12);
+        margin-top: 20px;
+}
+
+/* Form Card */
+
+.schp-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.schp-card-head h3 {
+  margin: 0 0 6px;
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.schp-card-head p {
+  margin: 0;
+  color: #777;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.schp-head-badge {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #efe4d8;
+  color: #8a5a3b;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.schp-form-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.schp-two-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.schp-field-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schp-field-box label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+}
+
+.schp-field-box input,
+.schp-field-box select {
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 18px;
+  padding: 0 16px;
+  font-size: 15px;
+  background: #f7f1ec;
+  color: #222;
+  box-shadow:
+    inset -3px -3px 8px rgba(255, 255, 255, 0.8),
+    inset 4px 4px 8px rgba(178, 151, 122, 0.12);
+  transition: 0.25s ease;
+}
+
+.schp-field-box input:focus,
+.schp-field-box select:focus {
+  background: #fff;
+  box-shadow:
+    0 0 0 3px rgba(138, 90, 59, 0.08),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.8);
+}
+
+.schp-field-box input::placeholder {
+  color: #9a948e;
+}
+
+.schp-check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+}
+
+.schp-submit-btn {
+      padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #8a5a3b, #b07447);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 14px 24px rgba(138, 90, 59, 0.2);
+}
+
+.schp-submit-btn:hover {
+  transform: translateY(-2px);
+}
+
+.schp-submit-btn:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.schp-spin {
+  animation: schpSpin 0.8s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes schpSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Insight Card */
+
+.schp-insight-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.schp-ring {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.schp-ring-inner {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #f7f1ec;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    -5px -5px 10px rgba(255, 255, 255, 0.8),
+    6px 6px 12px rgba(169, 143, 114, 0.12);
+}
+
+.schp-ring-inner strong {
+  font-size: 24px;
+}
+
+.schp-insight-content h3 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+.schp-insight-content p {
+  margin: 0 0 12px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.schp-level-pill {
+  display: inline-block;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.schp-tip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schp-tip-card {
+  background: #f8f1ea;
+  border-radius: 18px;
+  padding: 13px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: #555;
+  line-height: 1.55;
+  font-size: 14px;
+  box-shadow:
+    inset -2px -2px 6px rgba(255, 255, 255, 0.8),
+    inset 3px 3px 6px rgba(169, 143, 114, 0.08);
+}
+
+.schp-tip-card svg {
+  color: #8a5a3b;
+  margin-top: 2px;
+}
+
+/* Empty/Error */
+
+.schp-empty-box,
+.schp-error-box {
+  text-align: center;
+}
+
+.schp-empty-box svg,
+.schp-error-box svg {
+  font-size: 36px;
+  color: #8a5a3b;
+  margin-bottom: 12px;
+}
+
+.schp-empty-box h3 {
+  margin: 0 0 10px;
+  font-size: 26px;
+}
+
+.schp-empty-box p,
+.schp-error-box p {
+  margin: 0;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* Result */
+
+.schp-result-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.schp-result-head h2 {
+  margin: 0 0 6px;
+  font-size: 34px;
+}
+
+.schp-result-head p {
+  margin: 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.schp-download-btn {
+  border: none;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: #1f1f1f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.schp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.schp-stat-card {
+  background: #f8f1ea;
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow:
+    inset -3px -3px 8px rgba(255, 255, 255, 0.8),
+    inset 4px 4px 8px rgba(169, 143, 114, 0.08);
+}
+
+.schp-stat-card svg {
+  color: #8a5a3b;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.schp-stat-card span {
+  display: block;
+  color: #777;
+  font-size: 13px;
+}
+
+.schp-stat-card strong {
+  font-size: 34px;
+  margin-top: 4px;
+  display: block;
+}
+
+.schp-section-title {
+  margin: 0 0 12px;
+  font-size: 28px;
+}
+
+.schp-summary-text {
+  margin: 0;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* Scholarship */
+
+.schp-scholar-box {
+  margin-top: 18px;
+}
+
+.schp-scholar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.schp-scholar-top h3 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.4;
+}
+
+.schp-match-pill {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #eaf8ef;
+  color: #27a95c;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.schp-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.schp-tag-row span {
+  background: #f8f1ea;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #555;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.schp-scholar-box p {
+  margin: 0 0 12px;
+  color: #555;
+  line-height: 1.75;
+}
+
+.schp-visit-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 13px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #8a5a3b, #b07447);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 12px 22px rgba(138, 90, 59, 0.18);
+}
+
+/* Skeleton */
+
+.schp-skeleton {
+  height: 16px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    #ece1d6 25%,
+    #f8f2eb 37%,
+    #ece1d6 63%
+  );
+  background-size: 400% 100%;
+  animation: schpShine 1.4s infinite;
+  margin-bottom: 14px;
+}
+
+.schp-sk-big {
+  height: 130px;
+}
+
+.schp-scroll-results {
+  height: 720px;              /* balanced with left side */
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-top: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* scholarship cards inside scroll area */
+.schp-scroll-results .schp-scholar-box {
+  margin-top: 0;
+  flex-shrink: 0;
+  min-height: 250px;
+}
+
+/* Premium Scrollbar */
+.schp-scroll-results::-webkit-scrollbar {
+  width: 0px;
+}
+
+.schp-scroll-results::-webkit-scrollbar-track {
+  background: #eee4da;
+  border-radius: 999px;
+}
+
+.schp-scroll-results::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8a5a3b, #b07447);
+  border-radius: 999px;
+}
+
+.schp-scroll-results::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7a4c31, #9d633d);
+}
+
+
+@keyframes schpShine {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 1350px) {
+  .schp-page {
+    padding: 40px 40px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .schp-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+   .schp-scroll-results {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .schp-page {
+    padding: 24px 18px;
+  }
+
+  .schp-two-grid,
+  .schp-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .schp-card-head,
+  .schp-insight-row,
+  .schp-result-head,
+  .schp-scholar-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .schp-download-btn,
+  .schp-submit-btn,
+  .schp-back-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .schp-clay-card {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .schp-hero-title {
+    font-size: 34px;
+  }
+
+  .schp-result-head h2,
+  .schp-card-head h3 {
+    font-size: 28px;
+  }
+}
