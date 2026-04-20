@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import programsData from "../data/programsData";
@@ -11,7 +11,7 @@ export default function Program() {
      MODAL STATE
   ===================================== */
   const [rsProgramModalOpen, setRsProgramModalOpen] = useState(false);
-  const [images, setImages] = useState({});
+  // const [images, setImages] = useState({});
   const [rsProgramSelectedCourse, setRsProgramSelectedCourse] = useState("");
 
   /* =====================================
