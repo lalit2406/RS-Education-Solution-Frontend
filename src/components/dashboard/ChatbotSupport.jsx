@@ -257,7 +257,7 @@ const ChatbotSupport = ({ onClose }) => {
               {isSpeaking && <span className="wave"></span>}
             </button>
 
-            <button onClick={handleClose}>
+            <button className="rs-chatbotsupport-close-btn" onClick={handleClose}>
               <FaTimes />
             </button>
           </div>
