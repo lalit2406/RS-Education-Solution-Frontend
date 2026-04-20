@@ -1,53 +1,45 @@
 import { useEffect, useState } from "react";
-import { FaWhatsapp, FaTrash } from "react-icons/fa";
 import { socket } from "../../socket";
 import toast from "react-hot-toast";
+import { FaTrash } from "react-icons/fa";
 import ConfirmModal from "../common/ConfirmModal";
 
-export default function Bookings({ showControls = true }) {
-  const [bookings, setBookings] = useState([]);
+export default function Guidance({ showControls = true }) {
+  const [leads, setLeads] = useState([]);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
 
+  const itemsPerPage = 6;
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetchBookings();
+    fetchLeads();
 
-    const handleNewBooking = (newBooking) => {
-      setBookings((prev) => {
-        const exists = prev.some((b) => b._id === newBooking._id);
-        if (exists) return prev; // 🔥 prevent duplicate
-        return [newBooking, ...prev];
-      });
-
+    const handleNewLead = (lead) => {
+      setLeads((prev) => [lead, ...prev]);
       setCurrentPage(1);
-
-      toast.success("New Booking 📞");
+      toast.success("New Guidance Request 🎓");
     };
 
-    socket.on("new-booking", handleNewBooking);
+    socket.on("new-guidance", handleNewLead);
 
-    return () => {
-      socket.off("new-booking", handleNewBooking);
-    };
+    return () => socket.off("new-guidance", handleNewLead);
   }, []);
 
-  const fetchBookings = async () => {
+  const fetchLeads = async () => {
     try {
       setLoading(true);
 
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/bookings/all`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/guidance/all`,
         { headers: { Authorization: `Bearer ${token}` } },
       );
 
       const data = await res.json();
-      setBookings(data);
+      setLeads(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -55,41 +47,35 @@ export default function Bookings({ showControls = true }) {
     }
   };
 
-  const deleteBooking = async (id) => {
-    try {
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      toast.success("Booking deleted");
-      fetchBookings();
-    } catch (err) {
-      toast.error("Delete failed");
-    }
-  };
-
-  const filtered = bookings.filter(
-    (b) =>
-      (b.name || "").toLowerCase().includes(search.toLowerCase()) ||
-      (b.service || "").toLowerCase().includes(search.toLowerCase()),
+  const filtered = leads.filter((l) =>
+    (l.name || "").toLowerCase().includes(search.toLowerCase()),
   );
 
   const indexOfLast = currentPage * itemsPerPage;
 
-  const currentBookings = showControls
+  const currentLeads = showControls
     ? filtered.slice(indexOfLast - itemsPerPage, indexOfLast)
-    : filtered.slice(0, 4);
+    : filtered.slice(0, 3);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
 
+  const deleteLead = async (id) => {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/guidance/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    toast.success("Lead deleted");
+    fetchLeads();
+  };
+
   return (
     <>
-      <h2 className="section-title">Bookings</h2>
+      <h2 className="section-title">Guidance Leads</h2>
       {showControls && (
         <input
           className="search-input"
-          placeholder="Search bookings..."
+          placeholder="Search leads..."
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -100,7 +86,7 @@ export default function Bookings({ showControls = true }) {
 
       <div className="admin-grid">
         {loading
-          ? Array.from({ length: 4 }).map((_, i) => (
+          ? Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="admin-card skeleton-card">
                 <div>
                   <div className="skeleton skeleton-header">
@@ -108,44 +94,31 @@ export default function Bookings({ showControls = true }) {
                     <div className="skeleton skeleton-line medium"></div>
                   </div>
 
+                  <div className="skeleton skeleton-tag"></div>
+
                   <div className="skeleton skeleton-line long"></div>
-                  <div className="skeleton skeleton-line short"></div>
                   <div className="skeleton skeleton-line medium"></div>
                 </div>
 
                 <div className="skeleton-actions">
                   <div className="skeleton skeleton-btn"></div>
-                  <div className="skeleton skeleton-btn"></div>
                 </div>
               </div>
             ))
-          : currentBookings.map((b) => (
-              <div key={b._id} className="admin-card">
-                <h3>{b.name}</h3>
-                <p className="email">{b.email}</p>
-                <p className="desc">📞 {b.phone}</p>
-
-                {/* 🔥 NEW (SERVICE INFO) */}
-                {b.service && (
-                  <p className="rs-admin-service">🎯 Service: {b.service}</p>
-                )}
-
-                <p className="desc">📅 {b.date}</p>
-                <p className="desc">⏰ {b.time}</p>
-
-                <a
-                  className="whatsapp-link"
-                  href={`https://wa.me/91${b.phone}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaWhatsapp />
-                </a>
+          : currentLeads.map((l) => (
+              <div key={l._id} className="admin-card">
+                <div className="card-content">
+                  <h3>{l.name}</h3>
+                  <p className="email">{l.email}</p>
+                  <p className="desc">📞 {l.phone}</p>
+                  <div className="tag">{l.selectedCourse}</div>
+                  <p className="desc">{l.message}</p>
+                </div>
 
                 <div className="actions">
                   <button
                     onClick={() => {
-                      setSelectedId(b._id);
+                      setSelectedId(l._id);
                       setShowConfirm(true);
                     }}
                   >
@@ -164,9 +137,11 @@ export default function Bookings({ showControls = true }) {
           >
             Prev
           </button>
+
           <span>
             {currentPage}/{totalPages}
           </span>
+
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
@@ -175,11 +150,12 @@ export default function Bookings({ showControls = true }) {
           </button>
         </div>
       )}
+
       <ConfirmModal
         isOpen={showConfirm}
         onClose={() => setShowConfirm(false)}
         onConfirm={() => {
-          deleteBooking(selectedId);
+          deleteLead(selectedId);
           setShowConfirm(false);
         }}
       />

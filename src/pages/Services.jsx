@@ -5,11 +5,13 @@ import { useState } from "react";
 import ServiceDetailModal from "../components/services/ServiceDetailModal";
 import BookCallModal from "../components/dashboard/BookCallModal";
 import { servicesData } from "../data/servicesData";
+import { useNavigate } from "react-router-dom";
 
 export default function Services() {
   const [selectedService, setSelectedService] = useState(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const navigate = useNavigate();
 
   // 🔥 SCROLL ANIMATION
   useEffect(() => {
@@ -56,7 +58,6 @@ export default function Services() {
               <h3>{service.title}</h3>
               <p>{service.desc}</p>
 
-              {/* 🔥 BUTTON (NEW FUNCTIONAL CTA) */}
               <button
                 className="primary"
                 onClick={() => {
@@ -84,8 +85,24 @@ export default function Services() {
                 </p>
 
                 <div className="cta-buttons">
-                  <button className="primary">Schedule a Free Call</button>
-                  <button className="secondary">Explore Programs</button>
+                  <button
+                    className="primary"
+                    onClick={() => {
+                      setSelectedService({ title: "General Consultation" });
+                      setIsBookingOpen(true);
+                    }}
+                  >
+                    Schedule a Free Call
+                  </button>
+                  <button
+                    className="secondary"
+                    onClick={() => {
+                      navigate("/programs");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  >
+                    Explore Programs
+                  </button>
                 </div>
               </div>
             </div>

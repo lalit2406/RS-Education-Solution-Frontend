@@ -26,6 +26,7 @@
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .cancel {
@@ -33,6 +34,7 @@
   border: none;
   padding: 8px 15px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .delete {
@@ -41,4 +43,5 @@
   border: none;
   padding: 8px 15px;
   border-radius: 10px;
+  cursor: pointer;
 }
