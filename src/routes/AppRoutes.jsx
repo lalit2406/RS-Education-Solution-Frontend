@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Services from "../pages/Services";
 import Programs from "../pages/Programs";
-import AITools from "../pages/AITools";
+import AITools from "../pages/ai-tools/AITools";
 import Contact from "../pages/Contact";
 
 // Auth
@@ -30,6 +30,9 @@ import SavedColleges from "../pages/dashboard/SavedColleges";
 import CollegeRecommendation from "../pages/dashboard/CollegeRecommendation";
 import ChatbotSupport from "../components/dashboard/ChatbotSupport";
 
+// AI TOOLS
+import CareerChatbot from "../pages/ai-tools/CareerChatbot";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -50,6 +53,7 @@ export default function AppRoutes() {
       <Route path="/programs" element={<Programs />} />
 
       <Route path="/Ai-tools" element={<AITools />} />
+      <Route path="/tools/career-chatbot" element={<CareerChatbot />} />
 
       <Route path="/contact" element={<Contact />} />
 
