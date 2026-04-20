@@ -96,6 +96,7 @@
 
 .rs-program-hero-right {
   flex-shrink: 0;
+  margin-left: 10vw;
 }
 
 .rs-program-hero-right img {
