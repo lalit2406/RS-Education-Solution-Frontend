@@ -11,7 +11,7 @@ export default function Contacts({ showControls = true }) {
   const [replyText, setReplyText] = useState("");
   const [activeReplyId, setActiveReplyId] = useState(null);
   const [filter, setFilter] = useState("All");
-
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -59,14 +59,22 @@ export default function Contacts({ showControls = true }) {
   }, []);
 
   const fetchContacts = async () => {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/api/contact/all`,
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+    try {
+      setLoading(true);
 
-    const data = await res.json();
-    setContacts(data);
-    setFilteredContacts(data);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/contact/all`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+
+      const data = await res.json();
+      setContacts(data);
+      setFilteredContacts(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const searched = filteredContacts
@@ -127,6 +135,7 @@ export default function Contacts({ showControls = true }) {
 
   return (
     <>
+      <h2 className="section-title">Contacts</h2>
       {showControls && (
         <div className="category-tabs">
           {["All", "Read", "Unread"].map((f) => (
@@ -143,7 +152,7 @@ export default function Contacts({ showControls = true }) {
           ))}
         </div>
       )}
-      
+
       {showControls && (
         <input
           className="search-input"
@@ -157,58 +166,77 @@ export default function Contacts({ showControls = true }) {
       )}
 
       <div className="admin-grid">
-        {currentContacts.map((c) => (
-          <div key={c._id} className="admin-card">
-            <h3>{c.name}</h3>
-            <p className="email">{c.email}</p>
-            <p>
-              <b>Subject:</b> {c.subject}
-            </p>
-            <p
-              style={{
-                color: c.read ? "green" : "red",
-                fontWeight: "bold",
-              }}
-            >
-              {c.read ? "✅ Read" : "🔵 Unread"}
-            </p>
-            <p className="desc">{c.message}</p>
+        {loading
+          ? Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="admin-card skeleton-card">
+                <div>
+                  <div className="skeleton skeleton-header">
+                    <div className="skeleton skeleton-avatar"></div>
+                    <div className="skeleton skeleton-line medium"></div>
+                  </div>
 
-            {activeReplyId === c._id && (
-              <div className="reply-box">
-                <textarea
-                  value={replyText}
-                  onChange={(e) => setReplyText(e.target.value)}
-                  placeholder="Write reply..."
-                />
-                <button onClick={() => sendReply(c._id)}>Send Reply</button>
+                  <div className="skeleton skeleton-line short"></div>
+                  <div className="skeleton skeleton-line long"></div>
+                </div>
+
+                <div className="skeleton-actions">
+                  <div className="skeleton skeleton-btn"></div>
+                  <div className="skeleton skeleton-btn"></div>
+                </div>
               </div>
-            )}
+            ))
+          : currentContacts.map((c) => (
+              <div key={c._id} className="admin-card">
+                <h3>{c.name}</h3>
+                <p className="email">{c.email}</p>
+                <p>
+                  <b>Subject:</b> {c.subject}
+                </p>
+                <p
+                  style={{
+                    color: c.read ? "green" : "red",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {c.read ? "✅ Read" : "🔵 Unread"}
+                </p>
+                <p className="desc">{c.message}</p>
 
-            {c.replied && (
-              <p className="desc" style={{ color: "green" }}>
-                ✅ Replied
-              </p>
-            )}
+                {activeReplyId === c._id && (
+                  <div className="reply-box">
+                    <textarea
+                      value={replyText}
+                      onChange={(e) => setReplyText(e.target.value)}
+                      placeholder="Write reply..."
+                    />
+                    <button onClick={() => sendReply(c._id)}>Send Reply</button>
+                  </div>
+                )}
 
-            <div className="actions">
-              <button onClick={() => toggleRead(c._id)}>
-                {c.read ? "Mark Unread" : "Mark Read"}
-              </button>
+                {c.replied && (
+                  <p className="desc" style={{ color: "green" }}>
+                    ✅ Replied
+                  </p>
+                )}
 
-              <button onClick={() => setActiveReplyId(c._id)}>Reply</button>
+                <div className="actions">
+                  <button onClick={() => toggleRead(c._id)}>
+                    {c.read ? "Mark Unread" : "Mark Read"}
+                  </button>
 
-              <button
-                onClick={() => {
-                  setSelectedId(c._id);
-                  setShowConfirm(true);
-                }}
-              >
-                <FaTrash />
-              </button>
-            </div>
-          </div>
-        ))}
+                  <button onClick={() => setActiveReplyId(c._id)}>Reply</button>
+
+                  <button
+                    onClick={() => {
+                      setSelectedId(c._id);
+                      setShowConfirm(true);
+                    }}
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </div>
+            ))}
       </div>
 
       {showControls && (

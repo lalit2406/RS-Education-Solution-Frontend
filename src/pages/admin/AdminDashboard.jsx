@@ -5,6 +5,7 @@ import Bookings from "../../components/admin/Bookings";
 import { socket } from "../../socket";
 import Contacts from "../../components/admin/Contacts";
 import toast from "react-hot-toast";
+import Guidance from "../../components/admin/Guidance";
 
 export default function AdminDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -14,7 +15,7 @@ export default function AdminDashboard() {
   }
 
   const [activeTab, setActiveTab] = useState("all");
-
+  const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalTickets: 0,
     pending: 0,
@@ -56,6 +57,9 @@ export default function AdminDashboard() {
     socket.on("new-contact", () => {
       toast.success("New Contact Message 📩");
     });
+    socket.on("new-guidance", () => {
+      toast.success("New Guidance Lead 🎓");
+    });
 
     return () => {
       socket.off("new-ticket", handleNewTicket);
@@ -63,6 +67,7 @@ export default function AdminDashboard() {
       socket.off("ticket-updated", handleTicketUpdated);
       socket.off("ticket-deleted", handleTicketDeleted);
       socket.off("new-contact");
+      socket.off("new-guidance");
     };
   }, []);
 
@@ -70,6 +75,7 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
+      setLoading(true);
       const [tRes, bRes] = await Promise.all([
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -90,6 +96,8 @@ export default function AdminDashboard() {
       });
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,30 +111,39 @@ export default function AdminDashboard() {
 
       {/* ================= STATS ================= */}
       <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Total Tickets</h3>
-          <p>{stats.totalTickets}</p>
-        </div>
-
-        <div className="stat-card">
-          <h3>Pending</h3>
-          <p>{stats.pending}</p>
-        </div>
-
-        <div className="stat-card">
-          <h3>Resolved</h3>
-          <p>{stats.resolved}</p>
-        </div>
-
-        <div className="stat-card">
-          <h3>Bookings</h3>
-          <p>{stats.bookings}</p>
-        </div>
+        {[1, 2, 3, 4].map((i) => (
+          <div className="stat-card" key={i}>
+            {loading ? (
+              <div className="skeleton skeleton-text"></div>
+            ) : (
+              <>
+                <h3>
+                  {i === 1
+                    ? "Total Tickets"
+                    : i === 2
+                      ? "Pending"
+                      : i === 3
+                        ? "Resolved"
+                        : "Bookings"}
+                </h3>
+                <p>
+                  {i === 1
+                    ? stats.totalTickets
+                    : i === 2
+                      ? stats.pending
+                      : i === 3
+                        ? stats.resolved
+                        : stats.bookings}
+                </p>
+              </>
+            )}
+          </div>
+        ))}
       </div>
 
       {/* ================= TABS ================= */}
       <div className="category-tabs">
-        {["all", "tickets", "bookings", "contacts"].map((tab) => (
+        {["all", "tickets", "bookings", "contacts", "guidance"].map((tab) => (
           <button
             key={tab}
             className={activeTab === tab ? "active" : ""}
@@ -143,12 +160,14 @@ export default function AdminDashboard() {
           <Tickets showControls={false} />
           <Bookings showControls={false} />
           <Contacts showControls={false} />
+          <Guidance showControls={false} />
         </>
       )}
 
       {activeTab === "tickets" && <Tickets showControls={true} />}
       {activeTab === "bookings" && <Bookings showControls={true} />}
       {activeTab === "contacts" && <Contacts showControls={true} />}
+      {activeTab === "guidance" && <Guidance showControls={true} />}
     </div>
   );
 }

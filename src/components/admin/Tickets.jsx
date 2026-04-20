@@ -9,7 +9,7 @@ export default function Tickets({ showControls = true }) {
   const [filteredTickets, setFilteredTickets] = useState([]);
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
-
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -89,19 +89,27 @@ export default function Tickets({ showControls = true }) {
   }, [filter]);
 
   const fetchTickets = async () => {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`,
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+    try {
+      setLoading(true);
 
-    if (!res.ok) {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+
+      if (!res.ok) {
+        toast.error("Failed to fetch tickets ❌");
+        return;
+      }
+
+      const data = await res.json();
+      setTickets(data);
+      setFilteredTickets(data);
+    } catch (err) {
       toast.error("Failed to fetch tickets ❌");
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    const data = await res.json();
-    setTickets(data);
-    setFilteredTickets(data);
   };
 
   const handleFilter = (type) => {
@@ -148,6 +156,7 @@ export default function Tickets({ showControls = true }) {
 
   return (
     <>
+      <h2 className="section-title">Tickets</h2>
       {showControls && (
         <>
           <input
@@ -175,34 +184,56 @@ export default function Tickets({ showControls = true }) {
       )}
 
       <div className="admin-grid">
-        {currentTickets.map((t) => (
-          <div key={t._id} className="admin-card">
-            <div className="card-content">
-              <h3>{t.name}</h3>
-              <p className="email">{t.email}</p>
-              <div className="tag">{t.category}</div>
-              <p className="desc">{t.description}</p>
-              <p className={`status ${t.status}`}>{t.status}</p>
-            </div>
+        {loading
+          ? Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="admin-card skeleton-card">
+                <div>
+                  <div className="skeleton skeleton-header">
+                    <div className="skeleton skeleton-avatar"></div>
+                    <div className="skeleton skeleton-line medium"></div>
+                  </div>
 
-            <div className="actions">
-              <button onClick={() => updateStatus(t._id, "Resolved")}>
-                Resolve
-              </button>
-              <button onClick={() => updateStatus(t._id, "Pending")}>
-                Pending
-              </button>
-              <button
-                onClick={() => {
-                  setSelectedId(t._id);
-                  setShowConfirm(true);
-                }}
-              >
-                <FaTrash />
-              </button>
-            </div>
-          </div>
-        ))}
+                  <div className="skeleton skeleton-tag"></div>
+
+                  <div className="skeleton skeleton-line long"></div>
+                  <div className="skeleton skeleton-line medium"></div>
+                </div>
+
+                <div className="skeleton-actions">
+                  <div className="skeleton skeleton-btn"></div>
+                  <div className="skeleton skeleton-btn"></div>
+                  <div className="skeleton skeleton-btn"></div>
+                </div>
+              </div>
+            ))
+          : currentTickets.map((t) => (
+              <div key={t._id} className="admin-card">
+                <div className="card-content">
+                  <h3>{t.name}</h3>
+                  <p className="email">{t.email}</p>
+                  <div className="tag">{t.category}</div>
+                  <p className="desc">{t.description}</p>
+                  <p className={`status ${t.status}`}>{t.status}</p>
+                </div>
+
+                <div className="actions">
+                  <button onClick={() => updateStatus(t._id, "Resolved")}>
+                    Resolve
+                  </button>
+                  <button onClick={() => updateStatus(t._id, "Pending")}>
+                    Pending
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedId(t._id);
+                      setShowConfirm(true);
+                    }}
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </div>
+            ))}
       </div>
 
       {showControls && (
