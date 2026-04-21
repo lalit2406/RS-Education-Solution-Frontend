@@ -111,40 +111,32 @@ export default function CareerChatbot() {
 
       const data = await res.json();
 
-      setMessages((prev) => {
-        const updated = [...prev];
-        updated.pop();
-        return [
-          ...updated,
-          {
-            text: data.reply,
-            sender: "bot",
-            time: new Date().toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
-          },
-        ];
-      });
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: data.reply,
+          sender: "bot",
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        },
+      ]);
 
       setSuggestions(data.suggestions || []);
       setSessionId(data.session_id);
     } catch {
-      setMessages((prev) => {
-        const updated = [...prev];
-        updated.pop();
-        return [
-          ...updated,
-          {
-            text: "⚠️ Cannot connect to server",
-            sender: "bot",
-            time: new Date().toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
-          },
-        ];
-      });
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: "⚠️ Cannot connect to server",
+          sender: "bot",
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        },
+      ]);
     }
 
     setLoading(false);
