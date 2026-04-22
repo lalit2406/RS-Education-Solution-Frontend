@@ -100,15 +100,6 @@ export default function AITools() {
         </p>
       </div>
 
-      {/* ===== CATEGORY ===== */}
-      <div className="ai-categories">
-        <button className="active">All Tools</button>
-        <button>Career</button>
-        <button>Resume</button>
-        <button>Admissions</button>
-        <button>Research</button>
-      </div>
-
       {/* ===== GRID ===== */}
       <div className="ai-grid">
         {tools.map((tool, index) => (
