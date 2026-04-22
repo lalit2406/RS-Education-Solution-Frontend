@@ -1,0 +1,613 @@
+/* ==========================================
+   FINAL COMPLETE CSS
+     - Resume Builder
+   ========================================== */
+
+.rb-page-wrap {
+  min-height: 100vh;
+  padding: 60px 100px;
+  background: linear-gradient(180deg, #f8f3ea 0%, #f2ecdf 100%);
+}
+
+.rb-page-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   TOPBAR
+   ========================================== */
+
+.rb-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.rb-back-btn,
+.rb-top-badge,
+.rb-add-btn,
+.rb-delete-btn,
+.rb-submit-btn,
+.rb-copy-btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.rb-back-btn {
+    text-decoration: none;
+    color: #8a5a3b;
+    background: #f8f1ea;
+    border: 1px solid #eadccf;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.8), 8px 8px 18px rgba(166, 140, 112, 0.12);
+    transition: 0.25s ease;
+}
+
+.rb-back-btn:hover {
+  transform: translateY(-2px);
+}
+
+.rb-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(171, 118, 61, 0.12);
+  color: #8a5a2d;
+  font-weight: 700;
+}
+
+/* ==========================================
+   SHARED CARDS
+   ========================================== */
+
+.rb-hero-card,
+.rb-section-card,
+.rb-output-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(191, 160, 122, 0.14);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgba(80, 56, 28, 0.08);
+}
+
+/* ==========================================
+   HERO
+   ========================================== */
+
+.rb-hero-card {
+  padding: 28px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr 170px;
+  gap: 24px;
+  align-items: center;
+}
+
+.rb-hero-left h1 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #1f2328;
+}
+
+.rb-hero-left p {
+  margin: 0;
+  color: #5f6773;
+  line-height: 1.75;
+}
+
+.rb-hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.rb-hero-tags span {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #f8efe4;
+  color: #8a5a2d;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.rb-hero-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  background: linear-gradient(135deg, #ab763d, #8a5a2d);
+  color: #ffffff;
+  font-size: 3rem;
+  box-shadow: 0 18px 42px rgba(138, 90, 45, 0.25);
+}
+
+/* ==========================================
+   FORM
+   ========================================== */
+
+.rb-main-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rb-section-card,
+.rb-output-card {
+  padding: 26px;
+}
+
+.rb-form-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.rb-form-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #ab763d, #d8b17d);
+}
+
+.rb-form-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.rb-no-margin {
+  margin-bottom: 0;
+}
+
+.rb-form-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ab763d, #8a5a2d);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: 0 12px 26px rgba(138, 90, 45, 0.18);
+}
+
+.rb-form-head h2 {
+  margin: 0;
+  color: #1f2328;
+  font-size: 1.18rem;
+}
+
+.rb-form-head p {
+  margin: 4px 0 0;
+  color: #69727d;
+  font-size: 0.93rem;
+}
+
+/* ==========================================
+   GRID
+   ========================================== */
+
+.rb-grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.rb-full-width {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================
+   INPUTS
+   ========================================== */
+
+.rb-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rb-input-group label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #5c4631;
+  padding-left: 2px;
+}
+
+.rb-section-card input,
+.rb-section-card textarea {
+  width: 100%;
+  border: 1px solid #e6dccf;
+  background: linear-gradient(180deg, #ffffff 0%, #fffdfa 100%);
+  border-radius: 16px;
+  padding: 15px 16px;
+  color: #1f2328;
+  font-size: 0.97rem;
+  transition: all 0.22s ease;
+  resize: vertical;
+}
+
+.rb-section-card input::placeholder,
+.rb-section-card textarea::placeholder {
+  color: #a6a6a6;
+}
+
+.rb-section-card input:focus,
+.rb-section-card textarea:focus {
+  border-color: #ab763d;
+  box-shadow: 0 0 0 4px rgba(171, 118, 61, 0.08);
+  transform: translateY(-1px);
+}
+
+.rb-section-card textarea {
+  min-height: 120px;
+}
+
+/* ==========================================
+   SECTION HEAD
+   ========================================== */
+
+.rb-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.rb-space-between {
+  justify-content: space-between;
+}
+
+.rb-inline-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.rb-add-btn,
+.rb-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border-radius: 14px;
+  background: #f8efe4;
+  color: #8a5a2d;
+  font-weight: 700;
+}
+
+.rb-add-btn:hover,
+.rb-copy-btn:hover {
+  transform: translateY(-2px);
+}
+
+.rb-delete-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  background: #fff1f1;
+  color: #cb4747;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rb-delete-btn:hover {
+  transform: scale(1.06);
+}
+
+.rb-submit-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 25px;
+      background: linear-gradient(135deg, #b07a4f, #8c5a2b);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  box-shadow: 0 18px 34px rgba(138, 90, 45, 0.22);
+}
+
+.rb-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.rb-submit-btn:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   REPEAT BLOCKS
+   ========================================== */
+
+.rb-repeat-card {
+  padding: 18px;
+  border-radius: 20px;
+  background: #fcfaf7;
+  border: 1px solid #efe4d5;
+  margin-top: 16px;
+}
+
+.rb-modern-repeat {
+  box-shadow: inset 0 0 0 1px rgba(240, 228, 213, 0.45);
+}
+
+.rb-repeat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.rb-count-badge {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #f8efe4;
+  color: #8a5a2d;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.rb-cert-row {
+  display: grid;
+  grid-template-columns: 1fr 44px;
+  gap: 12px;
+  margin-bottom: 14px;
+  align-items: end;
+}
+
+/* ==========================================
+   OUTPUT
+   ========================================== */
+
+.rb-output-card {
+  margin-top: 26px;
+}
+
+.rb-action-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rb-preview-sheet {
+  background: #ffffff;
+  border: 1px solid #ece1d2;
+  border-radius: 22px;
+  padding: 34px;
+}
+
+/* ==========================================
+   RESUME PREVIEW
+   ========================================== */
+
+.rb-resume-name {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1f2328;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.rb-resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #eadbc8;
+}
+
+.rb-resume-contact span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #606a75;
+  font-size: 0.94rem;
+}
+
+.rb-preview-section {
+  margin-top: 22px;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-left: 4px solid #ab763d;
+  background: #faf4ec;
+  border-radius: 10px;
+  color: #8a5a2d;
+  font-weight: 800;
+  font-size: 0.94rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.rb-summary-box {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid #ead7bf;
+  background: linear-gradient(180deg, #fffaf4 0%, #fff6eb 100%);
+  color: #2a2e33;
+  line-height: 1.8;
+}
+
+.rb-preview-line {
+  color: #2a2e33;
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+
+.rb-skill-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rb-skill-group,
+.rb-pro-card,
+.rb-edu-card {
+  padding: 15px;
+  border-radius: 16px;
+  background: #fcfaf7;
+  border: 1px solid #f0e4d5;
+}
+
+.rb-skill-title,
+.rb-pro-head {
+  font-weight: 800;
+  color: #1f2328;
+  margin-bottom: 10px;
+}
+
+.rb-badge-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rb-skill-badge {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #f8efe4;
+  color: #8a5a2d;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.rb-impact-line {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #eef8ef;
+  color: #23703a;
+  font-weight: 700;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 992px) {
+  .rb-page-wrap {
+    padding: 20px 60px;
+  }
+
+  .rb-hero-card {
+    grid-template-columns: 1fr;
+  }
+
+  .rb-hero-icon {
+    justify-self: start;
+    width: 80px;
+    height: 80px;
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .rb-page-wrap {
+    padding: 20px 40px;
+  }
+
+  .rb-grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .rb-full-width {
+    grid-column: auto;
+  }
+
+  .rb-topbar {
+    flex-direction: row;
+  }
+  .rb-space-between {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rb-action-group {
+    width: 100%;
+  }
+
+  .rb-copy-btn,
+  .rb-add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rb-hero-left h1 {
+    font-size: 1.6rem;
+  }
+
+  .rb-hero-card,
+  .rb-section-card,
+  .rb-output-card,
+  .rb-preview-sheet {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .rb-resume-name {
+    font-size: 1.55rem;
+  }
+
+  .rb-form-head {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .rb-page-wrap {
+    padding: 20px 20px;
+  }
+
+  .rb-topbar {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .rb-back-btn,
+  .rb-top-badge,
+  .rb-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rb-hero-tags span {
+    width: 100%;
+    text-align: center;
+  }
+
+  .rb-resume-contact {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

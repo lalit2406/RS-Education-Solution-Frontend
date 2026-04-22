@@ -8,8 +8,7 @@
   padding: 60px 100px;
   background:
     radial-gradient(circle at top right, #fbf7f3 0%, transparent 30%),
-    radial-gradient(circle at left center, #f8f2eb 0%, transparent 35%),
-    #f3ede7;
+    radial-gradient(circle at left center, #f8f2eb 0%, transparent 35%), #f3ede7;
   font-family: Inter, sans-serif;
   color: #1f1f1f;
 }
@@ -48,13 +47,14 @@
 }
 
 .schp-top-pill {
-  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #8a5a3b, #a96d44);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 800;
-  box-shadow: 0 10px 18px rgba(138, 90, 59, 0.22);
+  background: rgba(171, 118, 61, 0.12);
+  color: #8a5a2d;
+  font-weight: 700;
 }
 
 /* Hero */
@@ -115,7 +115,7 @@
   box-shadow:
     -10px -10px 18px rgba(255, 255, 255, 0.7),
     12px 12px 24px rgba(169, 143, 114, 0.12);
-        margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Form Card */
@@ -215,10 +215,10 @@
 }
 
 .schp-submit-btn {
-      padding: 12px;
+  padding: 12px;
   border: none;
   border-radius: 25px;
-  background: linear-gradient(135deg, #8a5a3b, #b07447);
+  background: linear-gradient(135deg, #b07a4f, #8c5a2b);
   color: #fff;
   font-size: 16px;
   font-weight: 800;
@@ -504,12 +504,7 @@
 .schp-skeleton {
   height: 16px;
   border-radius: 12px;
-  background: linear-gradient(
-    90deg,
-    #ece1d6 25%,
-    #f8f2eb 37%,
-    #ece1d6 63%
-  );
+  background: linear-gradient(90deg, #ece1d6 25%, #f8f2eb 37%, #ece1d6 63%);
   background-size: 400% 100%;
   animation: schpShine 1.4s infinite;
   margin-bottom: 14px;
@@ -520,7 +515,7 @@
 }
 
 .schp-scroll-results {
-  height: 720px;              /* balanced with left side */
+  height: 720px; /* balanced with left side */
   overflow-y: auto;
   padding-right: 8px;
   margin-top: 18px;
@@ -556,7 +551,6 @@
   background: linear-gradient(180deg, #7a4c31, #9d633d);
 }
 
-
 @keyframes schpShine {
   0% {
     background-position: 100% 0;
@@ -580,13 +574,12 @@
     grid-template-columns: 1fr;
   }
 
-   .schp-scroll-results {
+  .schp-scroll-results {
     height: auto;
     max-height: none;
     overflow: visible;
     padding-right: 0;
   }
-
 }
 
 @media (max-width: 768px) {

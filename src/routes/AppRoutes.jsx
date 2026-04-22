@@ -36,6 +36,7 @@ import CareerChatbot from "../pages/ai-tools/CareerChatbot";
 import DocumentAnalyzer from "../pages/ai-tools/DocumentAnalyzer";
 import ScholarshipPrediction from "../pages/ai-tools/ScholarshipPrediction";
 import RoadmapGenerator from "../pages/ai-tools/RoadmapGenerator";
+import ResumeBuilder from "../pages/ai-tools/ResumeBuilder";
 
 export default function AppRoutes() {
   return (
@@ -64,6 +65,10 @@ export default function AppRoutes() {
         element={<ScholarshipPrediction />}
       />
       <Route path="/tools/roadmap-generator" element={<RoadmapGenerator />} />
+      <Route path="/tools/scholarship-prediction" element={<ScholarshipPrediction />} />
+      <Route path="/tools/resume-builder" element={<ResumeBuilder />} />
+
+      
 
       <Route path="/contact" element={<Contact />} />
 
