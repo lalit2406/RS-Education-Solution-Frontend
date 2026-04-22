@@ -34,6 +34,7 @@ import ChatbotSupport from "../components/dashboard/ChatbotSupport";
 import CareerChatbot from "../pages/ai-tools/CareerChatbot";
 import DocumentAnalyzer from "../pages/ai-tools/DocumentAnalyzer";
 import ScholarshipPrediction from "../pages/ai-tools/ScholarshipPrediction";
+import ResumeBuilder from "../pages/ai-tools/ResumeBuilder";
 
 export default function AppRoutes() {
   return (
@@ -58,6 +59,7 @@ export default function AppRoutes() {
       <Route path="/tools/career-chatbot" element={<CareerChatbot />} />
       <Route path="/tools/document-analyzer" element={<DocumentAnalyzer />} />
       <Route path="/tools/scholarship-prediction" element={<ScholarshipPrediction />} />
+      <Route path="/tools/resume-builder" element={<ResumeBuilder />} />
 
       
 

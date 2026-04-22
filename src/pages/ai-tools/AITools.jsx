@@ -28,6 +28,7 @@ const tools = [
     desc: "Generate professional, ATS-friendly CVs that highlight your unique academic strengths.",
     rating: 4.9,
     action: "Create Resume",
+    route: "/tools/resume-builder",
     icon: <FaFileAlt />,
     color: "#d8d3c4",
   },
