@@ -2,11 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ai-tools/ai-tools.css";
 import DocumentAnalyzer from "./DocumentAnalyzer";
+import { useUser } from "../../context/UserContext";
 import {
   FaRobot,
   FaFileAlt,
   FaDatabase,
-  FaUserTie,
+  FaMapSigns,
   FaUniversity,
   FaBook,
   FaMoneyBillWave,
@@ -16,12 +17,13 @@ import {
 
 const tools = [
   {
-    title: "Mock Interview",
-    desc: "AI-powered practice sessions tailored to your target company and role specifications.",
-    rating: 4.8,
-    action: "Launch Studio",
-    icon: <FaUserTie />,
-    color: "#f3d5c0",
+    title: "AI Roadmap Generator",
+    desc: "Generate personalized career roadmaps with step-by-step guidance, skills, and learning paths powered by AI.",
+    rating: 4.9,
+    action: "Create Roadmap",
+    route: "/tools/roadmap-generator",
+    icon: <FaMapSigns />,
+    color: "#e6d5c3",
   },
   {
     title: "AI Resume Maker",
@@ -55,6 +57,7 @@ const tools = [
     desc: "Find best-fit colleges based on your profile.",
     rating: 4.6,
     action: "Explore",
+    route: "/dashboard/college-recommendation",
     icon: <FaUniversity />,
     color: "#dcd2c8",
   },
@@ -71,7 +74,7 @@ const tools = [
     desc: "Predict scholarship chances.",
     rating: 4.5,
     action: "Check Now",
-     route: "/tools/scholarship-prediction",
+    route: "/tools/scholarship-prediction",
     icon: <FaMoneyBillWave />,
     color: "#e6d5c3",
   },
@@ -79,22 +82,28 @@ const tools = [
 
 export default function AITools() {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    return "Good evening";
+  };
+
   return (
     <div className="ai-tools-page">
       {/* ===== HEADER TOP ===== */}
       <div className="ai-header-top">
         <h2>R. S Education Solution</h2>
-
-        {/* SEARCH BAR MOVED HERE */}
-        <div className="ai-search">
-          <FaSearch />
-          <input placeholder="Search tools, docs, prep..." />
-        </div>
       </div>
 
       {/* ===== MAIN HEADER ===== */}
       <div className="ai-header">
-        <h1>Good morning, Student!</h1>
+        <h1>
+          {getGreeting()}, {user?.name || "Student"}!
+        </h1>
         <p>
           Explore AI tools designed to boost your academic and career journey.
         </p>

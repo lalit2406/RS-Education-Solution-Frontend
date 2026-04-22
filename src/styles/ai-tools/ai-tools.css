@@ -21,27 +21,6 @@
 }
 
 /* ===== SEARCH (CENTER STYLE) ===== */
-.ai-search {
-  display: flex;
-  align-items: center;
-  background: #efe7db;
-  padding: 12px 18px;
-  border-radius: 30px;
-  width: 350px;
-
-  box-shadow: 
-    inset 4px 4px 8px #d6ccc2,
-    inset -4px -4px 8px #ffffff;
-}
-
-.ai-search input {
-  border: none;
-  background: none;
-  margin-left: 10px;
-  outline: none;
-  width: 100%;
-  font-size: 14px;
-}
 
 
 /* RIGHT ICONS */

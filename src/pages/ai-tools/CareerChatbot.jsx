@@ -46,6 +46,13 @@ export default function CareerChatbot() {
 
   const chatEndRef = useRef(null);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   // session
   useEffect(() => {
     setSessionId("sess_" + Math.random().toString(36).substr(2, 9));
@@ -219,6 +226,8 @@ export default function CareerChatbot() {
       alert("Speech Recognition not supported");
       return;
     }
+
+    if (listening) return;
 
     const recognition = new SpeechRecognition();
     recognition.lang = "en-IN";
@@ -412,6 +421,12 @@ export default function CareerChatbot() {
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
               />
               <button
+                onClick={startListening}
+                className={`chat-mic-btn ${listening ? "active" : ""}`}
+              >
+                <Mic size={24} />
+              </button>
+              <button
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || loading}
               >
@@ -500,15 +515,17 @@ export default function CareerChatbot() {
                 placeholder="Ask AI anything..."
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
               />
-              <button onClick={startListening}>
-                <Mic size={18} />
+              <button
+                onClick={startListening}
+                className={`chat-mic-btn ${listening ? "active" : ""}`}
+              >
+                <Mic size={20} />
               </button>
-              {listening && <div className="listening-text">Listening...</div>}
               <button
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || loading}
               >
-                {loading ? "..." : <Send size={16} />}
+                {loading ? "..." : <Send size={18} />}
               </button>
             </div>
           </>

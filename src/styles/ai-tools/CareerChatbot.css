@@ -222,6 +222,7 @@
 .chat-hero-section h1 {
   font-size: 32px;
   font-weight: 700;
+  color: #8b5e34;
 }
 
 .chat-hero-section p {
@@ -272,6 +273,11 @@
   background: #8b5e34;
   color: white;
   border: none;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ===== HEADER ===== */
@@ -523,7 +529,9 @@
 }
 
 @keyframes typingBounce {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     transform: scale(0.8);
     opacity: 0.5;
   }
@@ -566,14 +574,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
-  border-radius: 30px;
+  border-radius: 50%;
   border: none;
   background: linear-gradient(135deg, #b07a4f, #8c5a2b);
   color: #fff;
   cursor: pointer;
   font-weight: 500;
   box-shadow: 4px 6px 12px rgba(139, 94, 52, 0.4);
+  height: 50px;
+  width: 50px;
 }
 
 .chat-input button:hover {
@@ -583,6 +592,36 @@
 .chat-input button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+
+/* HOVER */
+.chat-mic-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ACTIVE (LISTENING) */
+.chat-mic-btn.active {
+  background: #ff3b3b;
+  animation: micPulse 1.2s infinite;
+}
+
+/* ICON COLOR */
+.chat-mic-btn svg {
+  color: white;
+}
+
+/* GLOW ANIMATION */
+@keyframes micPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 59, 59, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 59, 0);
+  }
 }
 
 /* ===== LIST ITEMS (COLLEGE STYLE) ===== */

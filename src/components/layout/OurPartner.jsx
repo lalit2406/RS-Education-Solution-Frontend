@@ -10,7 +10,6 @@ import gniot from "../../assets/partners/gniot_uni.jpeg";
 import jcbose from "../../assets/partners/jcbose_uni.png";
 import lpu from "../../assets/partners/lpu_uni.png";
 import manav from "../../assets/partners/manav_uni.jpeg";
-import mvn from "../../assets/partners/mvn.png";
 import niu from "../../assets/partners/noida_uni.jpeg";
 import srm from "../../assets/partners/srm_uni.png";
 import subharti from "../../assets/partners/subhbharti_uni.jpeg";
@@ -34,7 +33,6 @@ const partners = [
   jcbose,
   lpu,
   manav,
-  mvn,
   niu,
   srm,
   subharti,
