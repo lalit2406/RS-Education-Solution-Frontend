@@ -41,15 +41,19 @@
 }
 
 .rb-back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
-  border-radius: 14px;
-  background: #ffffff;
-  color: #8a5a2d;
-  font-weight: 700;
-  box-shadow: 0 10px 28px rgba(80, 56, 28, 0.08);
+    text-decoration: none;
+    color: #8a5a3b;
+    background: #f8f1ea;
+    border: 1px solid #eadccf;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.8), 8px 8px 18px rgba(166, 140, 112, 0.12);
+    transition: 0.25s ease;
 }
 
 .rb-back-btn:hover {
@@ -322,9 +326,9 @@
 
 .rb-submit-btn {
   width: 100%;
-  padding: 17px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #ab763d, #8a5a2d);
+  padding: 15px;
+  border-radius: 25px;
+      background: linear-gradient(135deg, #b07a4f, #8c5a2b);
   color: #ffffff;
   font-size: 1rem;
   font-weight: 800;
