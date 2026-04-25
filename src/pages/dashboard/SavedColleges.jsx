@@ -6,6 +6,7 @@ import {
 import "../../styles/dashboard/savedColleges.css";
 import { FaArrowLeft, FaTrash, FaUniversity } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function SavedColleges() {
   const [scColleges, setScColleges] = useState([]);
@@ -14,6 +15,8 @@ export default function SavedColleges() {
   /* ================= FETCH ================= */
   const fetchSavedColleges = async () => {
     try {
+      setScLoading(true);
+
       const data = await getSavedCollegesApi();
       setScColleges(data);
     } catch (err) {
@@ -30,22 +33,23 @@ export default function SavedColleges() {
   /* ================= REMOVE ================= */
   const handleRemove = async (collegeId) => {
     setScColleges((prev) => prev.filter((c) => c.collegeId !== collegeId));
-   
 
     try {
       await unsaveCollegeApi(collegeId);
 
-       window.dispatchEvent(
-  new CustomEvent("savedCollegesUpdated", {
-    detail: { change: -1 },
-  })
-);
+      toast.success("Removed from saved colleges");
 
+      window.dispatchEvent(
+        new CustomEvent("savedCollegesUpdated", {
+          detail: { change: -1 },
+        }),
+      );
     } catch (err) {
       console.log(err);
+      toast.error("Failed to remove college");
     }
   };
-  
+
   /* ================= LOADING ================= */
   if (scLoading) {
     return (

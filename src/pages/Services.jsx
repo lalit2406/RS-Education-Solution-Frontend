@@ -1,20 +1,41 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../../src/styles/pages/services.css";
 import Footer from "../../src/components/layout/Footer";
-import { useState } from "react";
 import ServiceDetailModal from "../components/services/ServiceDetailModal";
 import BookCallModal from "../components/dashboard/BookCallModal";
 import { servicesData } from "../data/servicesData";
 import { useNavigate } from "react-router-dom";
+import serviceRight from "../assets/images/service_right2.png";
 
 export default function Services() {
+  /* =========================
+     LOADING STATE
+  ========================= */
+  const [rsServicesLoading, setRsServicesLoading] = useState(true);
+
+  /* =========================
+     MODAL STATE
+  ========================= */
   const [selectedService, setSelectedService] = useState(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+
   const navigate = useNavigate();
 
-  // 🔥 SCROLL ANIMATION
+  /* =========================
+   REAL LOADING (STATIC DATA)
+========================= */
+useEffect(() => {
+  // data already available → no loading needed
+  setRsServicesLoading(false);
+}, []);
+
+  /* =========================
+     SCROLL ANIMATION
+  ========================= */
   useEffect(() => {
+    if (rsServicesLoading) return;
+
     const elements = document.querySelectorAll(".fade-up");
 
     const observer = new IntersectionObserver(
@@ -33,93 +54,155 @@ export default function Services() {
     return () => {
       elements.forEach((el) => observer.unobserve(el));
     };
-  }, []);
+  }, [rsServicesLoading]);
 
   return (
     <>
       <div className="services-page">
         {/* HERO */}
         <section className="services-hero fade-up">
-          <p className="tag">OUR EXPERTISE</p>
-          <h1>
-            Empowering Your <br /> Educational Journey
-          </h1>
-          <p className="subtitle">
-            Comprehensive solutions designed to navigate the complexities of
-            modern education, from local excellence to global opportunities.
-          </p>
+          <div className="services-hero-content">
+            {/* LEFT */}
+            <div className="services-hero-left">
+              {rsServicesLoading ? (
+                <>
+                  <div className="rs-services-skeleton-badge"></div>
+                  <div className="rs-services-skeleton-title"></div>
+                  <div className="rs-services-skeleton-desc"></div>
+                </>
+              ) : (
+                <>
+                  <span className="services-badge">✨ Our Expertise</span>
+
+                  <h1 className="services-title">
+                    Build Your <span>Future</span> with the Right Guidance
+                  </h1>
+
+                  <p className="services-desc">
+                    From career clarity to university admissions, we provide
+                    structured support at every stage of your academic journey —
+                    helping you make confident, future-ready decisions.
+                  </p>
+                </>
+              )}
+            </div>
+
+            {/* RIGHT IMAGE */}
+            <div className="services-hero-right">
+              {rsServicesLoading ? (
+                <div className="rs-services-skeleton-hero-img"></div>
+              ) : (
+                <img src={serviceRight} alt="Career Services" />
+              )}
+            </div>
+          </div>
         </section>
 
         {/* SERVICES GRID */}
         <section className="services-grid">
-          {servicesData.map((service) => (
-            <div className="service-card fade-up" key={service.id}>
-              <div className="icon">{service.icon}</div>
-              <h3>{service.title}</h3>
-              <p>{service.desc}</p>
+          {rsServicesLoading
+            ? Array(6)
+                .fill(0)
+                .map((_, index) => (
+                  <div
+                    className="service-card rs-services-skeleton-card"
+                    key={index}
+                  >
+                    <div className="rs-services-skeleton-icon"></div>
+                    <div className="rs-services-skeleton-card-title"></div>
+                    <div className="rs-services-skeleton-card-desc"></div>
+                    <div className="rs-services-skeleton-btn"></div>
+                  </div>
+                ))
+            : servicesData.map((service) => (
+                <div className="service-card fade-up" key={service.id}>
+                  <div className="icon">{service.icon}</div>
+                  <h3>{service.title}</h3>
+                  <p>{service.desc}</p>
 
-              <button
-                className="primary"
-                onClick={() => {
-                  setSelectedService(service);
-                  setIsServiceModalOpen(true);
-                }}
-              >
-                Learn More →
-              </button>
-            </div>
-          ))}
+                  <button
+                    className="primary"
+                    onClick={() => {
+                      setSelectedService(service);
+                      setIsServiceModalOpen(true);
+                    }}
+                  >
+                    Learn More →
+                  </button>
+                </div>
+              ))}
         </section>
 
         {/* CTA */}
         <section className="cta-section fade-up">
           <div className="cta-content">
-            {/* LEFT TEXT */}
+            {/* LEFT */}
             <div className="cta-left">
               <div className="cta-text">
-                <h2>Can't find what you're looking for?</h2>
-                <p>
-                  Our team is always ready to create a bespoke educational plan
-                  tailored to your unique requirements. Let's build your future
-                  together.
-                </p>
+                {rsServicesLoading ? (
+                  <>
+                    <div className="rs-services-skeleton-cta-title"></div>
+                    <div className="rs-services-skeleton-cta-desc"></div>
+                    <div className="rs-services-skeleton-cta-buttons"></div>
+                  </>
+                ) : (
+                  <>
+                    <h2>Can't find what you're looking for?</h2>
+                    <p>
+                      Our team is always ready to create a bespoke educational
+                      plan tailored to your unique requirements. Let's build
+                      your future together.
+                    </p>
 
-                <div className="cta-buttons">
-                  <button
-                    className="primary"
-                    onClick={() => {
-                      setSelectedService({ title: "General Consultation" });
-                      setIsBookingOpen(true);
-                    }}
-                  >
-                    Schedule a Free Call
-                  </button>
-                  <button
-                    className="secondary"
-                    onClick={() => {
-                      navigate("/programs");
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                  >
-                    Explore Programs
-                  </button>
-                </div>
+                    <div className="cta-buttons">
+                      <button
+                        className="primary"
+                        onClick={() => {
+                          setSelectedService({
+                            title: "General Consultation",
+                          });
+                          setIsBookingOpen(true);
+                        }}
+                      >
+                        Schedule a Free Call
+                      </button>
+
+                      <button
+                        className="secondary"
+                        onClick={() => {
+                          navigate("/programs");
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        Explore Programs
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
+            {/* RIGHT IMAGE */}
             <div className="cta-right">
-              {/* RIGHT IMAGE */}
               <div className="cta-image">
-                <img
-                  src="/src/assets/images/Services_blog.png"
-                  alt="Students discussion"
-                />
+                {rsServicesLoading ? (
+                  <div className="rs-services-skeleton-cta-img"></div>
+                ) : (
+                  <img
+                    src="/src/assets/images/Services_blog.png"
+                    alt="Students discussion"
+                  />
+                )}
               </div>
             </div>
           </div>
         </section>
       </div>
-      {/* 🔥 SERVICE DETAIL MODAL */}
+
+      {/* MODALS */}
       <ServiceDetailModal
         isOpen={isServiceModalOpen}
         onClose={() => setIsServiceModalOpen(false)}
@@ -130,12 +213,12 @@ export default function Services() {
         }}
       />
 
-      {/* 🔥 BOOKING MODAL */}
       <BookCallModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
         service={selectedService?.title}
       />
+
       <Footer />
     </>
   );

@@ -11,6 +11,7 @@ import {
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ConfirmModal from "../../components/common/ConfirmModal";
 
 export default function Documents() {
   const [docs, setDocs] = useState([]);
@@ -24,6 +25,7 @@ export default function Documents() {
   const [renamingId, setRenamingId] = useState(null);
   const [newName, setNewName] = useState("");
   const [deleteId, setDeleteId] = useState(null);
+  const [rsDocLoading, setRsDocLoading] = useState(true);
 
   // FETCH
   const fetchDocs = async () => {
@@ -36,7 +38,7 @@ export default function Documents() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setDocs(Array.isArray(res.data) ? res.data : []);
@@ -44,6 +46,8 @@ export default function Documents() {
       console.log(err);
       alert("Something went wrong");
       setDocs([]);
+    } finally {
+      setRsDocLoading(false);
     }
   };
 
@@ -65,8 +69,7 @@ export default function Documents() {
       setUploading(true);
       setUploadProgress(0);
 
-      await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}upload`, formData, {
+      await axios.get(`${import.meta.env.VITE_API_BASE_URL}upload`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -93,9 +96,11 @@ export default function Documents() {
 
     try {
       await axios.delete(
-        `${import.meta.env.VITE_API_BASE_URL}/api/documents/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+        `${import.meta.env.VITE_API_BASE_URL}/api/documents/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
 
       fetchDocs();
     } catch (err) {
@@ -112,7 +117,7 @@ export default function Documents() {
       await axios.put(
         `${import.meta.env.VITE_API_BASE_URL}/api/documents/${id}`,
         { name: newName },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
 
       setRenamingId(null);
@@ -135,7 +140,7 @@ export default function Documents() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       const link = res.data.shareLink;
@@ -144,7 +149,6 @@ export default function Documents() {
       navigator.clipboard.writeText(link);
 
       alert(`Link copied!\nExpires at: ${expires}`);
-
     } catch (err) {
       console.log(err);
       alert("Something went wrong");
@@ -163,7 +167,7 @@ export default function Documents() {
             Authorization: `Bearer ${token}`,
           },
           responseType: "blob",
-        }
+        },
       );
 
       const url = window.URL.createObjectURL(new Blob([res.data]));
@@ -191,24 +195,21 @@ export default function Documents() {
 
   return (
     <div className="rs-documents-page">
-
       {/* HEADER */}
       <div className="rs-doc-header">
         <h1>
           Document <span>Center</span>
         </h1>
         <p>
-          Your academic repository. Manage your certificates, transcripts,
-          and study notes in one beautifully organized space.
+          Your academic repository. Manage your certificates, transcripts, and
+          study notes in one beautifully organized space.
         </p>
       </div>
 
       {/* CONTROLS */}
       <div className="rs-doc-controls">
-
         {/* LEFT SIDE */}
         <div className="rs-doc-left">
-
           <div className="rs-search-box">
             <Search size={16} />
             <input
@@ -247,12 +248,10 @@ export default function Documents() {
               Notes
             </button>
           </div>
-
         </div>
 
         {/* RIGHT SIDE */}
         <div className="rs-doc-right">
-
           <select
             className="rs-type-select"
             value={docType}
@@ -278,10 +277,7 @@ export default function Documents() {
             <Upload size={16} />
             {uploading ? "Uploading..." : "Upload"}
           </button>
-
-
         </div>
-
       </div>
 
       {uploading && (
@@ -296,165 +292,155 @@ export default function Documents() {
 
       {/* MAIN GRID */}
       <div className="rs-doc-main">
+        {rsDocLoading ? (
+          <>
+            <div className="rs-doc-skeleton-card"></div>
+            <div className="rs-doc-skeleton-card"></div>
+          </>
+        ) : (
+          <>
+            {/* LEFT */}
+            <div className="rs-doc-highlight">
+              <div className="rs-doc-badge">MOST RECENT</div>
 
-        {/* LEFT */}
-        <div className="rs-doc-highlight">
-          <div className="rs-doc-badge">MOST RECENT</div>
+              {docs[0] ? (
+                <>
+                  <h2>{docs[0].name}</h2>
+                  <p>Added on {new Date(docs[0].createdAt).toDateString()}</p>
 
-          {docs[0] ? (
-            <>
-              <h2>{docs[0].name}</h2>
-              <p>
-                Added on {new Date(docs[0].createdAt).toDateString()}
-              </p>
+                  <div className="rs-doc-buttons">
+                    <button
+                      className="rs-doc-primary-btn"
+                      onClick={() => downloadFile(docs[0]._id)}
+                    >
+                      <Download size={16} />
+                      Download
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p>No recent document</p>
+              )}
+            </div>
 
-              <div className="rs-doc-buttons">
-                <button
-                  className="rs-doc-primary-btn"
-                  onClick={() => downloadFile(docs[0]._id)}
-                >
-                  <Download size={16} />
-                  Download
-                </button>
+            {/* RIGHT */}
+            <div className="rs-storage-card">
+              <h3>STORAGE SUMMARY</h3>
 
-
+              <div className="rs-storage-bar">
+                <div
+                  className="rs-storage-fill"
+                  style={{ width: `${totalFiles * 10}%` }}
+                ></div>
               </div>
-            </>
-          ) : (
-            <p>No recent document</p>
-          )}
-        </div>
 
-        {/* RIGHT */}
-        <div className="rs-storage-card">
-          <h3>STORAGE SUMMARY</h3>
+              <div className="rs-storage-stats">
+                <div>
+                  <h2>{totalFiles}</h2>
+                  <p>Total Files</p>
+                </div>
+                <div>
+                  <h2>{sharedFiles}</h2>
+                  <p>Shared</p>
+                </div>
+              </div>
 
-          <div className="rs-storage-bar">
-            <div
-              className="rs-storage-fill"
-              style={{ width: `${totalFiles * 10}%` }}
-            ></div>
-          </div>
-
-          <div className="rs-storage-stats">
-            <div>
-              <h2>{totalFiles}</h2>
-              <p>Total Files</p>
+              <button className="rs-clean-btn">Clean Storage</button>
             </div>
-            <div>
-              <h2>{sharedFiles}</h2>
-              <p>Shared</p>
-            </div>
-          </div>
-
-          <button className="rs-clean-btn">Clean Storage</button>
-        </div>
-
+          </>
+        )}
       </div>
 
       {/* RECENTS */}
       <div className="rs-recent">
-
         <h3>Recent Documents</h3>
 
-        {filteredDocs.length === 0 && (
-          <p className="rs-empty-msg">No documents found</p>
-        )}
-
-        {filteredDocs.map((doc) => (
-          <div className="rs-file-item" key={doc._id}>
-
-            {doc.fileUrl.match(/\.(jpg|jpeg|png)$/) ? (
-              <img src={doc.fileUrl} className="rs-file-preview" />
-            ) : (
-              <FileText size={18} />
+        {rsDocLoading ? (
+          <>
+            <div className="rs-doc-skeleton-line"></div>
+            <div className="rs-doc-skeleton-line"></div>
+            <div className="rs-doc-skeleton-line"></div>
+          </>
+        ) : (
+          <>
+            {filteredDocs.length === 0 && (
+              <p className="rs-empty-msg">No documents found</p>
             )}
 
-            <div>
-              {renamingId === doc._id ? (
-                <input
-                  className="rs-rename-input"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") handleRename(doc._id);
-                  }}
-                />
-              ) : (
-                <>
-                  <h4>{doc.name}</h4>
-                  <p>
-                    {new Date(doc.createdAt).toDateString()} •{" "}
-                    {(doc.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
-                </>
-              )}
-            </div>
+            {filteredDocs.map((doc) => (
+              <div className="rs-file-item" key={doc._id}>
+                {doc.fileUrl.match(/\.(jpg|jpeg|png)$/) ? (
+                  <img src={doc.fileUrl} className="rs-file-preview" />
+                ) : (
+                  <FileText size={18} />
+                )}
 
-            <div className="rs-file-right">
-              <button className="rs-doc-download-btn" onClick={() => downloadFile(doc._id)}>
-                <Download size={18} />
-              </button>
+                <div>
+                  {renamingId === doc._id ? (
+                    <input
+                      className="rs-rename-input"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleRename(doc._id);
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <h4>{doc.name}</h4>
+                      <p>
+                        {new Date(doc.createdAt).toDateString()} •{" "}
+                        {(doc.size / 1024 / 1024).toFixed(2)} MB
+                      </p>
+                    </>
+                  )}
+                </div>
 
-              <button className="rs-doc-share-btn" onClick={() => handleShare(doc._id)}>
-                <Share2 size={16} />
-              </button>
+                <div className="rs-file-right">
+                  <button
+                    className="rs-doc-download-btn"
+                    onClick={() => downloadFile(doc._id)}
+                  >
+                    <Download size={18} />
+                  </button>
 
-              <button
-                className="rs-rename-btn"
-                onClick={() => {
-                  setRenamingId(doc._id);
-                  setNewName(doc.name);
-                }}
-              >
-                <span className="icon">
-                  <Pencil size={16} />
-                </span>
-                {/* <span className="text">Rename</span> */}
-              </button>
+                  <button
+                    className="rs-doc-share-btn"
+                    onClick={() => handleShare(doc._id)}
+                  >
+                    <Share2 size={16} />
+                  </button>
 
-              <button
-                className="rs-delete-btn"
-                onClick={() => setDeleteId(doc._id)}
-              >
-                <Trash2 size={16} />
-              </button>
+                  <button
+                    className="rs-rename-btn"
+                    onClick={() => {
+                      setRenamingId(doc._id);
+                      setNewName(doc.name);
+                    }}
+                  >
+                    <Pencil size={16} />
+                  </button>
 
-            </div>
-
-          </div>
-        ))}
-
+                  <button
+                    className="rs-delete-btn"
+                    onClick={() => setDeleteId(doc._id)}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
-
-      {deleteId && (
-        <div className="rs-modal-overlay">
-          <div className="rs-modal">
-            <h3>Delete Document?</h3>
-            <p>Are you sure you want to delete this file?</p>
-
-            <div className="rs-modal-actions">
-              <button
-                className="rs-cancel-btn"
-                onClick={() => setDeleteId(null)}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="rs-confirm-delete"
-                onClick={() => {
-                  handleDelete(deleteId);
-                  setDeleteId(null);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
+      <ConfirmModal
+        isOpen={Boolean(deleteId)}
+        onClose={() => setDeleteId(null)}
+        onConfirm={() => {
+          handleDelete(deleteId);
+          setDeleteId(null);
+        }}
+      />
     </div>
   );
 }

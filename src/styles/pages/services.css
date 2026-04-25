@@ -6,10 +6,145 @@
   color: #1c1c1c;
 }
 
+.services-hero::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -120px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(176, 122, 79, 0.15) 0%,
+    rgba(176, 122, 79, 0.08) 40%,
+    transparent 70%
+  );
+
+  z-index: 0;
+}
+
+.services-hero {
+  position: relative;
+  z-index: 1;
+}
+
 /* HERO */
 .services-hero {
-  text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* HERO FLEX LAYOUT */
+.services-hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 90px;
+}
+
+.services-hero-left {
+  flex: 1;
+  max-width: 520px;
+  animation: fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.services-badge {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #ece5db;
+  color: #9b6d48;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.services-title {
+  font-size: 60px;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.services-title span {
+  color: #8a5a3b;
+  position: relative;
+}
+
+
+.services-desc {
+  max-width: 560px;
+  color: #666;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.services-hero-right {
+  flex-shrink: 0;
+  margin-left: 4vw;
+  transform: translateY(-10px);
+}
+
+.services-hero-right img {
+  width: 100%;
+  max-width: 430px;
+  border-radius: 34px;
+  transform: rotate(4deg);
+  transition: 0.35s ease;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.12),
+    0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.services-hero-right img:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+
+.hero-image-wrapper {
+  width: 100%;
+  max-width: 520px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.services-hero-image-wrapper img {
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+
+  border-radius: 20px;
+
+  /* 🔥 depth */
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.1),
+    0 10px 25px rgba(0, 0, 0, 0.08);
+
+  transition: transform 0.4s ease;
+}
+
+.services-hero-image-wrapper img:hover {
+  transform: scale(1.03);
 }
 
 .services-hero .tag {
@@ -31,7 +166,7 @@
 
 .services-hero .subtitle {
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0;
   font-size: 17px;
   color: #6b6b6b;
   line-height: 1.7;
@@ -59,7 +194,7 @@
   box-shadow:
     8px 8px 18px rgba(163, 138, 110, 0.25),
     -8px -8px 18px rgba(255, 255, 255, 0.9);
-    z-index: 1;
+  z-index: 1;
 }
 
 /* HOVER */
@@ -82,13 +217,15 @@
   align-items: center;
   justify-content: center;
   font-size: 20px;
- box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 4px 4px 10px rgba(163, 138, 110, 0.2),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.9);
 
   margin-bottom: 22px;
 }
 
 .service-card:hover .icon {
-   background: linear-gradient(135deg, #b07a4f, #8c5a2b);
+  background: linear-gradient(135deg, #b07a4f, #8c5a2b);
   color: #eee9d3;
 
   box-shadow:
@@ -138,7 +275,9 @@
   justify-content: space-between;
   margin-bottom: 60px;
   border-radius: 25px;
-  box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 4px 4px 10px rgba(163, 138, 110, 0.2),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.9);
 }
 
 .cta-left {
@@ -188,7 +327,7 @@
 
 /* PRIMARY */
 .primary {
-    background: linear-gradient(135deg, #b07a4f, #8c5a2b);
+  background: linear-gradient(135deg, #b07a4f, #8c5a2b);
   color: white;
   border: none;
   padding: 15px 30px;
@@ -216,12 +355,35 @@
   font-size: 15px;
   cursor: pointer;
   color: #8a5a3b;
-  box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 4px 4px 10px rgba(163, 138, 110, 0.2),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.9);
   transition: all 0.25s ease;
 }
 
 .secondary:hover {
   transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .services-hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .services-desc {
+    margin: auto;
+  }
+
+  .services-hero-right {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-title {
+    font-size: 48px;
+  }
 }
 
 /* RESPONSIVE */
@@ -255,4 +417,160 @@
   .cta-buttons {
     flex-direction: column;
   }
+}
+
+@media (max-width: 900px) {
+  .services-hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .services-hero .subtitle {
+    margin: 0 auto;
+  }
+
+  .services-hero-image-wrapper {
+    margin-top: 30px;
+  }
+}
+
+/* =========================
+   SERVICES SKELETON (MATCH PROGRAM STYLE)
+========================= */
+
+/* SHIMMER (same direction & style as program) */
+@keyframes rsShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+/* PULSE (subtle breathing effect) */
+@keyframes rsPulse {
+  0% { opacity: 0.92; }
+  50% { opacity: 1; }
+  100% { opacity: 0.92; }
+}
+
+/* BASE SKELETON STYLE */
+.rs-services-skeleton-card,
+.rs-services-skeleton-icon,
+.rs-services-skeleton-card-title,
+.rs-services-skeleton-card-desc,
+.rs-services-skeleton-btn,
+.rs-services-skeleton-badge,
+.rs-services-skeleton-title,
+.rs-services-skeleton-desc,
+.rs-services-skeleton-hero-img,
+.rs-services-skeleton-cta-title,
+.rs-services-skeleton-cta-desc,
+.rs-services-skeleton-cta-buttons,
+.rs-services-skeleton-cta-img {
+  /* EXACT SAME COLORS AS PROGRAM PAGE */
+  background: linear-gradient(
+    90deg,
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
+  );
+
+  background-size: 400px 100%;
+
+  /* SHIMMER + PULSE COMBO */
+  animation:
+    rsShimmer 1.4s infinite linear,
+    rsPulse 1.8s infinite ease-in-out;
+
+  border-radius: 10px;
+}
+
+/* =========================
+   HERO SKELETON
+========================= */
+
+.rs-services-skeleton-badge {
+  width: 140px;
+  height: 28px;
+  margin-bottom: 20px;
+  border-radius: 999px;
+}
+
+.rs-services-skeleton-title {
+  width: 80%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.rs-services-skeleton-desc {
+  width: 90%;
+  height: 60px;
+}
+
+/* HERO IMAGE */
+.rs-services-skeleton-hero-img {
+  width: 400px;
+  height: 400px;
+  border-radius: 34px;
+}
+
+/* =========================
+   CARD SKELETON
+========================= */
+
+.rs-services-skeleton-card {
+  /* keep same card feel */
+  border-radius: 30px;
+}
+
+.rs-services-skeleton-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+}
+
+.rs-services-skeleton-card-title {
+  width: 80%;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.rs-services-skeleton-card-desc {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.rs-services-skeleton-btn {
+  width: 120px;
+  height: 36px;
+  border-radius: 999px; /* match real button */
+}
+
+/* =========================
+   CTA SKELETON
+========================= */
+
+.rs-services-skeleton-cta-title {
+  width: 60%;
+  height: 30px;
+  margin-bottom: 15px;
+}
+
+.rs-services-skeleton-cta-desc {
+  width: 90%;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.rs-services-skeleton-cta-buttons {
+  width: 260px;
+  height: 45px;
+  border-radius: 999px;
+}
+
+.rs-services-skeleton-cta-img {
+  width: 100%;
+  max-width: 450px;
+  height: 300px;
+  border-radius: 25px;
 }

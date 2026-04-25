@@ -6,6 +6,7 @@ import { useUser } from "../../context/UserContext";
 import toast from "react-hot-toast";
 
 export default function Profile() {
+  const [saving, setSaving] = useState(false);
   const { user, setUser } = useUser();
 
   const navigate = useNavigate();
@@ -52,8 +53,7 @@ export default function Profile() {
 
   // ✅ DETECT CHANGES
   useEffect(() => {
-    const changed =
-      JSON.stringify(profile) !== JSON.stringify(originalProfile);
+    const changed = JSON.stringify(profile) !== JSON.stringify(originalProfile);
     setHasChanges(Boolean(changed));
   }, [profile, originalProfile]);
 
@@ -67,15 +67,14 @@ export default function Profile() {
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
-    return () =>
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasChanges]);
 
   // OPTIONAL: route safe navigation (only if used)
   const handleSafeNavigate = (path) => {
     if (hasChanges) {
       const confirmLeave = window.confirm(
-        "You have unsaved changes. Are you sure you want to leave?"
+        "You have unsaved changes. Are you sure you want to leave?",
       );
       if (!confirmLeave) return;
     }
@@ -86,16 +85,16 @@ export default function Profile() {
   const handleChange = (field, value) => {
     setProfile((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleSave = async () => {
-    // 🔥 1. Save previous state (for rollback)
     const previousUser = user;
 
     try {
-      // 🔥 2. Optimistic update (instant UI)
+      setSaving(true);
+
       setUser({
         ...user,
         ...profile,
@@ -104,10 +103,8 @@ export default function Profile() {
       setIsEditing(false);
       setHasChanges(false);
 
-      // 🔥 3. Call API
       const res = await updateProfileUser(profile);
 
-      // 🔥 4. Sync with backend (final truth)
       setUser(res.data.user);
 
       setProfile({
@@ -126,15 +123,13 @@ export default function Profile() {
 
       setOriginalProfile(JSON.parse(JSON.stringify(res.data.user)));
 
+      toast.success("Profile updated successfully");
     } catch (error) {
       console.error(error);
-
-      // ❌ Rollback if API fails
       setUser(previousUser);
-
-      
-
-toast.error("Update failed. Changes reverted.");
+      toast.error("Update failed. Changes reverted.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -174,45 +169,41 @@ toast.error("Update failed. Changes reverted.");
 
   return (
     <div className="rs-profile-page">
-
       {/* HEADER */}
       <div className="rs-profile-header">
         <h1>My Profile</h1>
-        <p>
-          Customize your academic identity and track your milestones.
-        </p>
+        <p>Customize your academic identity and track your milestones.</p>
       </div>
 
       {/* ⚠️ UNSAVED WARNING */}
       {isEditing && hasChanges && (
-        <div style={{
-          background: "#fff3cd",
-          padding: "10px",
-          borderRadius: "8px",
-          marginBottom: "15px"
-        }}>
+        <div
+          style={{
+            background: "#fff3cd",
+            padding: "10px",
+            borderRadius: "8px",
+            marginBottom: "15px",
+          }}
+        >
           ⚠️ You have unsaved changes
         </div>
       )}
 
       <div className="rs-profile-grid">
-
         {/* LEFT */}
         <div className="rs-profile-left">
-
           <div className="rs-profile-card">
             <div className="rs-profile-avatar">
               <img
-                src={`https://api.dicebear.com/7.x/initials/svg?seed=${profile.name}`} style={{ background: "random" }}
+                src={`https://api.dicebear.com/7.x/initials/svg?seed=${profile.name}`}
+                style={{ background: "random" }}
                 alt="profile"
               />
               <div className="rs-avatar-edit">📷</div>
             </div>
 
             <h2>{profile.name}</h2>
-            <p className="rs-profile-sub">
-              Class of 2025 • Pre-Med Track
-            </p>
+            <p className="rs-profile-sub">Class of 2025 • Pre-Med Track</p>
 
             <div className="rs-profile-strength">
               <span>PROFILE STRENGTH</span>
@@ -225,7 +216,6 @@ toast.error("Update failed. Changes reverted.");
           </div>
 
           <div className="rs-academic-card">
-
             <h4>ACADEMIC SNAPSHOTS</h4>
 
             {/* GPA */}
@@ -271,27 +261,23 @@ toast.error("Update failed. Changes reverted.");
                 )}
               </div>
             </div>
-
           </div>
-
         </div>
 
         {/* RIGHT */}
         <div className="rs-profile-right">
-
           <div className="rs-profile-info-card">
             <div className="rs-info-header">
               <h3>Personal Information</h3>
             </div>
 
             <div className="rs-info-grid">
-
               {["name", "email", "phone", "school"].map((field, i) => {
                 const labels = [
                   "FULL NAME",
                   "EMAIL ADDRESS",
                   "PHONE NUMBER",
-                  "CURRENT SCHOOL"
+                  "CURRENT SCHOOL",
                 ];
 
                 return (
@@ -302,9 +288,7 @@ toast.error("Update failed. Changes reverted.");
                         className="rs-input"
                         placeholder="Enter value"
                         value={profile[field]}
-                        onChange={(e) =>
-                          handleChange(field, e.target.value)
-                        }
+                        onChange={(e) => handleChange(field, e.target.value)}
                       />
                     ) : (
                       <div className="rs-input">{profile[field]}</div>
@@ -312,16 +296,13 @@ toast.error("Update failed. Changes reverted.");
                   </div>
                 );
               })}
-
             </div>
           </div>
 
           <div className="rs-goals-card">
-
             <h3>Academic & Exam Goals</h3>
 
             <div className="rs-goals-row">
-
               <div className="rs-goal-block">
                 <label>TARGET EXAM</label>
 
@@ -330,9 +311,7 @@ toast.error("Update failed. Changes reverted.");
                     <span
                       key={exam}
                       className={profile.exam === exam ? "active" : ""}
-                      onClick={() =>
-                        isEditing && handleChange("exam", exam)
-                      }
+                      onClick={() => isEditing && handleChange("exam", exam)}
                     >
                       {exam}
                     </span>
@@ -346,15 +325,12 @@ toast.error("Update failed. Changes reverted.");
                   <input
                     className="rs-score-box"
                     value={profile.score}
-                    onChange={(e) =>
-                      handleChange("score", e.target.value)
-                    }
+                    onChange={(e) => handleChange("score", e.target.value)}
                   />
                 ) : (
                   <div className="rs-score-box">{profile.score}</div>
                 )}
               </div>
-
             </div>
 
             {/* UNIVERSITIES */}
@@ -368,10 +344,9 @@ toast.error("Update failed. Changes reverted.");
                     {isEditing && (
                       <button
                         onClick={() => {
-                          const updated =
-                            profile.universities.filter(
-                              (_, i) => i !== index
-                            );
+                          const updated = profile.universities.filter(
+                            (_, i) => i !== index,
+                          );
                           handleChange("universities", updated);
                         }}
                       >
@@ -382,7 +357,9 @@ toast.error("Update failed. Changes reverted.");
                 ))}
 
                 {isEditing && (
-                  <div style={{ display: "flex", gap: "8px", marginTop: "10px" }}>
+                  <div
+                    style={{ display: "flex", gap: "8px", marginTop: "10px" }}
+                  >
                     <input
                       className="rs-input"
                       placeholder="Add university..."
@@ -395,7 +372,7 @@ toast.error("Update failed. Changes reverted.");
                         if (newUniversity.trim()) {
                           handleChange("universities", [
                             ...profile.universities,
-                            newUniversity
+                            newUniversity,
                           ]);
                           setNewUniversity("");
                         }
@@ -407,12 +384,10 @@ toast.error("Update failed. Changes reverted.");
                 )}
               </div>
             </div>
-
           </div>
 
           {/* ACTION BAR */}
           <div className="rs-profile-actions">
-
             <span
               className="rs-history"
               onClick={() => {
@@ -435,18 +410,14 @@ toast.error("Update failed. Changes reverted.");
               <button
                 className="rs-save"
                 onClick={handleSave}
-                disabled={!hasChanges}
+                disabled={!hasChanges || saving}
               >
-                Save Profile Changes
+                {saving ? "Saving..." : "Save Profile Changes"}
               </button>
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }

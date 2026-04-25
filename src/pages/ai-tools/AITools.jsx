@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ai-tools/ai-tools.css";
 import DocumentAnalyzer from "./DocumentAnalyzer";
@@ -83,6 +83,15 @@ const tools = [
 export default function AITools() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const [rsAiLoading, setRsAiLoading] = useState(true);
+
+  /* =========================
+     LOADING STATE (ADDED)
+  ========================= */
+  useEffect(() => {
+    // static tools → no loading needed
+    setRsAiLoading(false);
+  }, []);
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -101,38 +110,58 @@ export default function AITools() {
 
       {/* ===== MAIN HEADER ===== */}
       <div className="ai-header">
-        <h1>
-          {getGreeting()}, {user?.name || "Student"}!
-        </h1>
-        <p>
-          Explore AI tools designed to boost your academic and career journey.
-        </p>
+        {rsAiLoading ? (
+          <>
+            <div className="rs-ai-skeleton-title"></div>
+            <div className="rs-ai-skeleton-desc"></div>
+          </>
+        ) : (
+          <>
+            <h1>
+              {getGreeting()}, {user?.name || "Student"}!
+            </h1>
+            <p>
+              Explore AI tools designed to boost your academic and career
+              journey.
+            </p>
+          </>
+        )}
       </div>
 
       {/* ===== GRID ===== */}
       <div className="ai-grid">
-        {tools.map((tool, index) => (
-          <div key={index} className="ai-card">
-            {/* TOP ROW (ICON + RATING) */}
-            <div className="ai-card-header">
-              <div className="ai-icon" style={{ background: tool.color }}>
-                {tool.icon}
+        {rsAiLoading
+          ? Array(6)
+              .fill(0)
+              .map((_, index) => (
+                <div key={index} className="ai-card rs-ai-skeleton-card">
+                  <div className="rs-ai-skeleton-icon"></div>
+                  <div className="rs-ai-skeleton-text-md"></div>
+                  <div className="rs-ai-skeleton-text-sm"></div>
+                  <div className="rs-ai-skeleton-btn"></div>
+                </div>
+              ))
+          : tools.map((tool, index) => (
+              <div key={index} className="ai-card">
+                <div className="ai-card-header">
+                  <div className="ai-icon" style={{ background: tool.color }}>
+                    {tool.icon}
+                  </div>
+
+                  <span className="rating">⭐ {tool.rating}</span>
+                </div>
+
+                <h3>{tool.title}</h3>
+                <p>{tool.desc}</p>
+
+                <button
+                  className="ai-btn"
+                  onClick={() => tool.route && navigate(tool.route)}
+                >
+                  {tool.action} →
+                </button>
               </div>
-
-              <span className="rating">⭐ {tool.rating}</span>
-            </div>
-
-            <h3>{tool.title}</h3>
-            <p>{tool.desc}</p>
-
-            <button
-              className="ai-btn"
-              onClick={() => tool.route && navigate(tool.route)}
-            >
-              {tool.action} →
-            </button>
-          </div>
-        ))}
+            ))}
       </div>
     </div>
   );

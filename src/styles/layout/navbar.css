@@ -26,10 +26,20 @@
   align-items: center;
 }
 
+.nav-left a {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
 .rs-main-logo {
-  height: 55px;
-  width: 55px;
-  border-radius: 50%;
+ display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.rs-main-logo:hover {
+  transform: scale(1.05);
 }
 
 /* ========================= */

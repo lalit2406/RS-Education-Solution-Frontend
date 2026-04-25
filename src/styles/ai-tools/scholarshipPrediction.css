@@ -621,3 +621,68 @@
     font-size: 28px;
   }
 }
+
+/* =========================
+   SCHOLARSHIP SKELETON (CONSISTENT)
+========================= */
+
+@keyframes rsShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes rsPulse {
+  0% { opacity: 0.92; }
+  50% { opacity: 1; }
+  100% { opacity: 0.92; }
+}
+
+.rs-sch-skeleton-pill,
+.rs-sch-skeleton-title,
+.rs-sch-skeleton-desc,
+.rs-sch-skeleton-form,
+.rs-sch-skeleton-btn {
+  background: linear-gradient(
+    90deg,
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
+  );
+
+  background-size: 400px 100%;
+
+  animation:
+    rsShimmer 1.4s infinite linear,
+    rsPulse 1.8s infinite ease-in-out;
+
+  border-radius: 12px;
+}
+
+/* HERO */
+.rs-sch-skeleton-pill {
+  width: 160px;
+  height: 20px;
+  margin-bottom: 12px;
+}
+
+.rs-sch-skeleton-title {
+  width: 280px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.rs-sch-skeleton-desc {
+  width: 70%;
+  height: 16px;
+}
+
+/* FORM */
+.rs-sch-skeleton-form {
+  height: 60px;
+  margin-bottom: 14px;
+}
+
+.rs-sch-skeleton-btn {
+  height: 50px;
+  border-radius: 25px;
+}

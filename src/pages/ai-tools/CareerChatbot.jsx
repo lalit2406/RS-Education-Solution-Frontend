@@ -21,6 +21,7 @@ const API = import.meta.env.VITE_API_CAREERCHATBOT_URL;
 export default function CareerChatbot() {
   const inputRef = useRef(null);
   const [messages, setMessages] = useState([]);
+  const [rsChatLoading, setRsChatLoading] = useState(true);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [filterLoading, setFilterLoading] = useState(false);
@@ -47,6 +48,36 @@ export default function CareerChatbot() {
   const chatEndRef = useRef(null);
 
   useEffect(() => {
+    const init = async () => {
+      try {
+        await Promise.all([
+          fetch(`${API}/colleges/exams`)
+            .then((res) => res.json())
+            .then((data) => {
+              const examArray = Object.entries(data).map(([name, value]) => ({
+                name,
+                ...value,
+              }));
+              setExams(examArray);
+            })
+            .catch(() => setExams([])),
+
+          fetch(`${API}/colleges/scholarships`)
+            .then((res) => res.json())
+            .then((data) => setAid(data))
+            .catch(() => setAid({ central_schemes: [], state_schemes: {} })),
+        ]);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setRsChatLoading(false);
+      }
+    };
+
+    init();
+  }, []);
+
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -66,24 +97,6 @@ export default function CareerChatbot() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  useEffect(() => {
-    fetch(`${API}/colleges/exams`)
-      .then((res) => res.json())
-      .then((data) => {
-        const examArray = Object.entries(data).map(([name, value]) => ({
-          name,
-          ...value,
-        }));
-        setExams(examArray);
-      })
-      .catch(() => setExams([]));
-
-    fetch(`${API}/colleges/scholarships`)
-      .then((res) => res.json())
-      .then((data) => setAid(data))
-      .catch(() => setAid({ central_schemes: [], state_schemes: {} }));
-  }, []);
 
   // send message
   const sendMessage = async (override) => {
@@ -389,7 +402,21 @@ export default function CareerChatbot() {
       {/* ===== MAIN CHAT ===== */}
       <div className="chat-main">
         {/* ===== HERO MODE (NO CHAT YET) ===== */}
-        {messages.length === 0 ? (
+        {rsChatLoading ? (
+          <div className="chat-hero-section">
+            <div className="rs-chat-skeleton-logo"></div>
+            <div className="rs-chat-skeleton-title"></div>
+            <div className="rs-chat-skeleton-desc"></div>
+
+            <div className="rs-chat-skeleton-suggestions">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+
+            <div className="rs-chat-skeleton-input"></div>
+          </div>
+        ) : messages.length === 0 ? (
           <div className="chat-hero-section">
             <div className="chat-hero-logo">
               <GraduationCap size={40} />
@@ -560,128 +587,138 @@ export default function CareerChatbot() {
 
         {/* ===== CONTENT ===== */}
         <div className="chat-right-content">
-          {activeTab === "stats" && (
+          {rsChatLoading ? (
             <>
-              <div className="chat-stat-card">
-                <h4>SUCCESS</h4>
-                <h2>{stats.highest}</h2>
-                <p>Highest Package</p>
-              </div>
-
-              <div className="chat-stat-card">
-                <h4>EFFICIENCY</h4>
-                <h2>{stats.lowestFees}</h2>
-                <p>Lowest Fees</p>
-              </div>
-
-              <div className="chat-stat-card">
-                <h4>QUALITY SCORE</h4>
-                <h2>{stats.avgPlacement}</h2>
-                <p>Best Avg Placement</p>
-              </div>
+              <div className="rs-chat-skeleton-card"></div>
+              <div className="rs-chat-skeleton-card"></div>
+              <div className="rs-chat-skeleton-card"></div>
             </>
-          )}
-
-          {activeTab === "exams" && (
-            <div className="chat-exam-list">
-              {exams.map((e, i) => (
-                <div key={i} className="chat-exam-card">
-                  <h3 className="chat-exam-title">{e.name}</h3>
-
-                  <div className="chat-exam-row">
-                    <Building2 size={20} />
-                    <div>
-                      <p className="chat-exam-label">Conducting Body</p>
-                      <p>{e.conducting_body}</p>
-                    </div>
+          ) : (
+            <>
+              {activeTab === "stats" && (
+                <>
+                  <div className="chat-stat-card">
+                    <h4>SUCCESS</h4>
+                    <h2>{stats.highest}</h2>
+                    <p>Highest Package</p>
                   </div>
 
-                  <div className="chat-exam-row">
-                    <Calendar size={18} />
-                    <div>
-                      <p className="chat-exam-label">Frequency</p>
-                      <p>{e.frequency}</p>
-                    </div>
+                  <div className="chat-stat-card">
+                    <h4>EFFICIENCY</h4>
+                    <h2>{stats.lowestFees}</h2>
+                    <p>Lowest Fees</p>
                   </div>
 
-                  <div className="chat-exam-row">
-                    <Monitor size={18} />
-                    <div>
-                      <p className="chat-exam-label">Mode</p>
-                      <p>{e.mode}</p>
+                  <div className="chat-stat-card">
+                    <h4>QUALITY SCORE</h4>
+                    <h2>{stats.avgPlacement}</h2>
+                    <p>Best Avg Placement</p>
+                  </div>
+                </>
+              )}
+
+              {activeTab === "exams" && (
+                <div className="chat-exam-list">
+                  {exams.map((e, i) => (
+                    <div key={i} className="chat-exam-card">
+                      <h3 className="chat-exam-title">{e.name}</h3>
+
+                      <div className="chat-exam-row">
+                        <Building2 size={20} />
+                        <div>
+                          <p className="chat-exam-label">Conducting Body</p>
+                          <p>{e.conducting_body}</p>
+                        </div>
+                      </div>
+
+                      <div className="chat-exam-row">
+                        <Calendar size={18} />
+                        <div>
+                          <p className="chat-exam-label">Frequency</p>
+                          <p>{e.frequency}</p>
+                        </div>
+                      </div>
+
+                      <div className="chat-exam-row">
+                        <Monitor size={18} />
+                        <div>
+                          <p className="chat-exam-label">Mode</p>
+                          <p>{e.mode}</p>
+                        </div>
+                      </div>
+
+                      <div className="chat-exam-row">
+                        <GraduationCap size={20} />
+                        <div>
+                          <p className="chat-exam-label">Eligibility</p>
+                          <p>{e.eligibility}</p>
+                        </div>
+                      </div>
                     </div>
+                  ))}
+                </div>
+              )}
+
+              {activeTab === "aid" && (
+                <div className="chat-aid-container">
+                  {/* CENTRAL */}
+                  <h3 className="chat-aid-heading">Central Schemes</h3>
+
+                  <div className="chat-aid-list">
+                    {aid.central_schemes.map((s) => (
+                      <div key={s.name} className="chat-aid-card premium">
+                        <div className="chat-aid-title">
+                          <h4>{s.name}</h4>
+                          <IndianRupee size={18} className="chat-icon" />
+                        </div>
+
+                        <div className="chat-aid-row">
+                          <TrendingUp size={18} className="chat-row-icon" />
+                          <div>
+                            <p className="chat-aid-label">BENEFIT</p>
+                            <p>{s.amount}</p>
+                          </div>
+                        </div>
+
+                        <div className="chat-aid-row">
+                          <User size={18} className="chat-row-icon" />
+                          <div>
+                            <p className="chat-aid-label">ELIGIBILITY</p>
+                            <p>{s.eligibility}</p>
+                          </div>
+                        </div>
+
+                        <div className="chat-aid-row">
+                          <Link size={18} className="chat-row-icon" />
+                          <div>
+                            <p className="chat-aid-label">APPLY VIA</p>
+                            <p>scholarships.gov.in</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
 
-                  <div className="chat-exam-row">
-                    <GraduationCap size={20} />
-                    <div>
-                      <p className="chat-exam-label">Eligibility</p>
-                      <p>{e.eligibility}</p>
-                    </div>
+                  {/* STATE */}
+                  <h3 className="chat-aid-heading">State Schemes</h3>
+
+                  <div className="chat-aid-list state-aid">
+                    {Object.entries(aid.state_schemes || {}).map(
+                      ([state, desc]) => (
+                        <div key={state} className="chat-state-card">
+                          <div className="chat-state-title">
+                            <Landmark size={20} className="chat-state-icon" />
+                            <h4>{state}</h4>
+                          </div>
+
+                          <p className="chat-state-desc">{desc}</p>
+                        </div>
+                      ),
+                    )}
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-
-          {activeTab === "aid" && (
-            <div className="chat-aid-container">
-              {/* CENTRAL */}
-              <h3 className="chat-aid-heading">Central Schemes</h3>
-
-              <div className="chat-aid-list">
-                {aid.central_schemes.map((s) => (
-                  <div key={s.name} className="chat-aid-card premium">
-                    <div className="chat-aid-title">
-                      <h4>{s.name}</h4>
-                      <IndianRupee size={18} className="chat-icon" />
-                    </div>
-
-                    <div className="chat-aid-row">
-                      <TrendingUp size={18} className="chat-row-icon" />
-                      <div>
-                        <p className="chat-aid-label">BENEFIT</p>
-                        <p>{s.amount}</p>
-                      </div>
-                    </div>
-
-                    <div className="chat-aid-row">
-                      <User size={18} className="chat-row-icon" />
-                      <div>
-                        <p className="chat-aid-label">ELIGIBILITY</p>
-                        <p>{s.eligibility}</p>
-                      </div>
-                    </div>
-
-                    <div className="chat-aid-row">
-                      <Link size={18} className="chat-row-icon" />
-                      <div>
-                        <p className="chat-aid-label">APPLY VIA</p>
-                        <p>scholarships.gov.in</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* STATE */}
-              <h3 className="chat-aid-heading">State Schemes</h3>
-
-              <div className="chat-aid-list state-aid">
-                {Object.entries(aid.state_schemes || {}).map(
-                  ([state, desc]) => (
-                    <div key={state} className="chat-state-card">
-                      <div className="chat-state-title">
-                        <Landmark size={20} className="chat-state-icon" />
-                        <h4>{state}</h4>
-                      </div>
-
-                      <p className="chat-state-desc">{desc}</p>
-                    </div>
-                  ),
-                )}
-              </div>
-            </div>
+              )}
+            </>
           )}
         </div>
       </div>

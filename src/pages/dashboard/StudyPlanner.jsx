@@ -10,34 +10,65 @@ export default function StudyPlanner() {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [editTask, setEditTask] = useState(null);
 
+  const [spLoading, setSpLoading] = useState(true); // ✅ ADDED
+
   useEffect(() => {
     const fetchTasks = async () => {
       try {
+        setSpLoading(true); // ✅
+
         const res = await axios.get(
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-          },
+          }
         );
 
         setTasks(res.data);
       } catch (err) {
         console.log(err);
+      } finally {
+        setSpLoading(false); // ✅
       }
     };
 
     fetchTasks();
   }, []);
 
-  // ✅ ADD TASK
+  // ✅ LOADING UI
+  if (spLoading) {
+    return (
+      <div className="sp-container">
+        <div className="sp-header">
+          <div>
+            <div className="sp-skeleton sp-skel-title"></div>
+            <div className="sp-skeleton sp-skel-sub"></div>
+          </div>
+
+          <div className="sp-skeleton sp-skel-btn"></div>
+        </div>
+
+        <div className="sp-progress-card">
+          <div className="sp-skeleton sp-skel-big"></div>
+        </div>
+
+        <div className="sp-grid">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="sp-skeleton sp-skel-card"></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ✅ ADD / UPDATE TASK
   const handleAddTask = async (task) => {
     const token = localStorage.getItem("token");
 
     try {
       if (editTask) {
-        // ✅ UPDATE TASK
         await axios.put(
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks/${editTask._id}`,
           {
@@ -47,10 +78,9 @@ export default function StudyPlanner() {
           },
           {
             headers: { Authorization: `Bearer ${token}` },
-          },
+          }
         );
       } else {
-        // ✅ CREATE TASK (YOU MISSED THIS 🔥)
         await axios.post(
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks`,
           {
@@ -60,16 +90,15 @@ export default function StudyPlanner() {
           },
           {
             headers: { Authorization: `Bearer ${token}` },
-          },
+          }
         );
       }
 
-      // 🔥 REFRESH TASKS
       const res = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/api/tasks`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        },
+        }
       );
 
       setTasks(res.data);
@@ -80,7 +109,7 @@ export default function StudyPlanner() {
     }
   };
 
-  // ✅ DELETE TASK (we'll enhance with confirmation next)
+  // ✅ DELETE
   const handleDeleteTask = async (id) => {
     const token = localStorage.getItem("token");
 
@@ -89,7 +118,7 @@ export default function StudyPlanner() {
         `${import.meta.env.VITE_API_BASE_URL}/api/tasks/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        },
+        }
       );
 
       setTasks((prev) => prev.filter((t) => t._id !== id));
@@ -99,6 +128,7 @@ export default function StudyPlanner() {
     }
   };
 
+  // ✅ TOGGLE
   const handleToggleComplete = async (id, currentStatus) => {
     const token = localStorage.getItem("token");
 
@@ -110,7 +140,7 @@ export default function StudyPlanner() {
         },
         {
           headers: { Authorization: `Bearer ${token}` },
-        },
+        }
       );
 
       setTasks((prev) =>
@@ -120,9 +150,10 @@ export default function StudyPlanner() {
                 ...t,
                 status: t.status === "pending" ? "completed" : "pending",
               }
-            : t,
-        ),
+            : t
+        )
       );
+
       window.dispatchEvent(new Event("tasksUpdated"));
     } catch (err) {
       console.log(err);
@@ -135,10 +166,9 @@ export default function StudyPlanner() {
     return new Date(a.dueDate) - new Date(b.dueDate);
   });
 
-  // ✅ PROGRESS
   const totalTasks = sortedTasks.length;
   const completedTasks = sortedTasks.filter(
-    (t) => t.status === "completed",
+    (t) => t.status === "completed"
   ).length;
 
   const progress =
@@ -200,7 +230,6 @@ export default function StudyPlanner() {
 
       {/* GRID */}
       <div className="sp-grid">
-        {/* PENDING */}
         <div className="sp-section">
           <h3>Pending Tasks</h3>
 
@@ -211,14 +240,7 @@ export default function StudyPlanner() {
           {sortedTasks
             .filter((t) => t.status === "pending")
             .map((task) => (
-              <div
-                className={`sp-card ${
-                  task.dueDate && new Date(task.dueDate) < new Date()
-                    ? "overdue"
-                    : ""
-                }`}
-                key={task._id}
-              >
+              <div className="sp-card" key={task._id}>
                 <div className="sp-card-left">
                   <span
                     onClick={() => handleToggleComplete(task._id, task.status)}
@@ -246,41 +268,17 @@ export default function StudyPlanner() {
                     Edit
                   </button>
 
-                  {confirmDeleteId === task._id ? (
-                    <div className="sp-delete-confirm">
-                      <span>Confirm?</span>
-
-                      <button
-                        className="sp-yes"
-                        onClick={() => {
-                          handleDeleteTask(task._id);
-                          setConfirmDeleteId(null);
-                        }}
-                      >
-                        Yes
-                      </button>
-
-                      <button
-                        className="sp-no"
-                        onClick={() => setConfirmDeleteId(null)}
-                      >
-                        No
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      className="delete"
-                      onClick={() => setConfirmDeleteId(task._id)}
-                    >
-                      Delete
-                    </button>
-                  )}
+                  <button
+                    className="delete"
+                    onClick={() => setConfirmDeleteId(task._id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))}
         </div>
 
-        {/* COMPLETED */}
         <div className="sp-section">
           <h3>Completed</h3>
 

@@ -20,12 +20,16 @@ export default function DocumentAnalyzer() {
   const [dragActive, setDragActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [rsDaLoading, setRsDaLoading] = useState(true);
 
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+
+    // no initial API → instant load
+    setRsDaLoading(false);
   }, []);
 
   const API_URL = import.meta.env.VITE_DOCUMENT_ANALYZER_API;
@@ -117,7 +121,6 @@ export default function DocumentAnalyzer() {
 
   return (
     <>
-
       <div className="da-page">
         <div className="da-container">
           {/* TOP BAR */}
@@ -135,92 +138,105 @@ export default function DocumentAnalyzer() {
 
           {/* HERO */}
           <section className="da-hero">
-            <h1>Smart Document Analyzer</h1>
+            {rsDaLoading ? (
+              <>
+                <div className="rs-da-skeleton-title"></div>
+                <div className="rs-da-skeleton-desc"></div>
+              </>
+            ) : (
+              <>
+                <h1>Smart Document Analyzer</h1>
 
-            <p>
-              Upload your document and instantly get
-              <strong> summary insights</strong>,
-              <strong> extracted key information</strong>, and
-              <strong> eligible course suggestions</strong> with a premium
-              AI powered experience.
-            </p>
+                <p>
+                  Upload your document and instantly get
+                  <strong> summary insights</strong>,
+                  <strong> extracted key information</strong>, and
+                  <strong> eligible course suggestions</strong> with a premium
+                  AI powered experience.
+                </p>
+              </>
+            )}
           </section>
 
           {/* UPLOAD SECTION */}
-          {!result && (
+          {rsDaLoading ? (
             <section className="da-upload-card">
-              {!file ? (
-                <div
-                  className={`da-dropzone ${dragActive ? "active" : ""}`}
-                  onDragOver={(e) => {
-                    e.preventDefault();
-                    setDragActive(true);
-                  }}
-                  onDragLeave={() => setDragActive(false)}
-                  onDrop={handleDrop}
-                  onClick={() => fileInputRef.current.click()}
-                >
-                  <FaCloudUploadAlt className="da-upload-icon" />
-
-                  <h3>Drag & Drop File Here</h3>
-
-                  <p>or click to browse from your device</p>
-
-                  <span>Supports JPG, PNG, WEBP, PDF, DOCX</span>
-
-                  <input
-                    hidden
-                    ref={fileInputRef}
-                    type="file"
-                    onChange={onInputChange}
-                    accept=".pdf,.docx,.png,.jpg,.jpeg,.webp"
-                  />
-                </div>
-              ) : (
-                <div className="da-file-box">
-                  <div className="da-file-left">
-                    <FaFileAlt />
-
-                    <div>
-                      <h4>{file.name}</h4>
-                      <p>{(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                    </div>
-                  </div>
-
-                  <div className="da-file-actions">
-                    <button
-                      className="da-replace-btn"
-                      onClick={() => fileInputRef.current.click()}
-                    >
-                      Replace
-                    </button>
-
-                    <button
-                      className="da-delete-btn"
-                      onClick={clearAll}
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-
-                  <input
-                    hidden
-                    ref={fileInputRef}
-                    type="file"
-                    onChange={onInputChange}
-                    accept=".pdf,.docx,.png,.jpg,.jpeg,.webp"
-                  />
-                </div>
-              )}
-
-              <button
-                className="da-analyze-btn"
-                onClick={handleAnalyze}
-                disabled={loading}
-              >
-                {loading ? "Analyzing Document..." : "Analyze Document"}
-              </button>
+              <div className="rs-da-skeleton-box"></div>
+              <div className="rs-da-skeleton-btn"></div>
             </section>
+          ) : (
+            !result && (
+              <section className="da-upload-card">
+                {!file ? (
+                  <div
+                    className={`da-dropzone ${dragActive ? "active" : ""}`}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragActive(true);
+                    }}
+                    onDragLeave={() => setDragActive(false)}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current.click()}
+                  >
+                    <FaCloudUploadAlt className="da-upload-icon" />
+
+                    <h3>Drag & Drop File Here</h3>
+
+                    <p>or click to browse from your device</p>
+
+                    <span>Supports JPG, PNG, WEBP, PDF, DOCX</span>
+
+                    <input
+                      hidden
+                      ref={fileInputRef}
+                      type="file"
+                      onChange={onInputChange}
+                      accept=".pdf,.docx,.png,.jpg,.jpeg,.webp"
+                    />
+                  </div>
+                ) : (
+                  <div className="da-file-box">
+                    <div className="da-file-left">
+                      <FaFileAlt />
+
+                      <div>
+                        <h4>{file.name}</h4>
+                        <p>{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                      </div>
+                    </div>
+
+                    <div className="da-file-actions">
+                      <button
+                        className="da-replace-btn"
+                        onClick={() => fileInputRef.current.click()}
+                      >
+                        Replace
+                      </button>
+
+                      <button className="da-delete-btn" onClick={clearAll}>
+                        <FaTrash />
+                      </button>
+                    </div>
+
+                    <input
+                      hidden
+                      ref={fileInputRef}
+                      type="file"
+                      onChange={onInputChange}
+                      accept=".pdf,.docx,.png,.jpg,.jpeg,.webp"
+                    />
+                  </div>
+                )}
+
+                <button
+                  className="da-analyze-btn"
+                  onClick={handleAnalyze}
+                  disabled={loading}
+                >
+                  {loading ? "Analyzing Document..." : "Analyze Document"}
+                </button>
+              </section>
+            )
           )}
 
           {/* LOADING */}
@@ -249,9 +265,7 @@ export default function DocumentAnalyzer() {
               {/* DATA */}
               <div className="da-result-card">
                 <div className="da-card-top">
-                  <span className="da-mini-badge">
-                    Structured Insights
-                  </span>
+                  <span className="da-mini-badge">Structured Insights</span>
                   <h2>Extracted Data</h2>
                 </div>
 
@@ -259,32 +273,28 @@ export default function DocumentAnalyzer() {
                   <div className="da-info-box">
                     <span>📄 Document Type</span>
                     <p>
-                      {result.extracted_data?.document_type ||
-                        "Not Available"}
+                      {result.extracted_data?.document_type || "Not Available"}
                     </p>
                   </div>
 
                   <div className="da-info-box">
                     <span>👤 Student Name</span>
                     <p>
-                      {result.extracted_data?.student_name ||
-                        "Not Available"}
+                      {result.extracted_data?.student_name || "Not Available"}
                     </p>
                   </div>
 
                   <div className="da-info-box">
                     <span>📝 Analysis Note</span>
                     <p>
-                      {result.extracted_data?.analysis_note ||
-                        "Not Available"}
+                      {result.extracted_data?.analysis_note || "Not Available"}
                     </p>
                   </div>
 
                   <div className="da-info-box">
                     <span>🔍 Key Fields</span>
                     <p>
-                      {result.extracted_data?.key_fields ||
-                        "Not Available"}
+                      {result.extracted_data?.key_fields || "Not Available"}
                     </p>
                   </div>
                 </div>
@@ -293,19 +303,14 @@ export default function DocumentAnalyzer() {
               {/* COURSES */}
               <div className="da-result-card">
                 <div className="da-card-top">
-                  <span className="da-mini-badge">
-                    Recommendations
-                  </span>
+                  <span className="da-mini-badge">Recommendations</span>
                   <h2>Eligible Courses</h2>
                 </div>
 
                 <div className="da-course-list">
                   {result.eligible_courses?.length > 0 ? (
                     result.eligible_courses.map((course, index) => (
-                      <div
-                        key={index}
-                        className="da-course-chip"
-                      >
+                      <div key={index} className="da-course-chip">
                         🎓 {course}
                       </div>
                     ))
@@ -317,10 +322,7 @@ export default function DocumentAnalyzer() {
 
               {/* NEW */}
               <div className="da-new-doc-wrap">
-                <button
-                  className="da-new-doc-btn"
-                  onClick={clearAll}
-                >
+                <button className="da-new-doc-btn" onClick={clearAll}>
                   Analyze New Document
                 </button>
               </div>

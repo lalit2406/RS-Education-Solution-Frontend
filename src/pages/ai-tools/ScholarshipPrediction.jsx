@@ -25,6 +25,7 @@ export default function ScholarshipPrediction() {
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
   const [error, setError] = useState("");
+  const [rsSchLoading, setRsSchLoading] = useState(true);
 
   const [formData, setFormData] = useState({
     marks: "",
@@ -41,6 +42,8 @@ export default function ScholarshipPrediction() {
       top: 0,
       behavior: "smooth",
     });
+
+    setRsSchLoading(false);
   }, []);
 
   const states = [
@@ -204,138 +207,157 @@ export default function ScholarshipPrediction() {
       </div>
 
       <section className="schp-hero-box">
-        <span className="schp-mini-pill">Smart Eligibility Check</span>
-        <h1 className="schp-hero-title">Scholarship Prediction</h1>
-        <p className="schp-hero-sub">
-          Discover matching scholarships, estimate your success chance and
-          download a personalized report in seconds.
-        </p>
+        {rsSchLoading ? (
+          <>
+            <div className="rs-sch-skeleton-pill"></div>
+            <div className="rs-sch-skeleton-title"></div>
+            <div className="rs-sch-skeleton-desc"></div>
+          </>
+        ) : (
+          <>
+            <span className="schp-mini-pill">Smart Eligibility Check</span>
+            <h1 className="schp-hero-title">Scholarship Prediction</h1>
+            <p className="schp-hero-sub">
+              Discover matching scholarships, estimate your success chance and
+              download a personalized report in seconds.
+            </p>
+          </>
+        )}
       </section>
 
       <section className="schp-layout-grid">
         {/* LEFT */}
         <div className="schp-left-zone">
-          <div className="schp-clay-card">
-            <div className="schp-card-head">
-              <div>
-                <h3>Student Details</h3>
-                <p>Fill accurate details for best recommendations.</p>
-              </div>
-
-              <span className="schp-head-badge">Live Analysis</span>
+          {rsSchLoading ? (
+            <div className="schp-clay-card">
+              <div className="rs-sch-skeleton-form"></div>
+              <div className="rs-sch-skeleton-form"></div>
+              <div className="rs-sch-skeleton-form"></div>
+              <div className="rs-sch-skeleton-btn"></div>
             </div>
-
-            <form onSubmit={handleSubmit} className="schp-form-wrap">
-              <div className="schp-two-grid">
-                <div className="schp-field-box">
-                  <label>Marks %</label>
-                  <input
-                    type="number"
-                    name="marks"
-                    placeholder="Enter marks"
-                    value={formData.marks}
-                    onChange={handleChange}
-                  />
+          ) : (
+            <div className="schp-clay-card">
+              <div className="schp-card-head">
+                <div>
+                  <h3>Student Details</h3>
+                  <p>Fill accurate details for best recommendations.</p>
                 </div>
 
-                <div className="schp-field-box">
-                  <label>Category</label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Category</option>
-                    <option value="General">General</option>
-                    <option value="OBC">OBC</option>
-                    <option value="SC">SC</option>
-                    <option value="ST">ST</option>
-                    <option value="EWS">EWS</option>
-                  </select>
-                </div>
+                <span className="schp-head-badge">Live Analysis</span>
               </div>
 
-              <div className="schp-two-grid">
-                <div className="schp-field-box">
-                  <label>Family Income</label>
+              <form onSubmit={handleSubmit} className="schp-form-wrap">
+                <div className="schp-two-grid">
+                  <div className="schp-field-box">
+                    <label>Marks %</label>
+                    <input
+                      type="number"
+                      name="marks"
+                      placeholder="Enter marks"
+                      value={formData.marks}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="schp-field-box">
+                    <label>Category</label>
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select Category</option>
+                      <option value="General">General</option>
+                      <option value="OBC">OBC</option>
+                      <option value="SC">SC</option>
+                      <option value="ST">ST</option>
+                      <option value="EWS">EWS</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="schp-two-grid">
+                  <div className="schp-field-box">
+                    <label>Family Income</label>
+                    <input
+                      type="number"
+                      name="income"
+                      placeholder="Enter annual income"
+                      value={formData.income}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="schp-field-box">
+                    <label>State</label>
+                    <select
+                      name="state"
+                      value={formData.state}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select State</option>
+                      {states.map((item) => (
+                        <option key={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="schp-two-grid">
+                  <div className="schp-field-box">
+                    <label>Course</label>
+                    <input
+                      type="text"
+                      name="course"
+                      placeholder="Eg. B.tech"
+                      value={formData.course}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="schp-field-box">
+                    <label>Gender</label>
+                    <select
+                      name="gender"
+                      value={formData.gender}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <label className="schp-check-row">
                   <input
-                    type="number"
-                    name="income"
-                    placeholder="Enter annual income"
-                    value={formData.income}
+                    type="checkbox"
+                    name="disability"
+                    checked={formData.disability}
                     onChange={handleChange}
                   />
-                </div>
+                  Disability Applicable
+                </label>
 
-                <div className="schp-field-box">
-                  <label>State</label>
-                  <select
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select State</option>
-                    {states.map((item) => (
-                      <option key={item}>{item}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="schp-two-grid">
-                <div className="schp-field-box">
-                  <label>Course</label>
-                  <input
-                    type="text"
-                    name="course"
-                    placeholder="Eg. B.tech"
-                    value={formData.course}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="schp-field-box">
-                  <label>Gender</label>
-                  <select
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-              </div>
-
-              <label className="schp-check-row">
-                <input
-                  type="checkbox"
-                  name="disability"
-                  checked={formData.disability}
-                  onChange={handleChange}
-                />
-                Disability Applicable
-              </label>
-
-              <button
-                className="schp-submit-btn"
-                disabled={loading || !isFormValid}
-              >
-                {loading ? (
-                  <>
-                    <FaSpinner className="schp-spin" />
-                    Checking...
-                  </>
-                ) : isFormValid ? (
-                  "Check Now"
-                ) : (
-                  "Complete All Fields"
-                )}
-              </button>
-            </form>
-          </div>
+                <button
+                  className="schp-submit-btn"
+                  disabled={loading || !isFormValid}
+                >
+                  {loading ? (
+                    <>
+                      <FaSpinner className="schp-spin" />
+                      Checking...
+                    </>
+                  ) : isFormValid ? (
+                    "Check Now"
+                  ) : (
+                    "Complete All Fields"
+                  )}
+                </button>
+              </form>
+            </div>
+          )}
 
           {/* Insight Card */}
           <div className="schp-clay-card">

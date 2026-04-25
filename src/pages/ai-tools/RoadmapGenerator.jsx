@@ -11,12 +11,16 @@ export default function RoadmapGenerator() {
 
   const [roadmapData, setRoadmapData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [rsRoadmapLoading, setRsRoadmapLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+
+    // no initial API → instant load
+    setRsRoadmapLoading(false);
   }, []);
 
   const handleChange = (e) => {
@@ -65,7 +69,20 @@ export default function RoadmapGenerator() {
 
   return (
     <div className="roadmapGen-container">
-      {!roadmapData ? (
+      {rsRoadmapLoading ? (
+        <div className="roadmapGen-formWrapper">
+          <div className="roadmapGen-formCard">
+            <div className="rs-rm-skeleton-title"></div>
+            <div className="rs-rm-skeleton-desc"></div>
+
+            <div className="rs-rm-skeleton-input"></div>
+            <div className="rs-rm-skeleton-input"></div>
+            <div className="rs-rm-skeleton-input"></div>
+
+            <div className="rs-rm-skeleton-btn"></div>
+          </div>
+        </div>
+      ) : !roadmapData ? (
         /* ================= FORM ================= */
         <div className="roadmapGen-formWrapper">
           <div className="roadmapGen-formCard">

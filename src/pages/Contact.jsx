@@ -3,10 +3,14 @@ import { FaPhoneAlt, FaWhatsapp, FaEnvelope, FaStore } from "react-icons/fa";
 import ContactBG from "/src/assets/images/contact_bg.png";
 import Footer from "/src/components/layout/Footer";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Contact() {
+  /* =========================
+     FORM STATE
+  ========================= */
   const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,6 +18,19 @@ export default function Contact() {
     message: "",
   });
 
+  /* =========================
+     SKELETON LOADING
+  ========================= */
+  const [rsContactLoading, setRsContactLoading] = useState(true);
+
+  useEffect(() => {
+    // No API → load instantly
+    setRsContactLoading(false);
+  }, []);
+
+  /* =========================
+     HANDLERS
+  ========================= */
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,6 +42,8 @@ export default function Contact() {
       alert("Please fill all required fields");
       return;
     }
+
+    setLoading(true);
 
     try {
       const res = await fetch(
@@ -50,16 +69,30 @@ export default function Contact() {
       });
     } catch (err) {
       toast.error("Something went wrong ❌");
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="rs-contact-page">
+      {/* HERO */}
       <section className="rs-contact-hero">
-        <h1>Contact Us</h1>
-        <p>
-          Have questions about studying abroad, admissions, or career guidance?
-          Our expert team at RS Education is here to help you at every step.
-        </p>
+        {rsContactLoading ? (
+          <>
+            <div className="rs-contact-skeleton-title"></div>
+            <div className="rs-contact-skeleton-desc"></div>
+          </>
+        ) : (
+          <>
+            <h1>Contact Us</h1>
+            <p>
+              Have questions about studying abroad, admissions, or career
+              guidance? Our expert team at RS Education is here to help you at
+              every step.
+            </p>
+          </>
+        )}
 
         <div className="rs-contact-bg">
           <img src={ContactBG} alt="background" />
@@ -70,107 +103,168 @@ export default function Contact() {
       <section className="rs-contact-container">
         {/* LEFT SIDE */}
         <div className="rs-contact-left">
-          <div className="rs-contact-card">
-            <FaPhoneAlt className="rs-contact-icon" />
-            <h4>Phone</h4>
-            <p>+91 7011557354 (Mon–Sat, 10AM–7PM)</p>
-          </div>
+          {/* CARD 1 */}
+          {rsContactLoading ? (
+            <div className="rs-contact-card">
+              <div className="rs-contact-skeleton-icon"></div>
+              <div className="rs-contact-skeleton-card-title"></div>
+              <div className="rs-contact-skeleton-card-desc"></div>
+            </div>
+          ) : (
+            <div className="rs-contact-card">
+              <FaPhoneAlt className="rs-contact-icon" />
+              <h4>Phone</h4>
+              <p>+91 7011557354 </p>
+            </div>
+          )}
 
-          <div className="rs-contact-card">
-            <FaWhatsapp className="rs-contact-icon" />
-            <h4>Whatsapp</h4>
-            <p>7011557354 </p>
-          </div>
+          {/* CARD 2 */}
+          {rsContactLoading ? (
+            <div className="rs-contact-card">
+              <div className="rs-contact-skeleton-icon"></div>
+              <div className="rs-contact-skeleton-card-title"></div>
+              <div className="rs-contact-skeleton-card-desc"></div>
+            </div>
+          ) : (
+            <div className="rs-contact-card">
+              <FaWhatsapp className="rs-contact-icon" />
+              <h4>Whatsapp</h4>
+              <p>7011557354</p>
+            </div>
+          )}
 
-          <div className="rs-contact-card">
-            <FaEnvelope className="rs-contact-icon" />
-            <h4>Email</h4>
-            <p>support@rseducationsolution.in</p>
-          </div>
+          {/* CARD 3 */}
+          {rsContactLoading ? (
+            <div className="rs-contact-card">
+              <div className="rs-contact-skeleton-icon"></div>
+              <div className="rs-contact-skeleton-card-title"></div>
+              <div className="rs-contact-skeleton-card-desc"></div>
+            </div>
+          ) : (
+            <div className="rs-contact-card">
+              <FaEnvelope className="rs-contact-icon" />
+              <h4>Email</h4>
+              <p>support@rseducationsolution.in</p>
+            </div>
+          )}
 
-          <div className="rs-contact-card">
-            <FaStore className="rs-contact-icon" />
-            <h4>Our Office</h4>
-            <p>Parvatiya Colony, Faridabad, Haryana, India</p>
-          </div>
+          {/* CARD 4 */}
+          {rsContactLoading ? (
+            <div className="rs-contact-card">
+              <div className="rs-contact-skeleton-icon"></div>
+              <div className="rs-contact-skeleton-card-title"></div>
+              <div className="rs-contact-skeleton-card-desc"></div>
+            </div>
+          ) : (
+            <div className="rs-contact-card">
+              <FaStore className="rs-contact-icon" />
+              <h4>Our Office</h4>
+              <p>Parvatiya Colony, Faridabad, Haryana, India</p>
+            </div>
+          )}
 
           {/* MAP */}
           <div className="rs-contact-map">
-            <iframe
-              title="map"
-              src="https://maps.google.com/maps?q=Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              style={{
-                border: 0,
-                borderRadius: "16px",
-                width: "100%",
-                height: "300px",
-              }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+            {rsContactLoading ? (
+              <div className="rs-contact-skeleton-map"></div>
+            ) : (
+              <iframe
+                title="map"
+                src="https://maps.google.com/maps?q=Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                style={{
+                  border: 0,
+                  borderRadius: "16px",
+                  width: "100%",
+                  height: "300px",
+                }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            )}
           </div>
         </div>
 
         {/* RIGHT SIDE */}
         <div className="rs-contact-right">
-          <h2>Get In Touch</h2>
-          <p>
-            Fill out the form below and our team will get back to you within 24
-            hours. Whether you need help choosing a program, preparing for
-            exams, or applying to universities — we’re here for you.
-          </p>
+          {rsContactLoading ? (
+            <>
+              <div className="rs-contact-skeleton-form-title"></div>
+              <div className="rs-contact-skeleton-form-desc"></div>
 
-          <form className="rs-contact-form" onSubmit={handleSubmit}>
-            <div className="rs-contact-input-group">
-              <label>Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </div>
+              <div className="rs-contact-skeleton-input"></div>
+              <div className="rs-contact-skeleton-input"></div>
+              <div className="rs-contact-skeleton-input"></div>
+              <div className="rs-contact-skeleton-textarea"></div>
 
-            <div className="rs-contact-input-group">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="example@email.com"
-              />
-            </div>
+              <div className="rs-contact-skeleton-btn"></div>
+            </>
+          ) : (
+            <>
+              <h2>Get In Touch</h2>
+              <p>
+                Fill out the form below and our team will get back to you within
+                24 hours. Whether you need help choosing a program, preparing
+                for exams, or applying to universities — we’re here for you.
+              </p>
 
-            <div className="rs-contact-input-group">
-              <label>Subject</label>
-              <input
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                placeholder="Title"
-              />
-            </div>
+              <form className="rs-contact-form" onSubmit={handleSubmit}>
+                <div className="rs-contact-input-group">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
 
-            <div className="rs-contact-input-group">
-              <label>Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Type here..."
-                rows="5"
-              ></textarea>
-            </div>
+                <div className="rs-contact-input-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="example@email.com"
+                  />
+                </div>
 
-            <button type="submit" className="rs-contact-btn" disabled={loading}>
-              {loading ? "Sending..." : "Send Now"}
-            </button>
-          </form>
+                <div className="rs-contact-input-group">
+                  <label>Subject</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="Title"
+                  />
+                </div>
+
+                <div className="rs-contact-input-group">
+                  <label>Message</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Type here..."
+                    rows="5"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="rs-contact-btn"
+                  disabled={loading}
+                >
+                  {loading ? "Sending..." : "Send Now"}
+                </button>
+              </form>
+            </>
+          )}
         </div>
       </section>
+
       <Footer />
     </div>
   );

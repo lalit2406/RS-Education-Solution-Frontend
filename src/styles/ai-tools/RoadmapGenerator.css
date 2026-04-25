@@ -359,3 +359,63 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================
+   ROADMAP SKELETON
+========================= */
+
+@keyframes rsShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes rsPulse {
+  0% { opacity: 0.92; }
+  50% { opacity: 1; }
+  100% { opacity: 0.92; }
+}
+
+.rs-rm-skeleton-title,
+.rs-rm-skeleton-desc,
+.rs-rm-skeleton-input,
+.rs-rm-skeleton-btn {
+  background: linear-gradient(
+    90deg,
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
+  );
+
+  background-size: 400px 100%;
+
+  animation:
+    rsShimmer 1.4s infinite linear,
+    rsPulse 1.8s infinite ease-in-out;
+
+  border-radius: 12px;
+}
+
+/* TITLE */
+.rs-rm-skeleton-title {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.rs-rm-skeleton-desc {
+  width: 60%;
+  height: 14px;
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+.rs-rm-skeleton-input {
+  height: 45px;
+  margin-bottom: 15px;
+}
+
+/* BUTTON */
+.rs-rm-skeleton-btn {
+  height: 50px;
+  border-radius: 25px;
+}

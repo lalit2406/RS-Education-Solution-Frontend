@@ -429,3 +429,126 @@
     gap: 36px;
   }
 }
+
+/* =========================================================
+   SKELETON LOADING (PROGRAM PAGE)
+========================================================= */
+
+@keyframes rsShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.rs-program-skeleton-card,
+.rs-program-skeleton-img,
+.rs-program-skeleton-tag,
+.rs-program-skeleton-title,
+.rs-program-skeleton-desc,
+.rs-program-skeleton-btn,
+.rs-program-skeleton-badge,
+.rs-program-skeleton-title-lg,
+.rs-program-skeleton-desc-lg,
+.rs-program-skeleton-btn-group,
+.rs-program-skeleton-hero-img {
+  background: linear-gradient(
+    90deg,
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
+  );
+  background-size: 400px 100%;
+  animation: rsShimmer 1.4s infinite linear;
+  border-radius: 10px;
+}
+
+/* CARD */
+.rs-program-skeleton-img {
+  width: 100%;
+  height: 185px;
+}
+
+.rs-program-skeleton-tag {
+  width: 80px;
+  height: 18px;
+  margin-bottom: 12px;
+}
+
+.rs-program-skeleton-title {
+  width: 90%;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.rs-program-skeleton-desc {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 14px;
+}
+
+.rs-program-skeleton-btn {
+  width: 120px;
+  height: 36px;
+  margin-top: auto;
+}
+
+/* HERO */
+.rs-program-skeleton-badge {
+  width: 140px;
+  height: 28px;
+  margin-bottom: 20px;
+}
+
+.rs-program-skeleton-title-lg {
+  width: 80%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.rs-program-skeleton-desc-lg {
+  width: 90%;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.rs-program-skeleton-btn-group {
+  width: 260px;
+  height: 45px;
+}
+
+.rs-program-skeleton-hero-img {
+  width: 400px;
+  height: 400px;
+  border-radius: 30px;
+}
+
+/* =========================================================
+   PHILOSOPHY SKELETON
+========================================================= */
+
+.rs-program-skeleton-philo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+}
+
+.rs-program-skeleton-philo-title {
+  width: 70%;
+  height: 45px;
+  margin-bottom: 18px;
+}
+
+.rs-program-skeleton-philo-desc {
+  width: 90%;
+  height: 70px;
+  margin-bottom: 30px;
+}
+
+.rs-program-skeleton-stats {
+  display: flex;
+  gap: 70px;
+}
+
+.rs-program-skeleton-stat-box {
+  width: 120px;
+  height: 60px;
+}

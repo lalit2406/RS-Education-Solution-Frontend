@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import programsData from "../data/programsData";
@@ -8,11 +8,25 @@ import "../../src/styles/pages/programs.css";
 
 export default function Program() {
   /* =====================================
+     LOADING STATE
+  ===================================== */
+  const [rsProgramLoading, setRsProgramLoading] = useState(true);
+
+  /* =====================================
      MODAL STATE
   ===================================== */
   const [rsProgramModalOpen, setRsProgramModalOpen] = useState(false);
   // const [images, setImages] = useState({});
   const [rsProgramSelectedCourse, setRsProgramSelectedCourse] = useState("");
+  
+  /* =====================================
+   STATIC DATA LOADING (NO DELAY)
+===================================== */
+  useEffect(() => {
+  requestAnimationFrame(() => {
+    setRsProgramLoading(false);
+  });
+}, []);
 
   /* =====================================
      REFS
@@ -116,36 +130,51 @@ export default function Program() {
 
         {/* CARDS */}
         <div className="rs-program-scroll-container" ref={ref}>
-          {data.map((program) => (
-            <div className="rs-program-card" key={program.id}>
-              <img
-                src={program.image}
-                alt={program.title}
-              />
+          {rsProgramLoading
+            ? Array(5)
+                .fill(0)
+                .map((_, index) => (
+                  <div
+                    className="rs-program-card rs-program-skeleton-card"
+                    key={index}
+                  >
+                    <div className="rs-program-skeleton-img"></div>
 
-              <div className="rs-program-card-content">
-                <span className="rs-program-tag">{program.category}</span>
+                    <div className="rs-program-card-content">
+                      <div className="rs-program-skeleton-tag"></div>
+                      <div className="rs-program-skeleton-title"></div>
+                      <div className="rs-program-skeleton-desc"></div>
+                      <div className="rs-program-skeleton-btn"></div>
+                    </div>
+                  </div>
+                ))
+            : data.map((program) => (
+                <div className="rs-program-card" key={program.id}>
+                  <img src={program.image} alt={program.title} />
 
-                <h3 className="rs-program-card-title">{program.title}</h3>
+                  <div className="rs-program-card-content">
+                    <span className="rs-program-tag">{program.category}</span>
 
-                <p className="rs-program-card-desc">
-                  {program.description?.split("\n").map((line, index) => (
-                    <span key={index}>
-                      {rsProgramHighlightText(line)}
-                      <br />
-                    </span>
-                  ))}
-                </p>
+                    <h3 className="rs-program-card-title">{program.title}</h3>
 
-                <button
-                  className="rs-program-card-btn"
-                  onClick={() => rsProgramOpenModal(program.title)}
-                >
-                  Get Guidance
-                </button>
-              </div>
-            </div>
-          ))}
+                    <p className="rs-program-card-desc">
+                      {program.description?.split("\n").map((line, index) => (
+                        <span key={index}>
+                          {rsProgramHighlightText(line)}
+                          <br />
+                        </span>
+                      ))}
+                    </p>
+
+                    <button
+                      className="rs-program-card-btn"
+                      onClick={() => rsProgramOpenModal(program.title)}
+                    >
+                      Get Guidance
+                    </button>
+                  </div>
+                </div>
+              ))}
         </div>
 
         {/* RIGHT */}
@@ -168,43 +197,58 @@ export default function Program() {
         {/* HERO */}
         <section className="rs-program-hero">
           <div className="rs-program-hero-left">
-            <span className="rs-program-badge">✨ Curated Excellence</span>
+            {rsProgramLoading ? (
+              <>
+                <div className="rs-program-skeleton-badge"></div>
+                <div className="rs-program-skeleton-title-lg"></div>
+                <div className="rs-program-skeleton-desc-lg"></div>
+                <div className="rs-program-skeleton-btn-group"></div>
+              </>
+            ) : (
+              <>
+                <span className="rs-program-badge">✨ Curated Excellence</span>
 
-            <h1 className="rs-program-title">
-              Shape Your <span>Future</span> Path.
-            </h1>
+                <h1 className="rs-program-title">
+                  Shape Your <span>Future</span> Path.
+                </h1>
 
-            <p className="rs-program-desc">
-              Explore top programs across Engineering, Medical, Management,
-              Design, Law, Commerce and more. Get expert counselling to choose
-              the right career path with confidence.
-            </p>
+                <p className="rs-program-desc">
+                  Explore top programs across Engineering, Medical, Management,
+                  Design, Law, Commerce and more. Get expert counselling to
+                  choose the right career path with confidence.
+                </p>
 
-            <div className="rs-program-hero-buttons">
-              <button
-                className="rs-program-btn rs-program-btn-primary"
-                onClick={() =>
-                  document
-                    .getElementById("rs-program-sections")
-                    .scrollIntoView({
-                      behavior: "smooth",
-                    })
-                }
-              >
-                Explore Programs
-              </button>
+                <div className="rs-program-hero-buttons">
+                  <button
+                    className="rs-program-btn rs-program-btn-primary"
+                    onClick={() =>
+                      document
+                        .getElementById("rs-program-sections")
+                        .scrollIntoView({ behavior: "smooth" })
+                    }
+                  >
+                    Explore Programs
+                  </button>
 
-              <button
-                className="rs-program-btn rs-program-btn-secondary"
-                onClick={() => rsProgramOpenModal("General Career Guidance")}
-              >
-                Speak to Counselor
-              </button>
-            </div>
+                  <button
+                    className="rs-program-btn rs-program-btn-secondary"
+                    onClick={() =>
+                      rsProgramOpenModal("General Career Guidance")
+                    }
+                  >
+                    Speak to Counselor
+                  </button>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="rs-program-hero-right">
-            <img src="/src/assets/images/student-success.png" alt="Student" />
+            {rsProgramLoading ? (
+              <div className="rs-program-skeleton-hero-img"></div>
+            ) : (
+              <img src="/src/assets/images/student-success.png" alt="Student" />
+            )}
           </div>
         </section>
 
@@ -229,35 +273,57 @@ export default function Program() {
           )}
         </div>
 
-        {/* PHILOSOPHY */}
+        {/* PHILOSOPHY (optional skeleton later) */}
         <section className="rs-program-philosophy">
-          <div className="rs-program-philo-image">
-            <img src="/src/assets/images/office.png" alt="Office" />
-          </div>
-
-          <div className="rs-program-philo-content">
-            <h2>
-              Our Philosophy of <span>Precision.</span>
-            </h2>
-
-            <p>
-              We guide students toward the right career path through structured
-              counselling, practical advice, and deep understanding of their
-              goals.
-            </p>
-
-            <div className="rs-program-stats">
-              <div>
-                <h3>500+</h3>
-                <span>Partner Colleges</span>
+          {rsProgramLoading ? (
+            <>
+              {/* IMAGE SKELETON */}
+              <div className="rs-program-philo-image">
+                <div className="rs-program-skeleton-philo-img"></div>
               </div>
 
-              <div>
-                <h3>12k+</h3>
-                <span>Students Guided</span>
+              {/* CONTENT SKELETON */}
+              <div className="rs-program-philo-content">
+                <div className="rs-program-skeleton-philo-title"></div>
+                <div className="rs-program-skeleton-philo-desc"></div>
+
+                <div className="rs-program-skeleton-stats">
+                  <div className="rs-program-skeleton-stat-box"></div>
+                  <div className="rs-program-skeleton-stat-box"></div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              <div className="rs-program-philo-image">
+                <img src="/src/assets/images/office.png" alt="Office" />
+              </div>
+
+              <div className="rs-program-philo-content">
+                <h2>
+                  Our Philosophy of <span>Precision.</span>
+                </h2>
+
+                <p>
+                  We guide students toward the right career path through
+                  structured counselling, practical advice, and deep
+                  understanding of their goals.
+                </p>
+
+                <div className="rs-program-stats">
+                  <div>
+                    <h3>500+</h3>
+                    <span>Partner Colleges</span>
+                  </div>
+
+                  <div>
+                    <h3>12k+</h3>
+                    <span>Students Guided</span>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </section>
       </div>
 

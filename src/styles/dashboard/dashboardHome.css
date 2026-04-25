@@ -434,3 +434,118 @@
   }
   
 }
+
+/* =========================
+   DASHBOARD SKELETON (MATCH PROGRAM)
+========================= */
+
+@keyframes rsShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes rsPulse {
+  0% { opacity: 0.92; }
+  50% { opacity: 1; }
+  100% { opacity: 0.92; }
+}
+
+/* BASE */
+.rs-dashboard-skeleton-title,
+.rs-dashboard-skeleton-subtitle,
+.rs-dashboard-skeleton-text-sm,
+.rs-dashboard-skeleton-text-md,
+.rs-dashboard-skeleton-text-lg,
+.rs-dashboard-skeleton-text-xs,
+.rs-dashboard-skeleton-icon,
+.rs-dashboard-skeleton-circle,
+.rs-dashboard-skeleton-img,
+.rs-dashboard-skeleton-btn,
+.rs-dashboard-skeleton-ai {
+  background: linear-gradient(
+    90deg,
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
+  );
+
+  background-size: 400px 100%;
+
+  animation:
+    rsShimmer 1.4s infinite linear,
+    rsPulse 1.8s infinite ease-in-out;
+
+  border-radius: 10px;
+}
+
+/* HEADER */
+.rs-dashboard-skeleton-title {
+  width: 220px;
+  height: 26px;
+  margin-bottom: 6px;
+}
+
+.rs-dashboard-skeleton-subtitle {
+  width: 300px;
+  height: 14px;
+}
+
+/* TEXT VARIANTS */
+.rs-dashboard-skeleton-text-sm {
+  width: 100px;
+  height: 12px;
+  margin-bottom: 6px;
+}
+
+.rs-dashboard-skeleton-text-md {
+  width: 150px;
+  height: 16px;
+  margin-bottom: 10px;
+}
+
+.rs-dashboard-skeleton-text-lg {
+  width: 60px;
+  height: 20px;
+}
+
+.rs-dashboard-skeleton-text-xs {
+  width: 120px;
+  height: 10px;
+}
+
+/* ICON */
+.rs-dashboard-skeleton-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
+/* TASK */
+.rs-dashboard-skeleton-task {
+  display: flex;
+  gap: 12px;
+}
+
+.rs-dashboard-skeleton-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+/* AI */
+.rs-dashboard-skeleton-ai {
+  height: 60px;
+  border-radius: 18px;
+}
+
+/* RECOMMEND */
+.rs-dashboard-skeleton-img {
+  height: 120px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.rs-dashboard-skeleton-btn {
+  height: 36px;
+  border-radius: 25px;
+}

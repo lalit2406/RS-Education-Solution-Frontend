@@ -611,3 +611,61 @@
     gap: 10px;
   }
 }
+
+/* =========================
+   RESUME BUILDER SKELETON
+========================= */
+
+@keyframes rsShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes rsPulse {
+  0% { opacity: 0.92; }
+  50% { opacity: 1; }
+  100% { opacity: 0.92; }
+}
+
+.rs-rb-skeleton-title,
+.rs-rb-skeleton-desc,
+.rs-rb-skeleton-form,
+.rs-rb-skeleton-btn {
+  background: linear-gradient(
+    90deg,
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
+  );
+
+  background-size: 400px 100%;
+
+  animation:
+    rsShimmer 1.4s infinite linear,
+    rsPulse 1.8s infinite ease-in-out;
+
+  border-radius: 14px;
+}
+
+/* HERO */
+.rs-rb-skeleton-title {
+  width: 300px;
+  height: 36px;
+  margin-bottom: 10px;
+}
+
+.rs-rb-skeleton-desc {
+  width: 80%;
+  height: 16px;
+}
+
+/* FORM */
+.rs-rb-skeleton-form {
+  height: 120px;
+  margin-bottom: 16px;
+}
+
+.rs-rb-skeleton-btn {
+  height: 50px;
+  border-radius: 25px;
+}

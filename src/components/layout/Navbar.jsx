@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../../styles/layout/navbar.css";
 
-import RSEducationLogo from "/src/assets/images/RS_Education_Solution_logo.png";
+import Logo from "../../components/common/Logo";
 
 // ✅ CONTEXT
 import { useUser } from "../../context/UserContext";
@@ -31,7 +31,7 @@ export default function Navbar() {
         {/* LEFT */}
         <div className="nav-left">
           <NavLink to="/" onClick={closeMenu}>
-            <img src={RSEducationLogo} className="rs-main-logo" />
+            <Logo className="rs-main-logo" width="55px" />
           </NavLink>
         </div>
 

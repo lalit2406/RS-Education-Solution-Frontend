@@ -280,12 +280,16 @@
   border-radius: 24px;
   background: linear-gradient(
     90deg,
-    #e8dfd4 25%,
-    #f9f4ef 50%,
-    #e8dfd4 75%
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
   );
-  background-size: 300% 100%;
-  animation: daLoad 1.2s linear infinite;
+
+  background-size: 400px 100%;
+
+  animation:
+    rsShimmer 1.4s infinite linear,
+    rsPulse 1.8s infinite ease-in-out;
 }
 
 .da-sk-big {
@@ -504,4 +508,63 @@
     font-size: 1rem;
     padding: 15px;
   }
+}
+
+/* =========================
+   DOCUMENT ANALYZER SKELETON
+========================= */
+
+@keyframes rsShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes rsPulse {
+  0% { opacity: 0.92; }
+  50% { opacity: 1; }
+  100% { opacity: 0.92; }
+}
+
+.rs-da-skeleton-title,
+.rs-da-skeleton-desc,
+.rs-da-skeleton-box,
+.rs-da-skeleton-btn {
+  background: linear-gradient(
+    90deg,
+    #e0d6c8 25%,
+    #f3ede7 50%,
+    #e0d6c8 75%
+  );
+
+  background-size: 400px 100%;
+
+  animation:
+    rsShimmer 1.4s infinite linear,
+    rsPulse 1.8s infinite ease-in-out;
+
+  border-radius: 16px;
+}
+
+/* HERO */
+.rs-da-skeleton-title {
+  width: 300px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.rs-da-skeleton-desc {
+  width: 80%;
+  height: 18px;
+}
+
+/* UPLOAD */
+.rs-da-skeleton-box {
+  height: 160px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+
+.rs-da-skeleton-btn {
+  height: 50px;
+  border-radius: 20px;
 }
