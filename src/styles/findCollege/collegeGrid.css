@@ -1,0 +1,186 @@
+/* src/styles/findcollege/collegeGrid.css */
+/* Final Grid + 4 Columns + Pagination */
+
+.fcg-wrap {
+  width: 100%;
+  padding: 30px 60px;
+   scroll-margin-top: 110px;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.fcg-topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.fcg-title {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #2f241b;
+}
+
+.fcg-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #7a6858;
+  max-width: 520px;
+  text-align: right;
+  line-height: 1.5;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.fcg-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+/* =========================
+   PAGINATION
+========================= */
+
+.fcg-pagination {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.fcg-page-btn {
+  min-width: 96px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  background: #f3ede7;
+  color: #8a6847;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    7px 7px 14px rgba(193, 181, 168, 0.38),
+    -7px -7px 14px rgba(255, 255, 255, 0.95);
+  transition: 0.22s ease;
+}
+
+.fcg-page-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.fcg-page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.fcg-page-count {
+  min-width: 74px;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  color: #2f241b;
+  font-size: 1rem;
+  font-weight: 800;
+  border: 1px solid #e3d8ca;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1450px) {
+  .fcg-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .fcg-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fcg-title {
+    font-size: 1.7rem;
+  }
+
+  .fcg-subtitle {
+    text-align: left;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .fcg-wrap {
+     padding: 15px 30px;
+  }
+
+  .fcg-grid {
+    gap: 14px;
+  }
+
+  .fcg-title {
+    font-size: 1.45rem;
+  }
+
+  .fcg-pagination {
+    gap: 12px;
+  }
+
+  .fcg-page-btn {
+    min-width: 82px;
+    height: 44px;
+    font-size: 0.88rem;
+  }
+
+  .fcg-page-count {
+    height: 44px;
+    min-width: 68px;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 560px) {
+
+    .fcg-wrap {
+              padding: 15px 20px;
+    }
+
+  .fcg-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fcg-topbar {
+    align-items: flex-start;
+  }
+
+  .fcg-title {
+    font-size: 1.28rem;
+  }
+
+  .fcg-subtitle {
+    font-size: 0.84rem;
+  }
+
+  .fcg-pagination {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .fcg-page-btn {
+    flex: 1;
+  }
+}

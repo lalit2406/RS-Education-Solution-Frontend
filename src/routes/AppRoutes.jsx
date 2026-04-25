@@ -6,6 +6,7 @@ import Programs from "../pages/Programs";
 import AITools from "../pages/ai-tools/AITools";
 import Contact from "../pages/Contact";
 import Unsubscribe from "../pages/Unsubscribe";
+import FindCollege from "../pages/FindCollege";
 
 // Auth
 import Login from "../pages/auth/Login";
@@ -73,6 +74,8 @@ export default function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
 
       <Route path="/unsubscribe" element={<Unsubscribe />} />
+
+      <Route path="/find-college" element={<FindCollege />} />
 
       <Route path="/dashboard/saved-colleges" element={<SavedColleges />} />
 

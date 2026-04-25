@@ -1,0 +1,251 @@
+/* ===============================
+   RS FIND COLLEGE HERO SECTION
+================================= */
+
+.rs-fc-hero-section {
+  position: relative;
+  width: 100%;
+  height: 55vh;
+  min-height: 500px;
+  max-height: 680px;
+  margin-top: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: #1f1f1f;
+}
+
+/* ===============================
+   BACKGROUND IMAGE SLIDES
+================================= */
+
+.rs-fc-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.2s ease, transform 6s ease;
+}
+
+.rs-fc-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ===============================
+   OVERLAY
+================================= */
+
+.rs-fc-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    rgba(16, 16, 16, 0.84) 0%,
+    rgba(16, 16, 16, 0.58) 38%,
+    rgba(16, 16, 16, 0.24) 100%
+  );
+}
+
+/* ===============================
+   HERO CONTENT
+================================= */
+
+.rs-fc-content {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  max-width: 560px;
+  padding: 0 58px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.rs-fc-mini-title {
+  margin-bottom: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  color: #f4b646;
+}
+
+.rs-fc-heading {
+  margin-bottom: 16px;
+  font-size: 48px;
+  line-height: 1.08;
+  font-weight: 800;
+}
+
+.rs-fc-heading span {
+  color: #f4b646;
+}
+
+.rs-fc-description {
+  max-width: 500px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ===============================
+   FLOATING INFO CARDS
+================================= */
+
+.rs-fc-info-cards {
+  position: relative;
+    left: 50%;
+    bottom: 35px;
+    transform: translateX(-50%);
+    z-index: 6;
+    width: calc(100% - 36px);
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.rs-fc-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width:15vw;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.rs-fc-card svg {
+  min-width: 22px;
+  font-size: 22px;
+  color: #f4b646;
+}
+
+.rs-fc-card h4 {
+  margin-bottom: 2px;
+  font-size: 18px;
+  line-height: 1;
+  color: #222222;
+}
+
+.rs-fc-card p {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #666666;
+}
+
+/* ===============================
+   LARGE LAPTOP
+================================= */
+
+@media (max-width: 1250px) {
+  .rs-fc-hero-section {
+    height: auto;
+    min-height: 580px;
+  }
+
+  .rs-fc-content {
+    padding: 56px 40px 210px;
+    height: auto;
+  }
+
+  .rs-fc-heading {
+    font-size: 42px;
+  }
+
+  .rs-fc-info-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===============================
+   TABLET
+================================= */
+
+@media (max-width: 768px) {
+  .rs-fc-hero-section {
+    height: auto;
+    min-height: 760px;
+  }
+
+  .rs-fc-content {
+    max-width: 100%;
+    padding: 54px 22px 255px;
+  }
+
+  .rs-fc-heading {
+    font-size: 34px;
+  }
+
+  .rs-fc-description {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .rs-fc-btn-wrap {
+    gap: 10px;
+  }
+
+  .rs-fc-btn-primary,
+  .rs-fc-btn-secondary {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .rs-fc-info-cards {
+    width: calc(100% - 24px);
+    grid-template-columns: 1fr;
+    gap: 12px;
+    bottom: 16px;
+  }
+
+  .rs-fc-card {
+    border-radius: 14px;
+  }
+}
+
+/* ===============================
+   MOBILE
+================================= */
+
+@media (max-width: 480px) {
+  .rs-fc-hero-section {
+    min-height: 710px;
+  }
+
+  .rs-fc-content {
+    padding: 42px 18px 248px;
+  }
+
+  .rs-fc-mini-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .rs-fc-heading {
+    font-size: 28px;
+  }
+
+  .rs-fc-description {
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .rs-fc-card {
+    padding: 14px;
+  }
+
+  .rs-fc-card h4 {
+    font-size: 16px;
+  }
+
+  .rs-fc-card p {
+    font-size: 11px;
+  }
+}

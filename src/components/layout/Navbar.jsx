@@ -43,6 +43,7 @@ export default function Navbar() {
           <NavLink to="/ai-tools">AI Tools</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/find-college">Find College</NavLink>
 
           {/* 🔥 ADMIN BUTTON */}
           {user?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
@@ -52,7 +53,6 @@ export default function Navbar() {
         <div className="nav-right">
           {user ? (
             <>
-              <span className="rs-user-name">{user?.name || "User"}</span>
 
               <button className="btn-primary" onClick={handleLogout}>
                 Logout

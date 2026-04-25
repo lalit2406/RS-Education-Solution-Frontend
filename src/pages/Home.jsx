@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../styles/pages/home.css";
 import Footer from "../../src/components/layout/Footer";
 import OurPartner from "../components/layout/OurPartner";
+import SuccessStories from "../components/layout/SuccessStories";
+import TopCollegesSection from "../components/home/TopCollegesSection";
+import TopStudyPlaces from "../components/home/TopStudyPlaces";
 
 import { FaMoneyBillWave, FaHeadphones, FaStar } from "react-icons/fa6";
 
@@ -304,6 +307,9 @@ const Home = () => {
 
         {/* PARTNERS */}
         <OurPartner />
+        <TopCollegesSection />
+        <TopStudyPlaces />
+
 
         {/* ABOUT */}
         <section className="rs-home-about rs-home-container">
@@ -335,61 +341,7 @@ const Home = () => {
         </section>
 
         {/* TESTIMONIALS */}
-        <section className="rs-home-success">
-          <h2 className="rs-home-success-title">Success Stories</h2>
-
-          <div className="rs-home-carousel">
-            <div className="rs-home-carousel-track">
-              <div className="rs-home-success-card">
-                <div className="rs-home-stars">★★★★★</div>
-
-                <p className="rs-home-success-text">
-                  AI matching tool helped me find my dream university.
-                </p>
-
-                <div className="rs-home-user">
-                  <img src={heroImg1} alt="Rahul" />
-                  <div>
-                    <h4>Rahul</h4>
-                    <p>Germany</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rs-home-success-card">
-                <div className="rs-home-stars">★★★★★</div>
-
-                <p className="rs-home-success-text">
-                  Amazing counseling support for my Canada visa.
-                </p>
-
-                <div className="rs-home-user">
-                  <img src={heroImg2} alt="Priya" />
-                  <div>
-                    <h4>Priya</h4>
-                    <p>Canada</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rs-home-success-card">
-                <div className="rs-home-stars">★★★★★</div>
-
-                <p className="rs-home-success-text">
-                  SOP Analyzer helped secure UK admits.
-                </p>
-
-                <div className="rs-home-user">
-                  <img src={heroImg3} alt="Arjun" />
-                  <div>
-                    <h4>Arjun</h4>
-                    <p>UK</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <SuccessStories />
       </main>
 
       <Footer />

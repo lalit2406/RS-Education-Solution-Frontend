@@ -1,0 +1,200 @@
+/* src/styles/findcollege/CompareDrawer.css */
+
+.fcd-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  z-index: 1200;
+  padding: 0 18px;
+}
+
+.fcd-inner {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  padding: 18px;
+  border-radius: 28px;
+  background: #f3ede7;
+  border: 1px solid rgba(120, 102, 84, 0.08);
+  box-shadow:
+    14px 14px 28px rgba(193, 181, 168, 0.62),
+    -12px -12px 24px rgba(255, 255, 255, 0.92);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+}
+
+.fcd-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.fcd-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  color: #7b5f48;
+  background: #f3ede7;
+  box-shadow:
+    inset 5px 5px 10px rgba(201, 187, 173, 0.65),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.92);
+}
+
+.fcd-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #34281f;
+}
+
+.fcd-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  color: #7a6757;
+}
+
+.fcd-chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fcd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 220px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: #f3ede7;
+  box-shadow:
+    inset 4px 4px 8px rgba(201, 187, 173, 0.62),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+}
+
+.fcd-chip-text {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #5f4b3b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fcd-chip-remove {
+  width: 22px;
+  height: 22px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.68rem;
+  color: #7a5d48;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.fcd-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fcd-clear-btn,
+.fcd-compare-btn {
+  height: 48px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0 18px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  transition: 0.25s ease;
+}
+
+.fcd-clear-btn {
+  color: #614d3c;
+  background: #f3ede7;
+  border-radius: 16px;
+  box-shadow:
+    6px 6px 12px rgba(193, 181, 168, 0.55),
+    -6px -6px 12px rgba(255, 255, 255, 0.92);
+}
+
+.fcd-compare-btn {
+  color: #ffffff;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #b07a4f, #8c5a2b);
+  box-shadow: 8px 8px 18px rgba(175, 142, 108, 0.32);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fcd-clear-btn:hover,
+.fcd-compare-btn:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1100px) {
+  .fcd-inner {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .fcd-actions {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .fcd-wrap {
+    bottom: 10px;
+    padding: 15px 30px;
+  }
+
+  .fcd-inner {
+    padding: 16px;
+    border-radius: 24px;
+    gap: 14px;
+  }
+
+  .fcd-chip {
+    max-width: 100%;
+  }
+
+  .fcd-actions {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .fcd-wrap {
+           padding: 15px 20px;
+  }
+
+  .fcd-actions {
+    justify-content: flex-start;
+  }
+
+  .fcd-inner {
+    border-radius: 20px;
+    padding: 14px;
+  }
+
+  .fcd-left {
+    align-items: flex-start;
+  }
+
+  .fcd-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+}

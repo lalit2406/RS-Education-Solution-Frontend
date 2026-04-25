@@ -1,0 +1,254 @@
+/* src/styles/findcollege/collegeFilters.css */
+/* Final Enhanced Premium Filter Bar + Beautiful Dropdowns */
+
+.cfl-wrap {
+  width: 100%;
+  padding: 20px 60px;
+}
+
+.cfl-card {
+  background: #f3ede7;
+  border: 1px solid rgba(120, 102, 84, 0.08);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 10px 24px rgba(90, 70, 50, 0.05);
+}
+
+/* ========================
+   TOP
+======================== */
+
+.cfl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.cfl-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cfl-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #eadfce, #f7f1ea);
+  display: grid;
+  place-items: center;
+  color: #9c6124;
+  border: 1px solid rgba(156, 97, 36, 0.08);
+}
+
+.cfl-icon svg {
+  font-size: 15px;
+}
+
+.cfl-title {
+  margin: 0;
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #2e241b;
+}
+
+.cfl-sub {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: #776555;
+}
+
+.cfl-reset-btn {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #decfbe;
+  background: #ffffff;
+  color: #7b5838;
+  font-size: 0.86rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cfl-reset-btn:hover {
+  background: #f8f4ef;
+  transform: translateY(-1px);
+}
+
+/* ========================
+   FILTER GRID
+======================== */
+
+.cfl-grid {
+  display: grid;
+  grid-template-columns:
+    1.35fr
+    repeat(9, minmax(110px, 1fr));
+  gap: 10px;
+  align-items: center;
+}
+
+/* ========================
+   COMMON INPUTS
+======================== */
+
+.cfl-grid input,
+.cfl-grid select {
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid #ded2c2;
+  background: #ffffff;
+  color: #3f3024;
+  font-size: 0.84rem;
+  font-weight: 600;
+  outline: none;
+  padding: 0 14px;
+  transition: 0.2s ease;
+}
+
+.cfl-grid input::placeholder {
+  color: #8f7a68;
+  font-weight: 500;
+}
+
+
+.cfl-grid select:focus,
+.cfl-search-box:focus-within {
+  border-color: #b37a3d;
+  box-shadow: 0 0 0 3px rgba(179, 122, 61, 0.12);
+}
+
+/* ========================
+   BEAUTIFUL DROPDOWNS
+======================== */
+
+.cfl-grid select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  padding-right: 34px;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #9c6124 50%),
+    linear-gradient(135deg, #9c6124 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 18px,
+    calc(100% - 12px) 18px;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.cfl-grid select:hover {
+  border-color: #c8b39e;
+  background-color: #fffdfb;
+}
+
+/* ========================
+   SEARCH
+======================== */
+
+.cfl-search-box {
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid #ded2c2;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  transition: 0.2s ease;
+}
+
+.cfl-search-box svg {
+  font-size: 14px;
+  color: #9c6124;
+  flex-shrink: 0;
+}
+
+.cfl-search-box input {
+  border: none;
+  background: transparent;
+  padding: 0;
+  height: auto;
+  box-shadow: none;
+}
+
+/* ========================
+   RESPONSIVE
+======================== */
+
+@media (max-width: 1550px) {
+  .cfl-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1180px) {
+  .cfl-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cfl-title {
+    font-size: 1.08rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cfl-wrap {
+    padding: 15px 30px;
+  }
+
+  .cfl-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .cfl-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cfl-reset-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cfl-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+
+    .cfl-wrap {
+              padding: 15px 20px;
+    }
+
+  .cfl-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cfl-grid input,
+  .cfl-grid select,
+  .cfl-search-box {
+    height: 42px;
+    font-size: 0.82rem;
+  }
+
+  .cfl-title {
+    font-size: 1rem;
+  }
+
+  .cfl-sub {
+    font-size: 0.76rem;
+  }
+}
