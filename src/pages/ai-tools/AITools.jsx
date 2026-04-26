@@ -66,6 +66,7 @@ const tools = [
     desc: "Plan your schedule smartly.",
     rating: 4.7,
     action: "Plan Now",
+    route: "/tools/study-planner",
     icon: <FaBook />,
     color: "#f0dcc7",
   },
