@@ -142,11 +142,11 @@
 
 .rs-program-scroll-container {
   display: flex;
-    gap: 28px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    align-items: stretch;
-    background: #f3ede7;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  align-items: stretch;
+  background: #f3ede7;
 }
 
 .rs-program-scroll-container::-webkit-scrollbar {
@@ -368,75 +368,16 @@
 }
 
 /* =========================================================
-   RESPONSIVE
-========================================================= */
-@media (max-width: 1024px) {
-  .rs-program-page {
-    padding: 40px;
-  }
-
-  .rs-program-hero,
-  .rs-program-philosophy {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .rs-program-hero-buttons,
-  .rs-program-stats {
-    justify-content: center;
-  }
-
-  .rs-program-desc,
-  .rs-program-philo-content p {
-    margin: auto;
-  }
-
-  .rs-program-philo-image {
-    width: 320px;
-    height: 320px;
-  }
-}
-
-@media (max-width: 768px) {
-  .rs-program-title {
-    font-size: 48px;
-  }
-
-  .rs-program-arrow {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .rs-program-page {
-    padding: 28px 18px;
-  }
-
-  .rs-program-title {
-    font-size: 40px;
-  }
-
-  .rs-program-card {
-    min-width: 255px;
-    max-width: 255px;
-  }
-
-  .rs-program-philo-content h2 {
-    font-size: 38px;
-  }
-
-  .rs-program-stats {
-    gap: 36px;
-  }
-}
-
-/* =========================================================
    SKELETON LOADING (PROGRAM PAGE)
 ========================================================= */
 
 @keyframes rsShimmer {
-  0% { background-position: -400px 0; }
-  100% { background-position: 400px 0; }
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
 }
 
 .rs-program-skeleton-card,
@@ -450,12 +391,7 @@
 .rs-program-skeleton-desc-lg,
 .rs-program-skeleton-btn-group,
 .rs-program-skeleton-hero-img {
-  background: linear-gradient(
-    90deg,
-    #e0d6c8 25%,
-    #f3ede7 50%,
-    #e0d6c8 75%
-  );
+  background: linear-gradient(90deg, #e0d6c8 25%, #f3ede7 50%, #e0d6c8 75%);
   background-size: 400px 100%;
   animation: rsShimmer 1.4s infinite linear;
   border-radius: 10px;
@@ -551,4 +487,202 @@
 .rs-program-skeleton-stat-box {
   width: 120px;
   height: 60px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .rs-program-hero {
+    gap: 20px;
+  }
+
+  .rs-program-title {
+    font-size: 2.5em;
+  }
+
+  .rs-program-hero-right img {
+    max-width: 400px;
+    height: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .rs-program-page {
+    padding: 40px;
+  }
+
+  .rs-program-hero {
+    gap: 20px;
+  }
+
+  .rs-program-title {
+    font-size: 2.5em;
+  }
+
+  .rs-program-hero-right img {
+    max-width: 350px;
+    height: auto;
+  }
+
+  .rs-program-hero-buttons,
+  .rs-program-stats {
+    justify-content: start;
+    margin-top: 15px;
+  }
+
+  .rs-program-desc,
+  .rs-program-philo-content p {
+    margin: auto;
+  }
+
+  .rs-program-philo-image {
+    width: 260px;
+    height: 260px;
+  }
+
+  .rs-program-philo-content h2 {
+    font-size: 35px;
+  }
+
+  .rs-program-philo-content p {
+    font-size: 20px;
+  }
+
+  .rs-program-stats h3 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 810px) {
+  .rs-program-hero-right img {
+    max-width: 300px;
+  }
+
+  .rs-program-philosophy {
+    gap: 60px;
+  }
+
+  .rs-program-philo-image {
+    width: 250px;
+    height: 250px;
+  }
+
+  .rs-program-philo-content h2 {
+    font-size: 35px;
+  }
+
+  .rs-program-philo-content p {
+    font-size: 20px;
+  }
+
+  .rs-program-stats h3 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rs-program-hero-right img {
+    max-width: 260px;
+  }
+
+  .rs-program-title {
+    font-size: 35px;
+  }
+
+  .rs-program-desc {
+    font-size: 13px;
+    font-weight: 500;
+    max-width: 100%;
+  }
+
+  .rs-program-arrow {
+    display: none;
+  }
+
+  .rs-program-philosophy {
+    gap: 50px;
+  }
+
+  .rs-program-philo-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .rs-program-philo-content h2 {
+    font-size: 30px;
+  }
+
+  .rs-program-philo-content p {
+    font-size: 20px;
+  }
+
+  .rs-program-stats h3 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 645px) {
+  .rs-program-page {
+    padding: 28px 18px;
+  }
+
+  .rs-program-hero {
+    margin-bottom: 20px;
+  }
+
+  .rs-program-title {
+    font-size: 25px;
+  }
+
+  .rs-program-desc {
+    font-size: 11px;
+    font-weight: 500;
+    max-width: 100%;
+  }
+  .rs-program-hero-right img {
+    max-width: 200px;
+  }
+
+  .rs-program-btn-primary {
+    padding: 12px 10px;
+  }
+
+  .rs-program-btn-secondary {
+    padding: 12px 10px;
+  }
+
+  .rs-program-section-title {
+    font-size: 22px;
+  }
+
+  .rs-program-philosophy {
+    gap: 35px;
+  }
+
+  .rs-program-philo-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .rs-program-card {
+    min-width: 255px;
+    max-width: 255px;
+  }
+
+  .rs-program-philo-content h2 {
+    font-size: 25px;
+  }
+
+  .rs-program-philo-content p {
+    font-size: 14px;
+  }
+
+  .rs-program-stats h3 {
+    font-size: 20px;
+  }
+
+  .rs-program-stats {
+    gap: 36px;
+  }
 }

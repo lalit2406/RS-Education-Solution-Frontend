@@ -198,22 +198,6 @@ box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rg
   color: #8a5a3b;
 }
 
-/* RESPONSIVE */
-@media (max-width: 992px) {
-  .rs-contact-container {
-    grid-template-columns: 1fr;
-    padding: 40px 20px;
-  }
-
-  .rs-contact-left {
-    grid-template-columns: 1fr;
-  }
-
-  .rs-contact-map {
-    grid-column: span 1;
-  }
-}
-
 /* =========================
    CONTACT SKELETON (MATCH PROGRAM)
 ========================= */
@@ -326,4 +310,274 @@ box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rg
   width: 140px;
   height: 40px;
   border-radius: 25px;
+}
+
+/* ==========================================
+   RESPONSIVE MEDIA QUERIES - FINAL ENHANCED
+   Add below your current CSS file
+========================================== */
+
+/* ---------- Large Laptops / Desktops ---------- */
+@media (max-width: 1440px) {
+  .rs-contact-container {
+    padding: 55px 60px;
+    gap: 35px;
+  }
+
+  .rs-contact-hero h1 {
+    font-size: 42px;
+  }
+}
+
+/* ---------- Standard Laptops ---------- */
+@media (max-width: 1200px) {
+  .rs-contact-container {
+    grid-template-columns: 1fr 1fr;
+    padding: 50px 40px;
+    gap: 28px;
+  }
+
+  .rs-contact-right {
+    padding: 30px;
+  }
+
+  .rs-contact-hero {
+    padding: 90px 20px 130px;
+  }
+
+  .rs-contact-hero h1 {
+    font-size: 38px;
+  }
+}
+
+/* ---------- Small Laptops ---------- */
+@media (max-width: 1024px) {
+  .rs-contact-container {
+    grid-template-columns: 1fr;
+    margin-top: -120px;
+    padding: 40px 30px;
+    gap: 30px;
+  }
+
+  .rs-contact-left {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rs-contact-right {
+    width: 100%;
+    padding: 28px;
+  }
+
+  .rs-contact-hero h1 {
+    font-size: 34px;
+  }
+
+  .rs-contact-hero p {
+    font-size: 13px;
+    max-width: 560px;
+  }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 768px) {
+  .rs-contact-hero {
+    padding: 80px 18px 110px;
+  }
+
+  .rs-contact-hero h1 {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .rs-contact-hero p {
+    font-size: 13px;
+    max-width: 95%;
+  }
+
+  .rs-contact-container {
+    padding: 30px 18px;
+    margin-top: -95px;
+    gap: 24px;
+  }
+
+  .rs-contact-left {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .rs-contact-card {
+    padding: 18px;
+  }
+
+  .rs-contact-card h4 {
+    font-size: 13px;
+  }
+
+  .rs-contact-card p {
+    font-size: 12px;
+  }
+
+  .rs-contact-map iframe,
+  .rs-contact-skeleton-map {
+    height: 220px;
+  }
+
+  .rs-contact-right {
+    padding: 24px 20px;
+  }
+
+  .rs-contact-right h2 {
+    font-size: 24px;
+  }
+
+  .rs-contact-form {
+    gap: 14px;
+  }
+
+  .rs-contact-input-group input,
+  .rs-contact-input-group textarea {
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  .rs-contact-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- Large Mobiles ---------- */
+@media (max-width: 576px) {
+  .rs-contact-hero {
+    padding: 70px 15px 95px;
+  }
+
+  .rs-contact-hero h1 {
+    font-size: 26px;
+  }
+
+  .rs-contact-hero p {
+    font-size: 12px;
+  }
+
+  .rs-contact-container {
+    padding: 22px 14px;
+    margin-top: -80px;
+  }
+
+  .rs-contact-left {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .rs-contact-map {
+    grid-column: span 1;
+  }
+
+  .rs-contact-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .rs-contact-icon {
+    font-size: 17px;
+  }
+
+  .rs-contact-right {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+
+  .rs-contact-right h2 {
+    font-size: 22px;
+  }
+
+  .rs-contact-right p {
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+
+  .rs-contact-input-group label {
+    font-size: 11px;
+  }
+
+  .rs-contact-input-group input,
+  .rs-contact-input-group textarea {
+    font-size: 13px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .rs-contact-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .rs-contact-map iframe,
+  .rs-contact-skeleton-map {
+    height: 200px;
+  }
+}
+
+/* ---------- Small Mobiles ---------- */
+@media (max-width: 420px) {
+  .rs-contact-hero {
+    padding: 65px 12px 85px;
+  }
+
+  .rs-contact-hero h1 {
+    font-size: 22px;
+  }
+
+  .rs-contact-hero p {
+    font-size: 11px;
+  }
+
+  .rs-contact-container {
+    padding: 18px 10px;
+    margin-top: -70px;
+    gap: 18px;
+  }
+
+  .rs-contact-card {
+    padding: 14px;
+  }
+
+  .rs-contact-right {
+    padding: 18px 14px;
+  }
+
+  .rs-contact-right h2 {
+    font-size: 20px;
+  }
+
+  .rs-contact-map iframe,
+  .rs-contact-skeleton-map {
+    height: 180px;
+  }
+
+  .rs-contact-btn {
+    border-radius: 18px;
+  }
+}
+
+/* ---------- Extra Small Devices ---------- */
+@media (max-width: 360px) {
+  .rs-contact-hero h1 {
+    font-size: 20px;
+  }
+
+  .rs-contact-right h2 {
+    font-size: 18px;
+  }
+
+  .rs-contact-input-group input,
+  .rs-contact-input-group textarea {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .rs-contact-btn {
+    font-size: 13px;
+    padding: 11px;
+  }
 }
