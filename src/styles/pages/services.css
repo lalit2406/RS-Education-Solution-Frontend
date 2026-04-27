@@ -4,6 +4,7 @@
   padding: 60px 80px;
   font-family: "Poppins", sans-serif;
   color: #1c1c1c;
+  overflow-x: hidden;
 }
 
 .services-hero::before {
@@ -364,76 +365,6 @@
 .secondary:hover {
   transform: translateY(-2px);
 }
-
-@media (max-width: 1024px) {
-  .services-hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .services-desc {
-    margin: auto;
-  }
-
-  .services-hero-right {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .services-title {
-    font-size: 48px;
-  }
-}
-
-/* RESPONSIVE */
-@media (max-width: 1100px) {
-  .services-page {
-    padding: 50px 60px;
-  }
-
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 700px) {
-  .services-page {
-    padding: 40px 30px;
-  }
-
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .services-hero h1 {
-    font-size: 38px;
-  }
-
-  .cta-section {
-    padding: 40px 20px;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 900px) {
-  .services-hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .services-hero .subtitle {
-    margin: 0 auto;
-  }
-
-  .services-hero-image-wrapper {
-    margin-top: 30px;
-  }
-}
-
 /* =========================
    SERVICES SKELETON (MATCH PROGRAM STYLE)
 ========================= */
@@ -573,4 +504,330 @@
   max-width: 450px;
   height: 300px;
   border-radius: 25px;
+}
+/* ===================================================
+   FINAL RESPONSIVE MEDIA QUERIES
+=================================================== */
+
+/* ============ 1600px+ Large Desktop ============ */
+@media (min-width: 1600px) {
+  .services-page {
+    padding: 4.5rem 8rem;
+  }
+
+  .services-hero-content {
+    gap: 6rem;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 4.5rem;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 1.15rem;
+  }
+
+  .services-hero-right img {
+    max-width: 34rem;
+  }
+
+  .services-grid {
+    gap: 2.5rem;
+  }
+}
+
+/* ============ Desktop ============ */
+@media (max-width: 1400px) {
+  .services-page {
+    padding: 4rem 5rem;
+  }
+
+  .services-hero-content {
+    flex-direction: row;
+    gap: 4rem;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 3.9rem;
+  }
+
+  .services-hero-right img {
+    max-width: 30rem;
+  }
+}
+
+/* ============ Laptop ============ */
+@media (max-width: 1200px) {
+  .services-page {
+    padding: 3.5rem 3.5rem;
+  }
+
+  .services-hero-content {
+    flex-direction: row;
+    gap: 3rem;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 1rem;
+  }
+
+  .services-hero-right img {
+    max-width: 26rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* ============ Small Laptop ============ */
+@media (max-width: 1024px) {
+  .services-page {
+    padding: 3rem 2.5rem;
+  }
+
+  .services-hero-content {
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 2.8rem;
+    line-height: 1.15;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .services-hero-right img {
+    max-width: 22rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============ Tablet ============ */
+@media (max-width: 900px) {
+  .services-page {
+    padding: 2.8rem 2rem;
+  }
+
+  .services-hero-content {
+    flex-direction: row;
+    gap: 1.6rem;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 0.92rem;
+  }
+
+  .services-hero-right img {
+    max-width: 18rem;
+    border-radius: 1.6rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    padding: 1.6rem;
+  }
+}
+
+/* ============ Large Mobile ============ */
+@media (max-width: 768px) {
+  .services-page {
+    padding: 2.5rem 1.4rem;
+  }
+
+  .services-hero-content {
+    flex-direction: row;
+    gap: 1.2rem;
+    align-items: center;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .services-hero-right img {
+    max-width: 15rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.3rem;
+  }
+
+  .cta-buttons {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+/* ============ Mobile ============ */
+@media (max-width: 576px) {
+  .services-page {
+    padding: 2rem 1rem;
+  }
+
+  .services-hero-content {
+    flex-direction: row;
+    gap: 0.9rem;
+    align-items: center;
+  }
+
+  .services-hero-left {
+    flex: 1.1;
+  }
+
+  .services-hero-right {
+    flex: 0.9;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+
+  .services-badge {
+    font-size: 0.68rem;
+    padding: 0.35rem 0.75rem;
+  }
+
+  .services-hero-right img {
+    max-width: 11.5rem;
+    border-radius: 1.2rem;
+  }
+
+  .service-card {
+    padding: 1.2rem;
+    max-height: 37vh;
+  }
+
+  .service-card h3 {
+    font-size: 1rem;
+  }
+
+  .service-card p {
+    font-size: 0.82rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+  }
+}
+
+/* ============ Small Mobile ============ */
+@media (max-width: 420px) {
+  .services-page {
+    padding: 1.7rem 0.8rem;
+  }
+
+  .services-hero-content {
+    flex-direction: row;
+    gap: 0.7rem;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 1.35rem;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 0.74rem;
+    line-height: 1.5;
+  }
+
+  .services-hero-right img {
+    max-width: 9rem;
+    border-radius: 1rem;
+  }
+
+  .services-badge {
+    font-size: 0.62rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .service-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .service-card p {
+    font-size: 0.78rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* ============ Extra Small Mobile ============ */
+@media (max-width: 360px) {
+  .services-page {
+    padding: 1.4rem 0.7rem;
+  }
+
+  .services-title,
+  .services-hero h1 {
+    font-size: 1.2rem;
+  }
+
+  .services-desc,
+  .services-hero .subtitle {
+    font-size: 0.7rem;
+  }
+
+  .services-hero-right img {
+    max-width: 7.8rem;
+  }
 }

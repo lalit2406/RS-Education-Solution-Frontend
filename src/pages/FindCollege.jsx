@@ -14,6 +14,7 @@ import CollegeGrid from "../components/findCollege/CollegeGrid";
 import EmptyState from "../components/findCollege/EmptyState";
 import CompareDrawer from "../components/findCollege/CompareDrawer";
 import CompareResultSec from "../components/findCollege/CompareResultSec";
+import PhotoGallery from "../components/findCollege/PhotoGallery";
 
 import filterColleges from "../utils/filterColleges";
 import sortColleges from "../utils/sortColleges";
@@ -250,6 +251,7 @@ const FindCollege = () => {
           }
         />
       )}
+      <PhotoGallery />
     </main>
   );
 };

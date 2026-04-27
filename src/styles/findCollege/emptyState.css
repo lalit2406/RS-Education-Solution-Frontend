@@ -3,6 +3,7 @@
 .fce-wrap {
   width: min(900px, calc(100% - 40px));
   margin: 34px auto 70px;
+  background:#f3ede7;
 }
 
 .fce-card {
