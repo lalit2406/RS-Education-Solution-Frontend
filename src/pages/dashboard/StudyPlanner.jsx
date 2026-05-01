@@ -179,7 +179,7 @@ export default function StudyPlanner() {
       {/* HEADER */}
       <div className="sp-header">
         <div>
-          <h2>Study Planner</h2>
+          <h2>Task Manager</h2>
           <p>Manage your daily learning tasks efficiently</p>
         </div>
 

@@ -3,6 +3,8 @@
 import {
   useMemo,
   useState,
+  useRef,
+  useEffect,
 } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -19,15 +21,30 @@ import PhotoGallery from "../components/findCollege/PhotoGallery";
 import filterColleges from "../utils/filterColleges";
 import sortColleges from "../utils/sortColleges";
 
+
 const FindCollege = () => {
   const location = useLocation();
+  
+  const resultsRef = useRef(null);
 
   const params = new URLSearchParams(
     location.search
   );
 
+ const selectedStateRaw = params.get("state") || "";
+
+const selectedState = selectedStateRaw
+  .split("-")
+  .map(
+    (w) =>
+      w.charAt(0).toUpperCase() +
+      w.slice(1)
+  )
+  .join(" ");
+
   const selectedCity =
     params.get("city") || "";
+
 
   /* =========================
      FILTERS
@@ -36,7 +53,7 @@ const FindCollege = () => {
   const [filters, setFilters] =
     useState({
       city: selectedCity,
-      state: "",
+      state: selectedState,
       type: "",
       search: "",
       course: "",
@@ -71,6 +88,23 @@ const FindCollege = () => {
     currentPage,
     setCurrentPage,
   ] = useState(1);
+
+  useEffect(() => {
+  if (location.state?.fromTopPlaces) {
+    resultsRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    // prevent repeat scroll
+    window.history.replaceState({}, document.title);
+  } else {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+}, [location]);
 
   const cardsPerPage = 12;
 
@@ -221,29 +255,17 @@ const FindCollege = () => {
 
       {finalColleges.length >
       0 ? (
-        <CollegeGrid
-          colleges={
-            paginatedColleges
-          }
-          totalCount={
-            finalColleges.length
-          }
-          compareItems={
-            compareItems
-          }
-          setCompareItems={
-            setCompareItems
-          }
-          currentPage={
-            safeCurrentPage
-          }
-          totalPages={
-            totalPages
-          }
-          setCurrentPage={
-            setCurrentPage
-          }
-        />
+       <div ref={resultsRef}>
+  <CollegeGrid
+    colleges={paginatedColleges}
+    totalCount={finalColleges.length}
+    compareItems={compareItems}
+    setCompareItems={setCompareItems}
+    currentPage={safeCurrentPage}
+    totalPages={totalPages}
+    setCurrentPage={setCurrentPage}
+  />
+</div>
       ) : (
         <EmptyState
           resetFilters={

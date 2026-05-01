@@ -52,6 +52,7 @@ export default function RoadmapGenerator() {
       const data = await res.json();
       setRoadmapData(data);
     } catch (err) {
+      console.log(err);
       alert("Error generating roadmap");
     } finally {
       setLoading(false);

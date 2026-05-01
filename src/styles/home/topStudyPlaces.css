@@ -7,7 +7,7 @@
 }
 
 .tsp-container {
-  width: min(1400px, calc(100% - 40px));
+  width:100%;
   margin: 0 auto;
 }
 
@@ -68,7 +68,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 8px 4px 10px;
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
 }
 
 .tsp-slider::-webkit-scrollbar {
@@ -76,61 +76,31 @@
 }
 
 .tsp-card {
-  flex: 0 0 220px;
+  flex: 0 0 150px;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 24px 18px;
   text-align: center;
   border-radius: 28px;
-  background: #f3ede7;
-  box-shadow:
-    10px 10px 22px rgba(193, 181, 168, 0.58),
-    -10px -10px 22px rgba(255, 255, 255, 0.92);
+  background: #ffffff;
   transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .tsp-card:hover {
   transform: translateY(-6px);
-  box-shadow:
-    14px 14px 28px rgba(193, 181, 168, 0.62),
-    -12px -12px 24px rgba(255, 255, 255, 0.95);
-}
-
-.tsp-img-wrap {
-  width: 92px;
-  height: 92px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: #f3ede7;
-  box-shadow:
-    inset 6px 6px 12px rgba(201, 187, 173, 0.64),
-    inset -6px -6px 12px rgba(255, 255, 255, 0.94);
 }
 
 .tsp-img {
-  width: 58px;
-  height: 58px;
-  object-fit: contain;
+      width: 100%;
+    height: 13vh;
+    object-fit: contain;
 }
 
 .tsp-city {
   margin: 0;
-  font-size: 1.08rem;
-  font-weight: 800;
+  font-size: 0.8rem;
   color: #33271f;
-}
-
-.tsp-link {
-  margin-top: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #8f7157;
 }
 
 @media (max-width: 992px) {
@@ -186,8 +156,8 @@
   }
 
   .tsp-img {
-    width: 50px;
-    height: 50px;
+            height: 70px;
+        margin: 0 35px;
   }
 }
 
@@ -220,10 +190,5 @@
 
   .tsp-city {
     font-size: 1rem;
-  }
-
-  .tsp-link {
-    font-size: 0.84rem;
-    margin-top: 12px;
   }
 }

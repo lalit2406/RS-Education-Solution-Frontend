@@ -50,6 +50,8 @@
   align-items: center;
   gap: 10px;
   white-space: nowrap;
+      position: relative;
+    left: -220px;
 }
 
 /* SEARCH */
@@ -67,7 +69,7 @@
     inset 6px 6px 12px rgba(163, 138, 110, 0.2),
     inset -6px -6px 12px rgba(255, 255, 255, 0.9);
   width: 100%;
-  max-width: 500px;
+  max-width: 16cd0px;
 }
 
 .rs-search-box input {
@@ -82,7 +84,6 @@
 .rs-doc-actions {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
 }
 
 .rs-filter {

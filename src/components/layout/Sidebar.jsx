@@ -68,9 +68,9 @@ export default function Sidebar() {
             <span>College Recommendations</span>
           </NavLink>
 
-          <NavLink to="/dashboard/study-planner" className="rs-menu-item" onClick={() => setOpen(false)}>
+          <NavLink to="/dashboard/task-manager" className="rs-menu-item" onClick={() => setOpen(false)}>
             <Brain size={18} />
-            <span>Study Planner</span>
+            <span>Task Manager</span>
           </NavLink>
 
 

@@ -99,7 +99,7 @@ export default function AppRoutes() {
       />
 
       <Route
-        path="/dashboard/study-planner"
+        path="/dashboard/task-manager"
         element={
           <DashboardLayout>
             <StudyPlanner />

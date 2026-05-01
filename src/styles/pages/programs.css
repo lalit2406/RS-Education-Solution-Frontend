@@ -4,7 +4,7 @@
 
 .rs-program-page {
   background: #f3ede7;
-  padding: 60px 100px;
+  padding: 110px 100px;
   font-family: "Poppins", sans-serif;
   color: #1f1f1f;
   overflow: hidden;
@@ -509,7 +509,7 @@
 
 @media (max-width: 1024px) {
   .rs-program-page {
-    padding: 40px;
+    padding: 8rem 2.5rem;
   }
 
   .rs-program-hero {
@@ -623,9 +623,6 @@
 }
 
 @media (max-width: 645px) {
-  .rs-program-page {
-    padding: 28px 18px;
-  }
 
   .rs-program-hero {
     margin-bottom: 20px;

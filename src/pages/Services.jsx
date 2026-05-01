@@ -25,9 +25,11 @@ export default function Services() {
   /* =========================
    REAL LOADING (STATIC DATA)
 ========================= */
-useEffect(() => {
-  // data already available → no loading needed
-  setRsServicesLoading(false);
+  useEffect(() => {
+  // simulate loading
+  setTimeout(() => {
+    setRsServicesLoading(false);
+  }, 100);
 }, []);
 
   /* =========================
@@ -99,6 +101,7 @@ useEffect(() => {
         </section>
 
         {/* SERVICES GRID */}
+       {/* SERVICES GRID */}
         <section className="services-grid">
           {rsServicesLoading
             ? Array(6)
@@ -116,10 +119,11 @@ useEffect(() => {
                 ))
             : servicesData.map((service) => (
                 <div className="service-card fade-up" key={service.id}>
+                  <div className="service-top">
                   <div className="icon">{service.icon}</div>
                   <h3>{service.title}</h3>
                   <p>{service.desc}</p>
-
+                  </div>
                   <button
                     className="primary"
                     onClick={() => {

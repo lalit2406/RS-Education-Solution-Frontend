@@ -169,8 +169,12 @@ const filterColleges = (
         );
 
       const matchState =
-        !state ||
-        college.state === state;
+  !state ||
+  normalize(
+    college.state
+  ).includes(
+    normalize(state)
+  );
 
       const matchType =
         !type ||

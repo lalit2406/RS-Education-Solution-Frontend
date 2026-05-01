@@ -10,12 +10,18 @@ import {
 
 import "../../styles/home/topStudyPlaces.css";
 
+import biharImg from "../../assets/city/bihar.png";
 import delhiImg from "../../assets/city/delhi.png";
-import bangaloreImg from "../../assets/city/bangalore.png";
-import lucknowImg from "../../assets/city/lucknow.png";
-import puneImg from "../../assets/city/pune.png";
-import hyderabadImg from "../../assets/city/hyderabad.png";
-import mumbaiImg from "../../assets/city/mumbai.png";
+import haryanaImg from "../../assets/city/haryana.png";
+import himachalImg from "../../assets/city/himachal.png";
+import karnatakaImg from "../../assets/city/karnataka.png";
+import madhyaPradeshImg from "../../assets/city/mp.png";
+import maharastraImg from "../../assets/city/maharastra.png";
+import punjabImg from "../../assets/city/punjab.png";
+import rajasthanImg from "../../assets/city/rajasthan.png";
+import tamilNaduImg from "../../assets/city/tamilnadu.png";
+import uttarPradeshImg from "../../assets/city/up.png";
+import uttarakhandImg from "../../assets/city/uttarakhand.png";
 
 const TopStudyPlaces = () => {
   const navigate = useNavigate();
@@ -23,47 +29,75 @@ const TopStudyPlaces = () => {
 
   const places = [
     {
-      id: 1,
-      name: "Delhi",
-      cityQuery: "New Delhi",
-      image: delhiImg,
+      name: "Bihar",
+      image: biharImg,
+      stateQuery: "bihar",
     },
-    {
-      id: 2,
-      name: "Bangalore",
-      cityQuery: "Bangalore",
-      image: bangaloreImg,
-    },
-    {
-      id: 3,
-      name: "Lucknow",
-      cityQuery: "Lucknow",
-      image: lucknowImg,
-    },
-    {
-      id: 4,
-      name: "Pune",
-      cityQuery: "Pune",
-      image: puneImg,
-    },
-    {
-      id: 5,
-      name: "Hyderabad",
-      cityQuery: "Hyderabad",
-      image: hyderabadImg,
-    },
-    {
-      id: 6,
-      name: "Mumbai",
-      cityQuery: "Mumbai",
-      image: mumbaiImg,
-    },
-  ];
+  {
+    id: 1,
+    name: "Delhi",
+    image: delhiImg,
+    stateQuery: "Delhi",
+  },
+  {
+    name: "Haryana",
+    image: haryanaImg,
+    stateQuery: "haryana",
+  },
+  {
+    name: "Himachal Pradesh",
+    image: himachalImg,
+    stateQuery: "himachal pradesh",
+  },
+  {
+    name: "Karnataka",
+    image: karnatakaImg,
+    stateQuery: "karnataka",
+  },
+  {
+    name: "Madhya Pradesh",
+    image: madhyaPradeshImg,
+    stateQuery: "madhya pradesh",
+  },
+  {
+    name: "Maharashtra",
+    image: maharastraImg,
+   stateQuery: "maharashtra",
+  },
+  {
+    name: "Punjab",
+    image: punjabImg,
+    stateQuery: "punjab",
+  },
+  {
+    name: "Rajasthan",
+    image: rajasthanImg,
+    stateQuery: "rajasthan",
+  },
+  {
+    name: "Tamil Nadu",
+    image: tamilNaduImg,
+    stateQuery: "tamil nadu",
+  },
+  {
+    name: "Uttar Pradesh",
+    image: uttarPradeshImg,
+    stateQuery: "uttar pradesh",
+  },
+  {
+    name: "Uttarakhand",
+    image: uttarakhandImg,
+    stateQuery: "uttarakhand",
+  },
+];
 
-  const handleNavigate = (city) => {
+  const handleNavigate = (state) => {
     navigate(
-      `/find-college?city=${encodeURIComponent(city)}`
-    );
+  `/find-college?state=${encodeURIComponent(state)}`,
+  {
+    state: { fromTopPlaces: true },
+  }
+);
   };
 
   const slideLeft = () => {
@@ -120,10 +154,10 @@ const TopStudyPlaces = () => {
         >
           {places.map((place) => (
             <button
-              key={place.id}
+              key={place.name}
               className="tsp-card"
               onClick={() =>
-                handleNavigate(place.cityQuery)
+                handleNavigate(place.stateQuery)
               }
             >
               <div className="tsp-img-wrap">
@@ -137,11 +171,6 @@ const TopStudyPlaces = () => {
               <h3 className="tsp-city">
                 {place.name}
               </h3>
-
-              <span className="tsp-link">
-                Explore
-                <FaArrowRight />
-              </span>
             </button>
           ))}
         </div>

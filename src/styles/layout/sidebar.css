@@ -3,10 +3,10 @@
 /* ========================= */
 .rs-sidebar {
   width: 250px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 70px);
 
   position: fixed;
-  top: 80px;
+  top: 70px;
   left: 0;
 
   background: #f5efe6;
@@ -144,7 +144,7 @@
 .sidebar-toggle {
   display: none;
 
-      position: relative;
+      position: fixed;
     left: 10px;
     width: 25px;
     z-index: 12000;
@@ -203,6 +203,33 @@
 }
 
 /* ========================= */
+/*Responsiveness*/
+/* ========================= */
+@media (max-width: 992px) {
+  .rs-sidebar {
+    width: 260px;
+    top: -40px;
+    height: calc(113vh - 120px);
+  }
+
+  .rs-sidebar-menu {
+    margin-top: 120px;
+  }
+
+  .rs-sidebar-logo h2 {
+    font-size: 18px;
+  }
+
+  .rs-menu-item {
+    font-size: 13px;
+  }
+  .sidebar-toggle{
+    top:80px;
+  }
+}
+
+
+/* ========================= */
 /* 🔥 MOBILE */
 /* ========================= */
 @media (max-width: 768px) {
@@ -215,7 +242,7 @@
   /* SIDEBAR HIDDEN */
   .rs-sidebar {
     top: -15px;
-    height: 100vh;
+    height: 102vh;
     width: 240px;
 
     left: -100%;

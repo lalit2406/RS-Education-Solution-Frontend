@@ -1,0 +1,130 @@
+/* ================= FLOATING CHAT BUTTON ================= */
+
+.chat-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  cursor: pointer;
+
+  /* smooth entry */
+  animation: chatFadeIn 0.4s ease;
+}
+
+/* ================= BUTTON STYLE ================= */
+
+.chat-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* modern soft UI */
+  background: linear-gradient(135deg, #ffffff, #f1f3f5);
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* ================= ICON ================= */
+
+.chat-icon svg {
+  font-size: 28px;
+  color: #8a5a3b;
+  transition: transform 0.3s ease;
+}
+
+/* ================= HOVER EFFECT ================= */
+
+.chat-icon:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ================= ACTIVE (CLICK) ================= */
+
+.chat-icon:active {
+  transform: scale(0.95);
+}
+
+/* ================= PULSE ANIMATION ================= */
+
+.chat-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  animation: pulse 2.2s infinite;
+  z-index: -1;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes chatFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .chat-float {
+    bottom: 18px;
+    right: 18px;
+  }
+
+  .chat-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .chat-icon svg {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-float {
+    bottom: 14px;
+    right: 14px;
+  }
+
+  .chat-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .chat-icon svg {
+    font-size: 22px;
+  }
+}

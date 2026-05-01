@@ -345,7 +345,7 @@
 /* ===============================
    RESPONSIVE
 ================================= */
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .cr-main-wrapper {
     grid-template-columns: 1fr;
   }
@@ -357,4 +357,5 @@
   .cr-scroll-list {
     max-height: none;
   }
+  
 }

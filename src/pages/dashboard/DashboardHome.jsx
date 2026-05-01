@@ -89,7 +89,7 @@ export default function DashboardHome() {
         <div className="rs-dashboard-bottom-grid">
           {/* LEFT */}
           <div className="rs-dashboard-tasks-section">
-            <div className="rs-dashboard-section-header">
+             <div className="rs-dashboard-section-header"></div>
               <div className="rs-dashboard-skeleton-text-md"></div>
             </div>
 
@@ -143,7 +143,6 @@ export default function DashboardHome() {
                 </div>
               ))}
           </div>
-        </div>
       </div>
     );
   }
@@ -210,7 +209,7 @@ export default function DashboardHome() {
       <div className="rs-dashboard-bottom-grid">
         {/* LEFT SIDE */}
         <div className="rs-dashboard-tasks-section">
-          <div className="rs-dashboard-section-header">
+          <div className="rs-dashboard-uct-header">
             <h3>Upcoming Tasks</h3>
             <span>View All</span>
           </div>
@@ -254,7 +253,7 @@ export default function DashboardHome() {
         {/* RIGHT SIDE */}
         <div className="rs-dashboard-recommend-section">
           <h3>Recommended for You</h3>
-          <div className="rs-dashboard-section-header"></div>
+          <div className="rs-dashboard-section-header">
 
           <div className="rs-dashboard-recommend-card">
             <div className="rs-dashboard-recommend-img"></div>
@@ -268,6 +267,7 @@ export default function DashboardHome() {
             <h4>MIT Architecture Lab</h4>
             <p>Cambridge, MA • Research Excellence</p>
             <button>View Details</button>
+          </div>
           </div>
         </div>
       </div>

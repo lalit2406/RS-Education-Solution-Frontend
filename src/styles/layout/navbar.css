@@ -13,7 +13,7 @@
 
   border-bottom: 1px solid #d0b799;
 
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10000;
 }
@@ -291,7 +291,7 @@
 /* ========================= */
 /* RESPONSIVE */
 /* ========================= */
-@media (max-width: 1080px) {
+@media (max-width: 1150px) {
   .navbar {
     padding: 15px 20px;
   }

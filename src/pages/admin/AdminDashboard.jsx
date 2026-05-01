@@ -8,12 +8,6 @@ import toast from "react-hot-toast";
 import Guidance from "../../components/admin/Guidance";
 
 export default function AdminDashboard() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  if (!user || user.role !== "admin") {
-    return <h2 style={{ padding: "30px" }}>Access Denied 🚫</h2>;
-  }
-
   const [activeTab, setActiveTab] = useState("all");
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -34,6 +28,12 @@ export default function AdminDashboard() {
           ticket.status === "Resolved" ? prev.resolved + 1 : prev.resolved,
       }));
     };
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user || user.role !== "admin") {
+    return <h2 style={{ padding: "30px" }}>Access Denied 🚫</h2>;
+  }
+  
 
     const handleNewBooking = () => {
       setStats((prev) => ({

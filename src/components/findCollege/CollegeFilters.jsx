@@ -18,21 +18,57 @@ const CollegeFilters = ({
   return collegeData.colleges || [];
 }, []);
 
+/* =========================
+     ALLOWED STATES
+  ========================= */
+
+  const allowedStates = [
+    "Bihar",
+    "Delhi",
+    "Haryana",
+    "Himachal Pradesh",
+    "Karnataka",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Punjab",
+    "Rajasthan",
+    "Tamil Nadu",
+    "Uttar Pradesh",
+    "Uttarakhand",
+  ];
+
   /* =========================
-     JSON OPTIONS
+     STATE OPTIONS
+  ========================= */
+
+  const states = allowedStates;
+ 
+  /* =========================
+     CITY OPTIONS (STATE BASED)
   ========================= */
 
   const cities = useMemo(() => {
-    return [...new Set(colleges.map((i) => i.city))]
-      .filter(Boolean)
-      .sort();
-  }, [colleges]);
+    const filteredCities = colleges
+      .filter((item) => {
+        if (!filters.state) return true;
 
-  const states = useMemo(() => {
-    return [...new Set(colleges.map((i) => i.state))]
+        return (
+          item.state?.toLowerCase() ===
+          filters.state.toLowerCase()
+        );
+      })
+      .map((item) => item.city);
+
+    return [...new Set(filteredCities)]
       .filter(Boolean)
-      .sort();
-  }, [colleges]);
+      .sort((a, b) =>
+        a.localeCompare(b)
+      );
+  }, [colleges, filters.state]);
+
+  /* =========================
+     OTHER OPTIONS
+  ========================= */
 
   const types = useMemo(() => {
     return [...new Set(colleges.map((i) => i.type))]
@@ -88,11 +124,24 @@ const CollegeFilters = ({
     "1000000",
   ];
 
+  /* =========================
+     UPDATE FILTER
+  ========================= */
+
   const updateFilter = (key, value) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
+    setFilters((prev) => {
+      const updated = {
+        ...prev,
+        [key]: value,
+      };
+
+      /* Reset city if state changed */
+      if (key === "state") {
+        updated.city = "";
+      }
+
+      return updated;
+    });
   };
 
   return (

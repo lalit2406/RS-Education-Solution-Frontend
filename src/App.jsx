@@ -1,9 +1,15 @@
+import { useState } from "react";
 import Navbar from "./components/layout/Navbar";
 import AppRoutes from "./routes/AppRoutes";
 import { useUser } from "./context/UserContext";
+import FloatingChatButton from "./components/common/FloatingChatButton";
+import ChatbotSupport from "./components/dashboard/ChatbotSupport";
 
 function App() {
   const { loading } = useUser();
+
+  // ✅ Global chatbot control
+  const [showChat, setShowChat] = useState(false);
 
   return (
     <>
@@ -17,7 +23,24 @@ function App() {
           <p>Loading your profile...</p>
         </div>
       ) : (
-        <AppRoutes />
+        <>
+          {/* ✅ All routes */}
+          <AppRoutes />
+
+          {/* ✅ Floating chatbot button */}
+          <FloatingChatButton 
+  setShowChat={setShowChat} 
+  showChat={showChat}
+/>
+
+          {/* ✅ Chatbot modal */}
+          {showChat && (
+           <ChatbotSupport 
+  onClose={() => setShowChat(false)} 
+  mode="widget" 
+/>
+          )}
+        </>
       )}
     </>
   );

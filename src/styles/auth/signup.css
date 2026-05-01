@@ -4,14 +4,14 @@
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #f5efe9, #efe7df);
-  padding: 40px;
+  padding: 100px 40px;
 }
 
 /* ===== CARD ===== */
 .rs-signup-card {
   display: flex;
   width: 1200px;
-  height: 750px;
+  min-height: 750px;
   border-radius: 28px;
   overflow: hidden;
 
@@ -68,12 +68,13 @@
   padding: 8px 12px;
   border-radius: 10px;
   font-size: 11px;
+  width: fit-content;
 }
 
 /* ===== RIGHT ===== */
 .rs-signup-right {
   flex: 1;
-  padding: 50px 50px;
+  padding: 40px 30px;
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -254,4 +255,67 @@
 .rs-signup-eye-btn svg {
   color: #9ca3af;
   font-size: 14px;
+}
+
+@media (max-width:992px){
+  .rs-signup-overlay{
+    gap: 6vh;
+  }
+  .rs-signup-right {
+    padding: 25px 22px;
+  }
+  .rs-signup-row {
+    flex-direction: column;
+}
+}
+
+/* ===== RESPONSIVE (TABLET & MOBILE) ===== */
+@media (max-width: 768px) {
+  .rs-signup-container{
+    padding: 6em 2em;
+  }
+
+  .rs-signup-card {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center
+  }
+
+  /* ❌ HIDE LEFT IMAGE SECTION */
+  .rs-signup-left {
+    display: none;
+  }
+
+  /* ✅ FULL WIDTH FORM */
+  .rs-signup-right {
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+
+  /* STACK PHONE + EMAIL */
+  .rs-signup-row {
+    flex-direction: row;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 576px) { 
+  .rs-signup-row {
+    flex-direction: column;
+  }
+  .rs-signup-right{
+    padding:2em;
+  }
+}
+
+@media (max-width: 425px) {
+  .rs-signup-container{
+    padding:6em 1em;
+  }
+  .rs-signup-right{
+    padding:20px;
+  }
 }
