@@ -360,7 +360,7 @@
    display: flex;
     align-items: center;
     justify-content: center;
-    height: 4.5vh;
+    height: 5vh;
     margin-top: 10px;
 }
 
@@ -687,11 +687,10 @@
   }
   .primary,
   .secondary {
-    height:4.5vh;
+    height:5.5vh;
   }
   .cta-content{
     flex-direction: column;
-    max-height:30vh;
     overflow: hidden;
   }
   .cta-image img {
@@ -765,10 +764,6 @@
     height: 15vh;
   }
 
-  .primary,
-  .secondary {
-    height:3.7vh;
-  }
 }
 
 /* ============ Small Mobile ============ */

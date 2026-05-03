@@ -89,60 +89,60 @@ export default function DashboardHome() {
         <div className="rs-dashboard-bottom-grid">
           {/* LEFT */}
           <div className="rs-dashboard-tasks-section">
-             <div className="rs-dashboard-section-header"></div>
-              <div className="rs-dashboard-skeleton-text-md"></div>
-            </div>
-
-            {Array(3)
-              .fill(0)
-              .map((_, i) => (
-                <div
-                  key={i}
-                  className="rs-dashboard-task-card rs-dashboard-skeleton-task"
-                >
-                  <div className="rs-dashboard-skeleton-circle"></div>
-                  <div>
-                    <div className="rs-dashboard-skeleton-text-sm"></div>
-                    <div className="rs-dashboard-skeleton-text-xs"></div>
-                  </div>
-                </div>
-              ))}
-
-            {/* AI TOOLS */}
-            <div className="rs-dashboard-ai-tools">
-              <div className="rs-dashboard-skeleton-text-md"></div>
-
-              <div className="rs-dashboard-ai-grid">
-                {Array(4)
-                  .fill(0)
-                  .map((_, i) => (
-                    <div
-                      key={i}
-                      className="rs-dashboard-ai-card rs-dashboard-skeleton-ai"
-                    ></div>
-                  ))}
-              </div>
-            </div>
+            <div className="rs-dashboard-section-header"></div>
+            <div className="rs-dashboard-skeleton-text-md"></div>
           </div>
 
-          {/* RIGHT */}
-          <div className="rs-dashboard-recommend-section">
-            <div className="rs-dashboard-skeleton-text-md"></div>
-
-            {Array(2)
-              .fill(0)
-              .map((_, i) => (
-                <div
-                  key={i}
-                  className="rs-dashboard-recommend-card rs-dashboard-skeleton-rec"
-                >
-                  <div className="rs-dashboard-skeleton-img"></div>
+          {Array(3)
+            .fill(0)
+            .map((_, i) => (
+              <div
+                key={i}
+                className="rs-dashboard-task-card rs-dashboard-skeleton-task"
+              >
+                <div className="rs-dashboard-skeleton-circle"></div>
+                <div>
                   <div className="rs-dashboard-skeleton-text-sm"></div>
                   <div className="rs-dashboard-skeleton-text-xs"></div>
-                  <div className="rs-dashboard-skeleton-btn"></div>
                 </div>
-              ))}
+              </div>
+            ))}
+
+          {/* AI TOOLS */}
+          <div className="rs-dashboard-ai-tools">
+            <div className="rs-dashboard-skeleton-text-md"></div>
+
+            <div className="rs-dashboard-ai-grid">
+              {Array(4)
+                .fill(0)
+                .map((_, i) => (
+                  <div
+                    key={i}
+                    className="rs-dashboard-ai-card rs-dashboard-skeleton-ai"
+                  ></div>
+                ))}
+            </div>
           </div>
+        </div>
+
+        {/* RIGHT */}
+        <div className="rs-dashboard-recommend-section">
+          <div className="rs-dashboard-skeleton-text-md"></div>
+
+          {Array(2)
+            .fill(0)
+            .map((_, i) => (
+              <div
+                key={i}
+                className="rs-dashboard-recommend-card rs-dashboard-skeleton-rec"
+              >
+                <div className="rs-dashboard-skeleton-img"></div>
+                <div className="rs-dashboard-skeleton-text-sm"></div>
+                <div className="rs-dashboard-skeleton-text-xs"></div>
+                <div className="rs-dashboard-skeleton-btn"></div>
+              </div>
+            ))}
+        </div>
       </div>
     );
   }
@@ -242,10 +242,30 @@ export default function DashboardHome() {
             <h3>Quick AI Tools</h3>
 
             <div className="rs-dashboard-ai-grid">
-              <div className="rs-dashboard-ai-card">Chatbot</div>
-              <div className="rs-dashboard-ai-card">Recommender</div>
-              <div className="rs-dashboard-ai-card">Predictor</div>
-              <div className="rs-dashboard-ai-card">Planner</div>
+              <div
+                className="rs-dashboard-ai-card"
+                onClick={() => navigate("/tools/career-chatbot")}
+              >
+                Career Chatbot
+              </div>
+              <div
+                className="rs-dashboard-ai-card"
+                onClick={() => navigate("/tools/resume-builder")}
+              >
+                AI Resume Maker
+              </div>
+              <div
+                className="rs-dashboard-ai-card"
+                onClick={() => navigate("/tools/scholarship-prediction")}
+              >
+                Scholarship Predictor
+              </div>
+              <div
+                className="rs-dashboard-ai-card"
+                onClick={() => navigate("/tools/study-planner")}
+              >
+                StudyPlanner
+              </div>
             </div>
           </div>
         </div>
@@ -254,20 +274,19 @@ export default function DashboardHome() {
         <div className="rs-dashboard-recommend-section">
           <h3>Recommended for You</h3>
           <div className="rs-dashboard-section-header">
+            <div className="rs-dashboard-recommend-card">
+              <div className="rs-dashboard-recommend-img"></div>
+              <h4>Stanford School of Design</h4>
+              <p>Palo Alto, CA • Top 1% in Design</p>
+              <button>View Details</button>
+            </div>
 
-          <div className="rs-dashboard-recommend-card">
-            <div className="rs-dashboard-recommend-img"></div>
-            <h4>Stanford School of Design</h4>
-            <p>Palo Alto, CA • Top 1% in Design</p>
-            <button>View Details</button>
-          </div>
-
-          <div className="rs-dashboard-recommend-card">
-            <div className="rs-dashboard-recommend-img alt"></div>
-            <h4>MIT Architecture Lab</h4>
-            <p>Cambridge, MA • Research Excellence</p>
-            <button>View Details</button>
-          </div>
+            <div className="rs-dashboard-recommend-card">
+              <div className="rs-dashboard-recommend-img alt"></div>
+              <h4>MIT Architecture Lab</h4>
+              <p>Cambridge, MA • Research Excellence</p>
+              <button>View Details</button>
+            </div>
           </div>
         </div>
       </div>

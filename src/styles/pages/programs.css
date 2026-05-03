@@ -4,7 +4,7 @@
 
 .rs-program-page {
   background: #f3ede7;
-  padding: 110px 100px;
+  padding: 7em 3em;
   font-family: "Poppins", sans-serif;
   color: #1f1f1f;
   overflow: hidden;
@@ -59,13 +59,12 @@
 .rs-program-hero-buttons {
   display: flex;
   gap: 18px;
-  flex-wrap: wrap;
 }
 
 .rs-program-btn {
   border: none;
   cursor: pointer;
-  padding: 15px 28px;
+      padding: 15px 20px;
   border-radius: 999px;
   font-size: 15px;
   font-weight: 600;
@@ -509,7 +508,7 @@
 
 @media (max-width: 1024px) {
   .rs-program-page {
-    padding: 8rem 2.5rem;
+    padding: 6rem 2.5rem;
   }
 
   .rs-program-hero {
@@ -554,7 +553,7 @@
   }
 }
 
-@media (max-width: 810px) {
+@media (max-width: 992px) {
   .rs-program-hero-right img {
     max-width: 300px;
   }
@@ -579,11 +578,18 @@
   .rs-program-stats h3 {
     font-size: 30px;
   }
+  .rs-program-btn {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 768px) {
   .rs-program-hero-right img {
     max-width: 260px;
+  }
+
+  .rs-program-page {
+    padding: 5rem 1.5rem;
   }
 
   .rs-program-title {
@@ -627,9 +633,29 @@
   .rs-program-hero {
     margin-bottom: 20px;
   }
+  .rs-program-card img {
+    height: 130px;
+  }
+
+  .rs-program-card-content {
+    padding: 10px;
+  }
+
+  .rs-program-card-title {
+    margin-bottom: 0px;
+  }
+
+  .rs-program-card-desc {
+    margin-bottom: 5px;
+  }
+
+  .rs-program-card-btn {
+    padding:10px 20px;
+  }
 
   .rs-program-title {
-    font-size: 25px;
+    font-size: 1.2em;
+    margin-bottom:10px;
   }
 
   .rs-program-desc {
@@ -640,14 +666,12 @@
   .rs-program-hero-right img {
     max-width: 200px;
   }
-
+  
+  .rs-program-btn-secondary,
   .rs-program-btn-primary {
-    padding: 12px 10px;
+    padding: 8px 20px;
   }
 
-  .rs-program-btn-secondary {
-    padding: 12px 10px;
-  }
 
   .rs-program-section-title {
     font-size: 22px;
@@ -668,18 +692,44 @@
   }
 
   .rs-program-philo-content h2 {
-    font-size: 25px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
   }
 
   .rs-program-philo-content p {
-    font-size: 14px;
+    font-size: 0.8em;
   }
 
   .rs-program-stats h3 {
-    font-size: 20px;
+    font-size: 0.9em;
   }
 
   .rs-program-stats {
-    gap: 36px;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  .rs-program-hero-left {
+  max-width: 40vw;
+}
+    .rs-program-hero {
+        gap: 0px;
+    }
+}
+
+@media (max-width: 530px) {
+  .rs-program-hero-right img {
+    max-width: 145px;
+  }
+  .rs-program-badge{
+    display: none;
+  }
+  .rs-program-btn {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 376px){
+  .rs-program-hero-right img {
+    max-width: 125px;
   }
 }

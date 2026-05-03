@@ -8,7 +8,7 @@
 /* HERO */
 .rs-contact-hero {
   text-align: center;
-  padding: 100px 20px 140px;
+  padding: 150px 20px 140px;
   background: #e6ebe5;
   position: relative;
   overflow: hidden;
@@ -380,9 +380,6 @@ box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rg
 
 /* ---------- Tablets ---------- */
 @media (max-width: 768px) {
-  .rs-contact-hero {
-    padding: 80px 18px 110px;
-  }
 
   .rs-contact-hero h1 {
     font-size: 30px;
@@ -447,12 +444,9 @@ box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rg
 
 /* ---------- Large Mobiles ---------- */
 @media (max-width: 576px) {
-  .rs-contact-hero {
-    padding: 70px 15px 95px;
-  }
 
   .rs-contact-hero h1 {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .rs-contact-hero p {
@@ -520,9 +514,6 @@ box-shadow: inset 4px 4px 10px rgba(163, 138, 110, 0.2), inset -4px -4px 10px rg
 
 /* ---------- Small Mobiles ---------- */
 @media (max-width: 420px) {
-  .rs-contact-hero {
-    padding: 65px 12px 85px;
-  }
 
   .rs-contact-hero h1 {
     font-size: 22px;

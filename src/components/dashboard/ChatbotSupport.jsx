@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../../styles/dashboard/ChatbotSupport.css";
+import avatarImg from "../../assets/images/avatar.png";
 import {
   FaTimes,
   FaUserCircle,
@@ -11,18 +12,17 @@ import {
 import { BsRobot } from "react-icons/bs";
 
 const ChatbotSupport = ({ onClose, mode = "modal" }) => {
-
   const chatRef = useRef(null);
   const [messages, setMessages] = useState([
-  {
-    sender: "bot",
-    text: "Hey! I am Riddhi. How can I help you?",
-    time: new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-  },
-]);
+    {
+      sender: "bot",
+      text: "Hey! I am Riddhi. How can I help you?",
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    },
+  ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
@@ -35,12 +35,12 @@ const ChatbotSupport = ({ onClose, mode = "modal" }) => {
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-   const handleClose = useCallback(() => {
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-  }
-  if (onClose) onClose();
-}, [onClose]);
+  const handleClose = useCallback(() => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    if (onClose) onClose();
+  }, [onClose]);
 
   /* 🔇 Stop speech when toggle OFF */
   useEffect(() => {
@@ -64,28 +64,28 @@ const ChatbotSupport = ({ onClose, mode = "modal" }) => {
   }, []);
 
   useEffect(() => {
-  if (mode !== "widget") return;
+    if (mode !== "widget") return;
 
-  const handleOutsideClick = (e) => {
-    if (
-  chatRef.current &&
-  !chatRef.current.contains(e.target) &&
-  !e.target.closest(".chat-float") // 🔥 prevent button conflict
-) {
-  handleClose();
-}
-  };
+    const handleOutsideClick = (e) => {
+      if (
+        chatRef.current &&
+        !chatRef.current.contains(e.target) &&
+        !e.target.closest(".chat-float") // 🔥 prevent button conflict
+      ) {
+        handleClose();
+      }
+    };
 
-  // 🔥 IMPORTANT: delay binding (prevents instant close after open)
-  const timer = setTimeout(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-  }, 0);
+    // 🔥 IMPORTANT: delay binding (prevents instant close after open)
+    const timer = setTimeout(() => {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }, 0);
 
-  return () => {
-    clearTimeout(timer);
-    document.removeEventListener("mousedown", handleOutsideClick);
-  };
-}, [mode, handleClose]);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [mode, handleClose]);
 
   const getTime = () =>
     new Date().toLocaleTimeString([], {
@@ -156,8 +156,6 @@ const ChatbotSupport = ({ onClose, mode = "modal" }) => {
       recognitionRef.current.start();
     }
   };
-
- 
 
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
@@ -263,7 +261,7 @@ const ChatbotSupport = ({ onClose, mode = "modal" }) => {
         <div className="rs-chatbotsupport-header-new">
           <div className="rs-chatbotsupport-header-left">
             <img
-              src="https://randomuser.me/api/portraits/women/65.jpg"
+              src={avatarImg}
               alt="avatar"
               className="rs-chatbotsupport-avatar-img"
             />
@@ -285,7 +283,10 @@ const ChatbotSupport = ({ onClose, mode = "modal" }) => {
               {isSpeaking && <span className="wave"></span>}
             </button>
 
-            <button className="rs-chatbotsupport-close-btn" onClick={handleClose}>
+            <button
+              className="rs-chatbotsupport-close-btn"
+              onClick={handleClose}
+            >
               <FaTimes />
             </button>
           </div>
@@ -293,7 +294,6 @@ const ChatbotSupport = ({ onClose, mode = "modal" }) => {
 
         {/* Messages */}
         <div className="rs-chatbotsupport-messages">
-
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -360,120 +360,113 @@ const ChatbotSupport = ({ onClose, mode = "modal" }) => {
         </div>
       </div>
     </div>
-    ) : (
-  /* ================= WIDGET MODE (Floating Button) ================= */
-  <div className="rs-chatbotsupport-widget">
-    <div 
-  className="rs-chatbotsupport-widget-inner"
-  ref={chatRef}
->
-      {/* HEADER */}
-      <div className="rs-chatbotsupport-header-new">
-        <div className="rs-chatbotsupport-header-left">
-          <img
-            src="https://randomuser.me/api/portraits/women/65.jpg"
-            alt="avatar"
-            className="rs-chatbotsupport-avatar-img"
+  ) : (
+    /* ================= WIDGET MODE (Floating Button) ================= */
+    <div className="rs-chatbotsupport-widget">
+      <div className="rs-chatbotsupport-widget-inner" ref={chatRef}>
+        {/* HEADER */}
+        <div className="rs-chatbotsupport-header-new">
+          <div className="rs-chatbotsupport-header-left">
+            <img
+              src={avatarImg}
+              alt="avatar"
+              className="rs-chatbotsupport-avatar-img"
+            />
+            <div>
+              <h4>Riddhi</h4>
+              <p>
+                <span className="dot"></span>
+                {isTyping ? "Typing..." : "Online • RS Education"}
+              </p>
+            </div>
+          </div>
+
+          <div className="rs-chatbotsupport-header-right">
+            <button
+              className="voice-btn"
+              onClick={() => setIsSpeaking((prev) => !prev)}
+            >
+              {isSpeaking ? <FaVolumeUp /> : <FaVolumeMute />}
+              {isSpeaking && <span className="wave"></span>}
+            </button>
+
+            <button
+              className="rs-chatbotsupport-close-btn"
+              onClick={handleClose}
+            >
+              <FaTimes />
+            </button>
+          </div>
+        </div>
+
+        {/* MESSAGES */}
+        <div className="rs-chatbotsupport-messages">
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`rs-chatbotsupport-msg-row ${
+                msg.sender === "user" ? "user" : "bot"
+              }`}
+            >
+              <div className="rs-chatbotsupport-avatar">
+                {msg.sender === "user" ? <FaUserCircle /> : <BsRobot />}
+              </div>
+
+              <div className="rs-chatbotsupport-msg-content">
+                <div className="rs-chatbotsupport-msg-text">{msg.text}</div>
+                <div className="rs-chatbotsupport-msg-time">{msg.time}</div>
+              </div>
+            </div>
+          ))}
+
+          {isTyping && (
+            <div className="rs-chatbotsupport-msg-row bot">
+              <div className="rs-chatbotsupport-avatar">
+                <BsRobot />
+              </div>
+              <div className="rs-chatbotsupport-typing">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* INPUT */}
+        <div className="rs-chatbotsupport-input-area">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            className="rs-chatbotsupport-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={isTyping}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
           />
-          <div>
-            <h4>Riddhi</h4>
-            <p>
-              <span className="dot"></span>
-              {isTyping ? "Typing..." : "Online • RS Education"}
-            </p>
-          </div>
-        </div>
-
-        <div className="rs-chatbotsupport-header-right">
-          <button
-            className="voice-btn"
-            onClick={() => setIsSpeaking((prev) => !prev)}
-          >
-            {isSpeaking ? <FaVolumeUp /> : <FaVolumeMute />}
-            {isSpeaking && <span className="wave"></span>}
-          </button>
 
           <button
-            className="rs-chatbotsupport-close-btn"
-            onClick={handleClose}
-          >
-            <FaTimes />
-          </button>
-        </div>
-      </div>
-
-      {/* MESSAGES */}
-      <div className="rs-chatbotsupport-messages">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`rs-chatbotsupport-msg-row ${
-              msg.sender === "user" ? "user" : "bot"
+            className={`rs-chatbotsupport-mic-btn ${
+              isListening ? "listening" : ""
             }`}
+            onClick={handleMic}
+            disabled={isTyping}
           >
-            <div className="rs-chatbotsupport-avatar">
-              {msg.sender === "user" ? <FaUserCircle /> : <BsRobot />}
-            </div>
+            <FaMicrophone />
+          </button>
 
-            <div className="rs-chatbotsupport-msg-content">
-              <div className="rs-chatbotsupport-msg-text">
-                {msg.text}
-              </div>
-              <div className="rs-chatbotsupport-msg-time">
-                {msg.time}
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {isTyping && (
-          <div className="rs-chatbotsupport-msg-row bot">
-            <div className="rs-chatbotsupport-avatar">
-              <BsRobot />
-            </div>
-            <div className="rs-chatbotsupport-typing">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        )}
-
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* INPUT */}
-      <div className="rs-chatbotsupport-input-area">
-        <input
-          type="text"
-          placeholder="Type your message..."
-          className="rs-chatbotsupport-input"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          disabled={isTyping}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        />
-
-        <button
-          className={`rs-chatbotsupport-mic-btn ${
-            isListening ? "listening" : ""
-          }`}
-          onClick={handleMic}
-          disabled={isTyping}
-        >
-          <FaMicrophone />
-        </button>
-
-        <button
-          className="rs-chatbotsupport-send-btn"
-          onClick={handleSend}
-          disabled={isTyping}
-        >
-          {isTyping ? "..." : <FaPaperPlane />}
-        </button>
+          <button
+            className="rs-chatbotsupport-send-btn"
+            onClick={handleSend}
+            disabled={isTyping}
+          >
+            {isTyping ? "..." : <FaPaperPlane />}
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 

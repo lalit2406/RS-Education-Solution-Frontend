@@ -2,7 +2,7 @@
 
 .da-page {
   min-height: 100vh;
-  padding: 60px 100px;
+  padding: 100px 60px;
   background:
     radial-gradient(circle at top right, rgba(181, 122, 61, 0.08), transparent 28%),
     radial-gradient(circle at left center, rgba(139, 94, 52, 0.07), transparent 22%),
@@ -437,7 +437,7 @@
 
 @media (max-width: 600px) {
   .da-page {
-    padding: 20px 14px 55px;
+    padding: 100px 30px;
   }
 
   .da-topbar {

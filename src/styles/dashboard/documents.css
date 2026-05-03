@@ -30,10 +30,9 @@
 
 /* CONTROLS */
 .rs-doc-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
   gap: 20px;
+  grid-template-columns: 1fr 2fr;
 }
 
 /* LEFT SIDE */
@@ -50,8 +49,9 @@
   align-items: center;
   gap: 10px;
   white-space: nowrap;
-      position: relative;
-    left: -220px;
+    position: relative;
+  top: -30px;
+  
 }
 
 /* SEARCH */
@@ -69,7 +69,7 @@
     inset 6px 6px 12px rgba(163, 138, 110, 0.2),
     inset -6px -6px 12px rgba(255, 255, 255, 0.9);
   width: 100%;
-  max-width: 16cd0px;
+  max-width: 30vw;
 }
 
 .rs-search-box input {
@@ -82,8 +82,9 @@
 
 /* FILTERS */
 .rs-doc-actions {
-  display: flex;
+  display: grid;
   gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .rs-filter {
@@ -130,7 +131,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  height: 5vh;
 
   padding: 14px 20px;
   border-radius: 25px;
@@ -576,34 +576,53 @@
   .rs-doc-main {
     grid-template-columns: 1fr;
   }
-
-  .rs-doc-controls {
-    grid-template-columns: 1fr 2fr;
-  }
-
+  
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1100px) {
+  .rs-doc-right{
+    left:-100px;
+  }
+  .rs-search-box{
+    max-width: 20vw;
+  }
+  
+}
+
+@media (max-width: 1024px) {
   .rs-doc-main {
     grid-template-columns: 1fr;
   }
+}
 
-  .rs-doc-controls {
+@media (max-width: 992px) {
+  .rs-doc-controls{
     grid-template-columns: 1fr;
+  }
+  .rs-doc-right{
+    top:0;
+    left:0;
   }
 
 }
 
-@media (max-width: 900px) {
-  .rs-doc-main {
-    grid-template-columns: 1fr;
+@media (max-width:692px){
+  .rs-documents-page{
+    padding:35px 20px;
   }
-
-  .rs-doc-controls {
-    grid-template-columns: 1fr;
+  .rs-doc-header h1 {
+    font-size: 2em;
+  }
+  
+  .rs-search-box{
+    max-width: 100%;
+  }
+  .rs-doc-actions{
+    grid-template-columns: repeat(2,1fr);
   }
 
 }
+
 /* =========================
    DOCUMENTS SKELETON
 ========================= */

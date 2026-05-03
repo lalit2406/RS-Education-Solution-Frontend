@@ -347,3 +347,194 @@
 .rs-save:hover {
   transform: translateY(-2px);
 }
+
+/*===================
+  Responsiveness
+=====================*/
+
+@media (max-width: 1024px) {
+  .rs-profile-page {
+    padding: 24px;
+  }
+
+  .rs-profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rs-profile-left {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .rs-profile-card,
+  .rs-academic-card {
+    width: 100%;
+  }
+
+  .rs-profile-info-card,
+  .rs-goals-card {
+    padding: 20px;
+  }
+
+  .rs-info-grid {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rs-profile-page {
+    padding: 25px;
+    gap: 20px;
+  }
+
+  .rs-profile-header h1 {
+    font-size: 24px;
+  }
+
+  .rs-profile-header p {
+    font-size: 13px;
+  }
+
+  /* LEFT STACK */
+  .rs-profile-left {
+    grid-template-columns: 1fr;
+  }
+
+  .rs-profile-card {
+    padding: 20px;
+  }
+
+  .rs-profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* RIGHT GRID */
+  .rs-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* GOALS ROW STACK */
+  .rs-goals-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .rs-score-box {
+    font-size: 16px;
+  }
+
+  /* ACTION BAR STACK */
+  .rs-profile-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .rs-action-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .rs-save {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .rs-profile-header h1 {
+    font-size: 20px;
+  }
+
+  .rs-profile-header p {
+    font-size: 12px;
+  }
+
+  /* CARD STYLE */
+  .rs-profile-card,
+  .rs-profile-info-card,
+  .rs-goals-card,
+  .rs-academic-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  /* AVATAR */
+  .rs-profile-avatar {
+    width: 85px;
+    height: 85px;
+  }
+
+  .rs-profile-card h2 {
+    font-size: 16px;
+  }
+
+  .rs-profile-sub {
+    font-size: 12px;
+  }
+
+  /* INPUTS */
+  .rs-input {
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .rs-score-box {
+    height: 38px;
+    font-size: 15px;
+  }
+
+  /* CHIP GROUP */
+  .rs-chip-group span {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  /* DREAM BOX FIX */
+  .rs-dream-box {
+    height: auto;
+    min-height: 40px;
+  }
+
+  /* ACTIONS */
+  .rs-history {
+    font-size: 12px;
+  }
+
+  .rs-action-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .rs-discard {
+    width: 100%;
+    text-align: center;
+  }
+
+  .rs-save {
+    width: 100%;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .rs-profile-header h1 {
+    font-size: 18px;
+  }
+
+  .rs-profile-avatar {
+    width: 75px;
+    height: 75px;
+  }
+
+  .rs-input {
+    font-size: 12px;
+  }
+
+  .rs-chip-group span {
+    font-size: 10px;
+  }
+}

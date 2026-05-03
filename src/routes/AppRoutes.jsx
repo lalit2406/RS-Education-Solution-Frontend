@@ -25,7 +25,7 @@ import DashboardLayout from "../components/layout/DashboardLayout";
 // Dashboard
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import Documents from "../pages/dashboard/Documents";
-import StudyPlanner from "../pages/dashboard/StudyPlanner";
+import TaskManager from "../pages/dashboard/TaskManager";
 import Profile from "../pages/dashboard/Profile";
 import CustomerSupport from "../pages/dashboard/CustomerSupport";
 import SavedColleges from "../pages/dashboard/SavedColleges";
@@ -102,7 +102,7 @@ export default function AppRoutes() {
         path="/dashboard/task-manager"
         element={
           <DashboardLayout>
-            <StudyPlanner />
+            <TaskManager />
           </DashboardLayout>
         }
       />

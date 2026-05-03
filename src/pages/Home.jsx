@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/pages/home.css";
 import Footer from "../../src/components/layout/Footer";
 import OurPartner from "../components/layout/OurPartner";
@@ -94,6 +95,7 @@ const Home = () => {
   const [rsCurrentSlide, setRsCurrentSlide] = useState(0);
   const [rsHeroMode, setRsHeroMode] = useState("grid");
   const [rsTitleIndex, setRsTitleIndex] = useState(0);
+  const navigate = useNavigate();
 
   /* Add inside useEffect section */
 
@@ -105,7 +107,7 @@ const Home = () => {
     }, 5600);
 
     return () => clearInterval(titleTimer);
-  }, []);
+  });
 
   /* HERO ANIMATION */
   useEffect(() => {
@@ -232,9 +234,20 @@ const Home = () => {
                 Explore career-focused programs designed for future success.
               </p>
             </div>
+            <button
+              className="rs-home-program-viewall"
+              onClick={() => {
+                navigate("/programs");
 
-            <button className="rs-home-program-viewall">
-              View All Programs <ArrowRight size={18} />
+                setTimeout(() => {
+                  const section = document.querySelector(".rs-program-section");
+                  if (section) {
+                    section.scrollIntoView({ behavior: "smooth" });
+                  }
+                }, 100);
+              }}
+            >
+              View All Programs
             </button>
           </div>
 
@@ -309,7 +322,6 @@ const Home = () => {
         <OurPartner />
         <TopCollegesSection />
         <TopStudyPlaces />
-
 
         {/* ABOUT */}
         <section className="rs-home-about rs-home-container">

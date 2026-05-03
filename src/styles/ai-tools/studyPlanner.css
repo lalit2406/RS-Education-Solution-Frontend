@@ -23,7 +23,7 @@
 }
 
 .rs-study-sidebar {
-  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .rs-study-logo {
@@ -171,7 +171,6 @@
 /* ================= TABLE ================= */
 .rs-study-table-wrapper {
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .rs-study-table {

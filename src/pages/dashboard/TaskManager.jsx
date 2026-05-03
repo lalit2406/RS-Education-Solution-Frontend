@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../../styles/dashboard/studyplanner.css";
+import "../../styles/dashboard/taskManager.css";
 import StudyTaskModal from "../../components/dashboard/StudyTaskModal";
 
 export default function StudyPlanner() {
@@ -10,12 +10,12 @@ export default function StudyPlanner() {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [editTask, setEditTask] = useState(null);
 
-  const [spLoading, setSpLoading] = useState(true); // ✅ ADDED
+  const [tmLoading, settmLoading] = useState(true); // ✅ ADDED
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        setSpLoading(true); // ✅
+        settmLoading(true); // ✅
 
         const res = await axios.get(
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks`,
@@ -30,7 +30,7 @@ export default function StudyPlanner() {
       } catch (err) {
         console.log(err);
       } finally {
-        setSpLoading(false); // ✅
+        settmLoading(false); // ✅
       }
     };
 
@@ -38,25 +38,25 @@ export default function StudyPlanner() {
   }, []);
 
   // ✅ LOADING UI
-  if (spLoading) {
+  if (tmLoading) {
     return (
-      <div className="sp-container">
-        <div className="sp-header">
+      <div className="tm-container">
+        <div className="tm-header">
           <div>
-            <div className="sp-skeleton sp-skel-title"></div>
-            <div className="sp-skeleton sp-skel-sub"></div>
+            <div className="tm-skeleton tm-skel-title"></div>
+            <div className="tm-skeleton tm-skel-sub"></div>
           </div>
 
-          <div className="sp-skeleton sp-skel-btn"></div>
+          <div className="tm-skeleton tm-skel-btn"></div>
         </div>
 
-        <div className="sp-progress-card">
-          <div className="sp-skeleton sp-skel-big"></div>
+        <div className="tm-progress-card">
+          <div className="tm-skeleton tm-skel-big"></div>
         </div>
 
-        <div className="sp-grid">
+        <div className="tm-grid">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="sp-skeleton sp-skel-card"></div>
+            <div key={i} className="tm-skeleton tm-skel-card"></div>
           ))}
         </div>
       </div>
@@ -73,8 +73,8 @@ export default function StudyPlanner() {
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks/${editTask._id}`,
           {
             title: task.title,
-            category: task.subtitle.split(" • ")[0],
-            dueDate: task.subtitle.split(" • ")[1] || null,
+            category: task.subtitle.tmlit(" • ")[0],
+            dueDate: task.subtitle.tmlit(" • ")[1] || null,
           },
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -85,8 +85,8 @@ export default function StudyPlanner() {
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks`,
           {
             title: task.title,
-            category: task.subtitle.split(" • ")[0],
-            dueDate: task.subtitle.split(" • ")[1] || null,
+            category: task.subtitle.tmlit(" • ")[0],
+            dueDate: task.subtitle.tmlit(" • ")[1] || null,
           },
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -103,7 +103,7 @@ export default function StudyPlanner() {
 
       setTasks(res.data);
       setEditTask(null);
-      window.dispatchEvent(new Event("tasksUpdated"));
+      window.ditmatchEvent(new Event("tasksUpdated"));
     } catch (err) {
       console.log(err);
     }
@@ -122,7 +122,7 @@ export default function StudyPlanner() {
       );
 
       setTasks((prev) => prev.filter((t) => t._id !== id));
-      window.dispatchEvent(new Event("tasksUpdated"));
+      window.ditmatchEvent(new Event("tasksUpdated"));
     } catch (err) {
       console.log(err);
     }
@@ -154,7 +154,7 @@ export default function StudyPlanner() {
         )
       );
 
-      window.dispatchEvent(new Event("tasksUpdated"));
+      window.ditmatchEvent(new Event("tasksUpdated"));
     } catch (err) {
       console.log(err);
     }
@@ -175,42 +175,42 @@ export default function StudyPlanner() {
     totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
   return (
-    <div className="sp-container">
+    <div className="tm-container">
       {/* HEADER */}
-      <div className="sp-header">
+      <div className="tm-header">
         <div>
           <h2>Task Manager</h2>
           <p>Manage your daily learning tasks efficiently</p>
         </div>
 
-        <button className="sp-add-btn" onClick={() => setIsModalOpen(true)}>
+        <button className="tm-add-btn" onClick={() => setIsModalOpen(true)}>
           + Add Task
         </button>
       </div>
 
       {/* PROGRESS */}
-      <div className="sp-progress-card">
-        <div className="sp-progress-top">
+      <div className="tm-progress-card">
+        <div className="tm-progress-top">
           <div>
-            <span className="sp-label">CURRENT OVERVIEW</span>
+            <span className="tm-label">CURRENT OVERVIEW</span>
             <h2>Overall Progress</h2>
           </div>
 
-          <div className="sp-progress-info">
+          <div className="tm-progress-info">
             {completedTasks} of {totalTasks} tasks completed
           </div>
         </div>
 
-        <h1 className="sp-progress-percent">{progress}%</h1>
+        <h1 className="tm-progress-percent">{progress}%</h1>
 
-        <div className="sp-progress-bar">
+        <div className="tm-progress-bar">
           <div
-            className="sp-progress-fill"
+            className="tm-progress-fill"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
 
-        <div className="sp-stats">
+        <div className="tm-stats">
           <div>
             <span>Pending</span>
             <h3>{totalTasks - completedTasks}</h3>
@@ -229,19 +229,19 @@ export default function StudyPlanner() {
       </div>
 
       {/* GRID */}
-      <div className="sp-grid">
-        <div className="sp-section">
+      <div className="tm-grid">
+        <div className="tm-section">
           <h3>Pending Tasks</h3>
 
           {sortedTasks.filter((t) => t.status === "pending").length === 0 && (
-            <p className="sp-empty">No pending tasks</p>
+            <p className="tm-empty">No pending tasks</p>
           )}
 
           {sortedTasks
             .filter((t) => t.status === "pending")
             .map((task) => (
-              <div className="sp-card" key={task._id}>
-                <div className="sp-card-left">
+              <div className="tm-card" key={task._id}>
+                <div className="tm-card-left">
                   <span
                     onClick={() => handleToggleComplete(task._id, task.status)}
                     style={{ cursor: "pointer", marginRight: "10px" }}
@@ -257,7 +257,7 @@ export default function StudyPlanner() {
                   </p>
                 </div>
 
-                <div className="sp-actions">
+                <div className="tm-actions">
                   <button
                     className="edit"
                     onClick={() => {
@@ -279,18 +279,18 @@ export default function StudyPlanner() {
             ))}
         </div>
 
-        <div className="sp-section">
+        <div className="tm-section">
           <h3>Completed</h3>
 
           {sortedTasks.filter((t) => t.status === "completed").length === 0 && (
-            <p className="sp-empty">No completed tasks yet</p>
+            <p className="tm-empty">No completed tasks yet</p>
           )}
 
           {sortedTasks
             .filter((t) => t.status === "completed")
             .slice(0, 5)
             .map((task) => (
-              <div className="sp-card completed" key={task._id}>
+              <div className="tm-card completed" key={task._id}>
                 <h4>{task.title}</h4>
                 <p>
                   {task.category} •{" "}

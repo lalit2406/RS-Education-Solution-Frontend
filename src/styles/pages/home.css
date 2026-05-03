@@ -68,7 +68,6 @@
   transition: 0.35s ease;
 }
 
-
 .rs-home-btn-secondary {
   background: #fff;
   color: #8f5624;
@@ -173,7 +172,7 @@
   max-width: 1400px;
   padding: 0 40px;
   color: #fff;
-      margin-top: 3em;
+  margin-top: 4em;
 }
 
 .rs-home-badge {
@@ -193,7 +192,7 @@
   font-size: clamp(2.7rem, 4vw, 3.2rem);
   line-height: 1.04;
   font-weight: 900;
-  margin-top: 24px;
+  margin-top: 14px;
   max-width: 760px;
   color: #ffffff;
   letter-spacing: -1px;
@@ -214,7 +213,7 @@
   max-width: fit-content;
   white-space: nowrap;
   overflow: hidden;
-  height: 8vh;
+  height: 10vh;
 }
 
 /* line 1 */
@@ -347,7 +346,7 @@
 
 .rs-home-program-slider {
   display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 24px;
 }
 
@@ -523,7 +522,7 @@
 .rs-home-about-right p {
   color: #666;
   line-height: 1.9;
-      margin-bottom: 0.9em;
+  margin-bottom: 0.9em;
 }
 
 .rs-home-about-list {
@@ -565,9 +564,9 @@
 
 /* FIX CARD SIZE */
 .rs-carousel .rs-success-card {
-  width: 340px; 
-  min-width: 340px; 
-  max-width: 340px; 
+  width: 340px;
+  min-width: 340px;
+  max-width: 340px;
   flex-shrink: 0;
 }
 
@@ -576,7 +575,6 @@
   gap: 2rem;
   align-items: stretch;
 }
-
 
 /* Pause on hover (PRO UX 🔥) */
 .rs-carousel:hover .rs-carousel-track {
@@ -655,7 +653,9 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background: #ffffff;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.06), -4px -4px 10px rgba(255, 255, 255, 0.8);
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.06),
+    -4px -4px 10px rgba(255, 255, 255, 0.8);
 }
 
 .rs-success-card:hover {
@@ -670,7 +670,6 @@
   opacity: 0;
   transition: 0.5s;
 }
-
 
 /* stagger effect */
 .rs-success-card:nth-child(2) {
@@ -759,7 +758,6 @@
 }
 
 @media (max-width: 992px) {
-
   .rs-home-hero-grid-view {
     grid-template-columns: 1.5fr 1fr 0.8fr;
   }
@@ -767,10 +765,10 @@
     height: 370px;
   }
   .rs-home-title-animate .rs-line-one,
-.rs-home-title-animate .rs-line-two {
-  height:5vh;
-  font-size: 1em;
-}
+  .rs-home-title-animate .rs-line-two {
+    font-size: 0.7em;
+    height:6vh;
+  }
 }
 
 @media (max-width: 768px) {
@@ -783,29 +781,19 @@
     height: auto;
     padding: 70px 0;
   }
-  .rs-success-title{
+  .rs-success-title {
     font-size: 2rem;
   }
 
-    .rs-home-title-animate .rs-line-one,
-.rs-home-title-animate .rs-line-two {
-  height:4vh;
-  font-size: 0.8em;
-}
-
   .rs-home-hero-grid-view {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .rs-home-search-box {
-    border-radius: 30px;
   }
 
   .rs-home-hero-mini-stats {
     justify-content: center;
   }
 
-  .rs-home-stats-grid{
+  .rs-home-stats-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -816,12 +804,16 @@
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 576px) {
   .rs-home-main-content section {
     padding: 25px 20px;
   }
 
-  .rs-home-hero-overlay{
+  .rs-home-hero-subtitle {
+    display: none;
+  }
+
+  .rs-home-hero-overlay {
     padding: 20px;
   }
 
@@ -835,18 +827,37 @@
 
   .rs-home-stats-grid {
     grid-template-columns: 1fr 1fr;
-  } 
+  }
 
   .rs-home-cta-banner {
     margin: 20px;
     padding: 60px 20px;
     border-radius: 24px;
   }
+}
+
+@media (max-width: 460px) {
+  .rs-home-search-box button {
+    padding: 11px 15px;
   }
 
-  @media (max-width:450px) {
-    .rs-home-search-box button{
-      padding: 9px 15px;
-    }
-    
+  .rs-home-search-box{
+    padding: 5px 5px 5px 10px;
+    max-width: 300px;
+    gap:0;
+    margin-top: 0;
   }
+  .rs-home-title-animate .rs-line-one,
+.rs-home-title-animate .rs-line-two {
+  font-size: 0.5em;
+  height:5vh;
+}
+}
+
+@media (max-width: 390px) {
+  .rs-home-search-box{
+    gap: 0;
+  }
+}
+
+

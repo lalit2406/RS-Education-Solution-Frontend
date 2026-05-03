@@ -1,6 +1,6 @@
 /* WRAPPER */
 .sc-wrapper {
-  padding: 20px;
+  padding: 100px 40px;
   background:#f3ede7;
   min-height: 100vh;
 }
@@ -52,7 +52,7 @@
 .sc-grid {
   display: grid;
   gap: 30px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   align-items: stretch;
 }
 
@@ -150,9 +150,10 @@
 
 /* STATS */
 .sc-stats {
-  display: flex;
+  display: grid;
   gap: 10px;
   margin-top: 14px;
+  grid-template-columns: repeat(4,1fr);
 }
 
 .sc-stats div {
@@ -336,32 +337,34 @@
 
 /* ================= RESPONSIVE ================= */
 
-/* TABLET */
-@media (max-width: 1024px) {
-  .sc-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 /* MOBILE */
 @media (max-width: 640px) {
   .sc-grid {
     grid-template-columns: 1fr;
   }
-
-  .sc-header {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
+  .sc-wrapper{
+    padding: 92px 20px;
+  }
+  .sc-header h2 {
+    font-size: 14px;
   }
 
-  .sc-card-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+  .sc-header span {
+    padding: 4px 8px;
+  }
+  
+
+  .sc-header {
+    gap: 10px;
   }
 
   .sc-exams {
     max-width: 100%;
   }
+}
+
+@media (max-width:496px){
+  .sc-stats {
+  grid-template-columns: repeat(2,1fr);
+}
 }

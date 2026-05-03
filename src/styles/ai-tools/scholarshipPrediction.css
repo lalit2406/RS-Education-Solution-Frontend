@@ -5,7 +5,7 @@
 
 .schp-page {
   min-height: 100vh;
-  padding: 60px 100px;
+  padding: 100px 60px;
   background:
     radial-gradient(circle at top right, #fbf7f3 0%, transparent 30%),
     radial-gradient(circle at left center, #f8f2eb 0%, transparent 35%), #f3ede7;
@@ -561,66 +561,6 @@
   }
 }
 
-/* Responsive */
-
-@media (max-width: 1350px) {
-  .schp-page {
-    padding: 40px 40px;
-  }
-}
-
-@media (max-width: 1150px) {
-  .schp-layout-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .schp-scroll-results {
-    height: auto;
-    max-height: none;
-    overflow: visible;
-    padding-right: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .schp-page {
-    padding: 24px 18px;
-  }
-
-  .schp-two-grid,
-  .schp-stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .schp-card-head,
-  .schp-insight-row,
-  .schp-result-head,
-  .schp-scholar-top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .schp-download-btn,
-  .schp-submit-btn,
-  .schp-back-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .schp-clay-card {
-    padding: 22px;
-    border-radius: 24px;
-  }
-
-  .schp-hero-title {
-    font-size: 34px;
-  }
-
-  .schp-result-head h2,
-  .schp-card-head h3 {
-    font-size: 28px;
-  }
-}
 
 /* =========================
    SCHOLARSHIP SKELETON (CONSISTENT)
@@ -685,4 +625,56 @@
 .rs-sch-skeleton-btn {
   height: 50px;
   border-radius: 25px;
+}
+
+/* Responsive */
+
+@media (max-width: 1150px) {
+  .schp-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .schp-scroll-results {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  
+
+  .schp-two-grid,
+  .schp-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .schp-card-head,
+  .schp-insight-row,
+  .schp-result-head,
+  .schp-scholar-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .schp-clay-card {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .schp-hero-title {
+    font-size: 34px;
+  }
+
+  .schp-result-head h2,
+  .schp-card-head h3 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .schp-page{
+    padding: 6em 2em;
+  }
 }

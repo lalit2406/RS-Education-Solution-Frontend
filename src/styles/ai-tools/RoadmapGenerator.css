@@ -1,6 +1,6 @@
 /* CONTAINER */
 .roadmapGen-container {
-  padding: 40px 100px;
+  padding:100px 60px;
   background: #f5efe7;
   min-height: 100vh;
   color: #2c2c2c;
@@ -348,17 +348,6 @@
   color: #8b7b6a;
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 768px) {
-  .roadmapGen-stepGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .roadmapGen-bottomGrid {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* =========================
    ROADMAP SKELETON
@@ -419,3 +408,23 @@
   height: 50px;
   border-radius: 25px;
 }
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .roadmapGen-stepGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmapGen-bottomGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .roadmapGen-container {
+    padding:6em 1.5em;
+  }
+
+  }
