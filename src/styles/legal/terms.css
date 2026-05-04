@@ -1,0 +1,75 @@
+/* PAGE WRAPPER */
+.rs-terms-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* TITLE */
+.rs-terms-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #8b5e34;
+}
+
+.rs-terms-date {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+/* SECTION */
+.rs-terms-section {
+  margin-bottom: 25px;
+}
+
+.rs-terms-section h2 {
+  font-size: 19px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.rs-terms-section p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+
+/* TABLET */
+@media (max-width: 992px) {
+  .rs-terms-container {
+    padding: 30px;
+  }
+
+  .rs-terms-title {
+    font-size: 28px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .rs-terms-page {
+    padding: 30px 10px;
+  }
+
+  .rs-terms-container {
+    padding: 20px;
+  }
+
+  .rs-terms-title {
+    font-size: 24px;
+  }
+
+  .rs-terms-section h2 {
+    font-size: 18px;
+  }
+
+  .rs-terms-section p {
+    font-size: 14px;
+  }
+}

@@ -57,9 +57,6 @@ export default function Footer() {
           <Link to="/ai-tools" className="footer-links-to-page">
             AI Tools
           </Link>
-          <Link to="/contact" className="footer-links-to-page">
-            Contact
-          </Link>
         </div>
 
         {/* RIGHT */}
@@ -89,6 +86,11 @@ export default function Footer() {
 
       <div className="footer-bottom">
         © {currentYear} R. S Education Solution. All rights reserved.
+    
+        <Link to="/terms">Terms & Conditions</Link>
+        <Link to="/privacy">Privacy Policy</Link>
+        <Link to="/disclaimer">Disclaimer</Link>
+        <Link to="/contact">Contact & Support</Link>
       </div>
       {showModal && (
         <InterestModal email={email} onClose={() => setShowModal(false)} />
