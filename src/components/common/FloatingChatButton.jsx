@@ -1,10 +1,11 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import { BsRobot } from "react-icons/bs";
 import "../../styles/common/floatingChat.css";
 
 const FloatingChatButton = ({ setShowChat, showChat }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { user } = useUser();
 
   const isLoggedIn = !!user;
@@ -17,11 +18,13 @@ const FloatingChatButton = ({ setShowChat, showChat }) => {
   // ❌ hide on other routes
   if (!allowedRoutes.includes(location.pathname)) return null;
 
-  // ❌ restrict home if not logged in
-  if (isHome && !isLoggedIn) return null;
-
-  // ✅ toggle open/close
+  // ✅ click handler
   const handleClick = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
     setShowChat((prev) => !prev);
   };
 
