@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../styles/dashboard/customersupport.css";
+import "../../styles/dashboard/customerSupport.css";
 
 import {
   FaComments,
