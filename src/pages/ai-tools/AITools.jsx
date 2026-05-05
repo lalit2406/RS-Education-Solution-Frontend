@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ai-tools/ai-tools.css";
 import DocumentAnalyzer from "./DocumentAnalyzer";
-import { useUser } from "../../context/UserContext";
 import {
   FaRobot,
   FaFileAlt,
   FaDatabase,
   FaMapSigns,
-  FaUniversity,
+  FaUniversity, 
   FaBook,
   FaMoneyBillWave,
   FaSearch,
@@ -89,10 +88,13 @@ export default function AITools() {
   /* =========================
      LOADING STATE (ADDED)
   ========================= */
-  useEffect(() => {
-    // static tools → no loading needed
+ useEffect(() => {
+  const timer = setTimeout(() => {
     setRsAiLoading(false);
-  }, []);
+  }, 500);
+
+  return () => clearTimeout(timer);
+}, []);
 
   const getGreeting = () => {
     const hour = new Date().getHours();

@@ -17,7 +17,40 @@ export default function AdminDashboard() {
     bookings: 0,
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+
+        const [tRes, bRes] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`, {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/all`, {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
+
+        const tickets = await tRes.json();
+        const bookings = await bRes.json();
+
+        setStats({
+          totalTickets: tickets.length,
+          pending: tickets.filter((t) => t.status === "Pending").length,
+          resolved: tickets.filter((t) => t.status === "Resolved").length,
+          bookings: bookings.length,
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+
     const handleNewTicket = (ticket) => {
       // 🔥 update instantly
       setStats((prev) => ({
@@ -28,12 +61,11 @@ export default function AdminDashboard() {
           ticket.status === "Resolved" ? prev.resolved + 1 : prev.resolved,
       }));
     };
-  const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  if (!user || user.role !== "admin") {
-    return <h2 style={{ padding: "30px" }}>Access Denied 🚫</h2>;
-  }
-  
+    if (!user || user.role !== "admin") {
+      return <h2 style={{ padding: "30px" }}>Access Denied 🚫</h2>;
+    }
 
     const handleNewBooking = () => {
       setStats((prev) => ({
@@ -69,41 +101,7 @@ export default function AdminDashboard() {
       socket.off("new-contact");
       socket.off("new-guidance");
     };
-  }, []);
-
-  const token = localStorage.getItem("token");
-
-  const fetchStats = async () => {
-    try {
-      setLoading(true);
-      const [tRes, bRes] = await Promise.all([
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`, {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/all`, {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-      ]);
-
-      const tickets = await tRes.json();
-      const bookings = await bRes.json();
-
-      setStats({
-        totalTickets: tickets.length,
-        pending: tickets.filter((t) => t.status === "Pending").length,
-        resolved: tickets.filter((t) => t.status === "Resolved").length,
-        bookings: bookings.length,
-      });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchStats();
-  }, []);
+  }, [token]);
 
   return (
     <div className="admin-container">

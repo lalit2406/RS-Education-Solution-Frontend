@@ -19,6 +19,31 @@ export default function Tickets({ showControls = true }) {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        setLoading(true);
+
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+
+        if (!res.ok) {
+          toast.error("Failed to fetch tickets ❌");
+          return;
+        }
+
+        const data = await res.json();
+        setTickets(data);
+        setFilteredTickets(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to fetch tickets ❌");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchTickets();
 
     const handleNewTicket = (newTicket) => {
@@ -86,31 +111,7 @@ export default function Tickets({ showControls = true }) {
       socket.off("ticket-updated", handleTicketUpdated);
       socket.off("ticket-deleted", handleTicketDeleted);
     };
-  }, [filter]);
-
-  const fetchTickets = async () => {
-    try {
-      setLoading(true);
-
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/tickets/all`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-
-      if (!res.ok) {
-        toast.error("Failed to fetch tickets ❌");
-        return;
-      }
-
-      const data = await res.json();
-      setTickets(data);
-      setFilteredTickets(data);
-    } catch (err) {
-      toast.error("Failed to fetch tickets ❌");
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [filter, token]);
 
   const handleFilter = (type) => {
     setFilter(type);
@@ -152,6 +153,9 @@ export default function Tickets({ showControls = true }) {
     });
 
     toast.success("Deleted");
+
+    setTickets((prev) => prev.filter((t) => t._id !== id));
+    setFilteredTickets((prev) => prev.filter((t) => t._id !== id));
   };
 
   return (

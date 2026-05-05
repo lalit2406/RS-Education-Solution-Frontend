@@ -5,7 +5,6 @@ import { FaTrash } from "react-icons/fa";
 import ConfirmModal from "../common/ConfirmModal";
 
 export default function Contacts({ showControls = true }) {
-  const [contacts, setContacts] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [replyText, setReplyText] = useState("");
@@ -21,10 +20,28 @@ export default function Contacts({ showControls = true }) {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+
+    const fetchContacts = async () => {
+      try {
+        setLoading(true);
+
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/contact/all`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+
+        const data = await res.json();
+        setFilteredContacts(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchContacts();
 
     const handleNewContact = (contact) => {
-      setContacts((prev) => [contact, ...prev]);
       setFilteredContacts((prev) => [contact, ...prev]);
       setCurrentPage(1);
 
@@ -34,7 +51,6 @@ export default function Contacts({ showControls = true }) {
     socket.on("new-contact", handleNewContact);
 
     const handleDelete = (id) => {
-      setContacts((prev) => prev.filter((c) => c._id !== id));
       setFilteredContacts((prev) => prev.filter((c) => c._id !== id));
 
       toast.success("Contact Deleted 🗑️");
@@ -42,10 +58,6 @@ export default function Contacts({ showControls = true }) {
 
     socket.on("contact-deleted", handleDelete);
     socket.on("contact-updated", (updated) => {
-      setContacts((prev) =>
-        prev.map((c) => (c._id === updated._id ? updated : c)),
-      );
-
       setFilteredContacts((prev) =>
         prev.map((c) => (c._id === updated._id ? updated : c)),
       );
@@ -56,26 +68,7 @@ export default function Contacts({ showControls = true }) {
       socket.off("contact-deleted", handleDelete);
       socket.off("contact-updated");
     };
-  }, []);
-
-  const fetchContacts = async () => {
-    try {
-      setLoading(true);
-
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/contact/all`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-
-      const data = await res.json();
-      setContacts(data);
-      setFilteredContacts(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [token]);
 
   const searched = filteredContacts
     .filter((c) => (c.name || "").toLowerCase().includes(search.toLowerCase()))

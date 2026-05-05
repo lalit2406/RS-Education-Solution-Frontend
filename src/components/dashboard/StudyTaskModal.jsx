@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import "../../styles/dashboard/studytaskmodal.css";
 
 export default function StudyTaskModal({
@@ -7,33 +7,26 @@ export default function StudyTaskModal({
   onAddTask,
   editTask,
 }) {
-  const [form, setForm] = useState({
-    subject: "",
-    topic: "",
-    date: "",
-    focus: "Deep Work",
-  });
 
-  // ✅ PREFILL FOR EDIT MODE
-  useEffect(() => {
-    if (!isOpen) return;
-
+  const getInitialForm = useCallback(() => {
     if (editTask) {
-      setForm({
+      return {
         subject: editTask.title || "",
         topic: editTask.category || "",
         date: editTask.dueDate ? editTask.dueDate.split("T")[0] : "",
         focus: "Deep Work",
-      });
-    } else {
-      setForm({
-        subject: "",
-        topic: "",
-        date: "",
-        focus: "Deep Work",
-      });
+      };
     }
-  }, [editTask, isOpen]);
+
+    return {
+      subject: "",
+      topic: "",
+      date: "",
+      focus: "Deep Work",
+    };
+  }, [editTask]);
+
+  const [form, setForm] = useState(getInitialForm);
 
   if (!isOpen) return null;
 
@@ -79,7 +72,7 @@ export default function StudyTaskModal({
 
   return (
     <div className="spm-overlay">
-      <div className="spm-modal">
+      <div key={editTask?._id || "new"} className="spm-modal">
         {/* CLOSE BUTTON */}
         <button className="spm-close" onClick={handleClose}>
           ×

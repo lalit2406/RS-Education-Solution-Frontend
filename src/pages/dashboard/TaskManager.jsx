@@ -73,8 +73,8 @@ export default function StudyPlanner() {
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks/${editTask._id}`,
           {
             title: task.title,
-            category: task.subtitle.tmlit(" • ")[0],
-            dueDate: task.subtitle.tmlit(" • ")[1] || null,
+            category: task.subtitle.split(" • ")[0],
+            dueDate: task.subtitle.split(" • ")[1] || null,
           },
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -85,8 +85,8 @@ export default function StudyPlanner() {
           `${import.meta.env.VITE_API_BASE_URL}/api/tasks`,
           {
             title: task.title,
-            category: task.subtitle.tmlit(" • ")[0],
-            dueDate: task.subtitle.tmlit(" • ")[1] || null,
+            category: task.subtitle.split(" • ")[0],
+            dueDate: task.subtitle.split(" • ")[1] || null,
           },
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -103,7 +103,7 @@ export default function StudyPlanner() {
 
       setTasks(res.data);
       setEditTask(null);
-      window.ditmatchEvent(new Event("tasksUpdated"));
+      window.dispatchEvent(new Event("tasksUpdated"));
     } catch (err) {
       console.log(err);
     }
@@ -122,9 +122,9 @@ export default function StudyPlanner() {
       );
 
       setTasks((prev) => prev.filter((t) => t._id !== id));
-      window.ditmatchEvent(new Event("tasksUpdated"));
+      window.dispatchEvent(new Event("tasksUpdated"));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -154,7 +154,7 @@ export default function StudyPlanner() {
         ),
       );
 
-      window.ditmatchEvent(new Event("tasksUpdated"));
+      window.dispatchEvent(new Event("tasksUpdated"));
     } catch (err) {
       console.log(err);
     }
@@ -302,6 +302,21 @@ export default function StudyPlanner() {
             ))}
         </div>
       </div>
+
+      {confirmDeleteId && (
+        <div className="tm-confirm-modal">
+          <p>Are you sure you want to delete?</p>
+          <button
+            onClick={() => {
+              handleDeleteTask(confirmDeleteId);
+              setConfirmDeleteId(null);
+            }}
+          >
+            Yes
+          </button>
+          <button onClick={() => setConfirmDeleteId(null)}>Cancel</button>
+        </div>
+      )}
 
       {/* MODAL */}
       <StudyTaskModal

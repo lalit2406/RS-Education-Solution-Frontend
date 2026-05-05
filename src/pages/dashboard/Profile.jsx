@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../styles/dashboard/profile.css";
 import { updateProfileUser } from "../../services/authService";
 import { useUser } from "../../context/UserContext";
@@ -9,7 +8,6 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const { user, setUser } = useUser();
 
-  const navigate = useNavigate();
 
   const [profile, setProfile] = useState({
     name: "",
@@ -70,16 +68,6 @@ export default function Profile() {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasChanges]);
 
-  // OPTIONAL: route safe navigation (only if used)
-  const handleSafeNavigate = (path) => {
-    if (hasChanges) {
-      const confirmLeave = window.confirm(
-        "You have unsaved changes. Are you sure you want to leave?",
-      );
-      if (!confirmLeave) return;
-    }
-    navigate(path);
-  };
 
   // ✅ HANDLE INPUT CHANGE
   const handleChange = (field, value) => {

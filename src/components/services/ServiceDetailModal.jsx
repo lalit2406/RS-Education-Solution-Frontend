@@ -8,31 +8,22 @@ export default function ServiceDetailModal({
   onBookNow,
 }) {
   const [openIndex, setOpenIndex] = useState(null);
-  
-  useEffect(() => {
-    if (isOpen) {
-      setOpenIndex(null);
-    }
-  }, [isOpen]);
 
   useEffect(() => {
-  if (isOpen) {
+    if (!isOpen) return;
+
     document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
 
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [isOpen]);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   if (!isOpen || !service) return null;
 
-
   return (
     <div className="rs-services-modal-overlay" onClick={onClose}>
-      <div className="rs-services-modal" onClick={(e) => e.stopPropagation()}>
+      <div key={isOpen} className="rs-services-modal" onClick={(e) => e.stopPropagation()}>
         {/* CLOSE BUTTON */}
         <button className="rs-services-close" onClick={onClose}>
           <FaTimes />

@@ -30,7 +30,7 @@ export default function CareerChatbot() {
     budget: "",
     course: "",
   });
-  const [showRightPanel, setShowRightPanel] = useState(true);
+  const [showRightPanel] = useState(true);
   const [listening, setListening] = useState(false);
 
   const [stats, setStats] = useState({
@@ -166,7 +166,7 @@ export default function CareerChatbot() {
     setFilterLoading(true);
     try {
       const cleanFilters = Object.fromEntries(
-        Object.entries(filters).filter(([_, v]) => v && v !== ""),
+        Object.entries(filters).filter(([, v]) => v && v !== ""),
       );
 
       if (!cleanFilters.budget) {
@@ -262,7 +262,9 @@ export default function CareerChatbot() {
       await fetch(`${API}/chat/session/${sessionId}`, {
         method: "DELETE",
       });
-    } catch {}
+    } catch (err) {
+  console.error(err);
+}
 
     setMessages([]);
     setSuggestions([]);
@@ -441,6 +443,16 @@ export default function CareerChatbot() {
               </button>
             </div>
 
+            {suggestions.length > 0 && (
+              <div className="chat-suggestions">
+                {suggestions.map((s, i) => (
+                  <button key={i} onClick={() => sendMessage(s)}>
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <div className="chat-hero-input">
               <input
                 ref={inputRef}
@@ -582,6 +594,14 @@ export default function CareerChatbot() {
 
         {/* ===== CONTENT ===== */}
         <div className="chat-right-content">
+          {selectedCollege && (
+            <div className="chat-selected-college">
+              <h3>{selectedCollege.name}</h3>
+              <p>{selectedCollege.city}</p>
+              <p>Fees: ₹{selectedCollege.fees_per_year}</p>
+              <p>Avg: {selectedCollege.placement_avg_lpa} LPA</p>
+            </div>
+          )}
           {rsChatLoading ? (
             <>
               <div className="rs-chat-skeleton-card"></div>

@@ -125,8 +125,6 @@ export default function BookCallModal({ isOpen, onClose, service }) {
         throw new Error("Booking failed");
       }
 
-      toast.success("Call booked successfully 📞");
-
       setBookingDone(true);
 
       setTimeout(() => {

@@ -56,8 +56,8 @@ export const UserProvider = ({ children }) => {
         user,
         setUser,
         loading,
-        loginUserContext, // ✅ important
-        logoutUser,       // ✅ optional
+        loginUserContext, 
+        logoutUser,       
       }}
     >
       {children}

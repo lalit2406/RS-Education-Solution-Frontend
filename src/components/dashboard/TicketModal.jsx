@@ -4,23 +4,28 @@ import { FaTimes, FaCheck } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 export default function TicketModal({ isOpen, onClose }) {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+
+  const [username] = useState(user?.name || "");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
+  }, [isOpen]);
 
   if (!user) {
     return null; // or redirect
   }
-
-  const [username, setUsername] = useState(user?.name || "");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [email, setEmail] = useState(user?.email || "");
-
-  useEffect(() => {
-    if (isOpen) document.body.classList.add("modal-open");
-    else document.body.classList.remove("modal-open");
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   const handleSubmit = async () => {

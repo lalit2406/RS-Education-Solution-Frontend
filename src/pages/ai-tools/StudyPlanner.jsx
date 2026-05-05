@@ -310,7 +310,7 @@ export default function StudyPlanning() {
     return (
       text
         // remove markdown symbols (* + - at start of lines)
-        .replace(/^[*+\-]\s+/gm, "<li>")
+        .replace(/^[*_-]\s+/gm, "<li>")
 
         // headings
         .replace(/###\s*(.*?)\n/g, `<h4> $1</h4>`)

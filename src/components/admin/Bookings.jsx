@@ -35,7 +35,7 @@ export default function Bookings({ showControls = true }) {
     return () => {
       socket.off("new-booking", handleNewBooking);
     };
-  }, []);
+  },);
 
   const fetchBookings = async () => {
     try {
@@ -65,6 +65,7 @@ export default function Bookings({ showControls = true }) {
       toast.success("Booking deleted");
       fetchBookings();
     } catch (err) {
+      console.error(err);
       toast.error("Delete failed");
     }
   };

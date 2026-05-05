@@ -24,8 +24,8 @@
   scroll-behavior: smooth;
 
   /* hide scrollbar */
-  scrollbar-width: none;
   -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
 
   background: #f5efe6;
   border-radius: 30px;

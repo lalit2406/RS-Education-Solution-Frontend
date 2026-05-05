@@ -16,6 +16,24 @@ export default function Guidance({ showControls = true }) {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    const fetchLeads = async () => {
+      try {
+        setLoading(true);
+
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/guidance/all`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+
+        const data = await res.json();
+        setLeads(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchLeads();
 
     const handleNewLead = (lead) => {
@@ -27,25 +45,7 @@ export default function Guidance({ showControls = true }) {
     socket.on("new-guidance", handleNewLead);
 
     return () => socket.off("new-guidance", handleNewLead);
-  }, []);
-
-  const fetchLeads = async () => {
-    try {
-      setLoading(true);
-
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/guidance/all`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-
-      const data = await res.json();
-      setLeads(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [token]);
 
   const filtered = leads.filter((l) =>
     (l.name || "").toLowerCase().includes(search.toLowerCase()),
@@ -66,7 +66,7 @@ export default function Guidance({ showControls = true }) {
     });
 
     toast.success("Lead deleted");
-    fetchLeads();
+    setLeads((prev) => prev.filter((l) => l._id !== id));
   };
 
   return (

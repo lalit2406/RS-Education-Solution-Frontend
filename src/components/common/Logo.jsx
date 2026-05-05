@@ -5,7 +5,7 @@ const Logo = ({ className = "", width = "55px" }) => {
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
       className={className}
-      style={{ width: "100%", height: "100%" }}
+      style={{ width, height: "100%" }}
     > <defs>
   <linearGradient id="Gradient1" x1="1.39171" x2="-0.69517" y1="0.50679" y2="0.49535">
    <stop className="stop0" offset="0" stopColor="rgb(207,115,0)"/>
