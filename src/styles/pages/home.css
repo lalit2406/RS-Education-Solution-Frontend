@@ -767,7 +767,7 @@
   .rs-home-title-animate .rs-line-one,
   .rs-home-title-animate .rs-line-two {
     font-size: 0.7em;
-    height:6vh;
+    height: 6vh;
   }
 }
 
@@ -838,26 +838,31 @@
 
 @media (max-width: 460px) {
   .rs-home-search-box button {
-    padding: 11px 15px;
+    padding: 8px 8px;
   }
 
-  .rs-home-search-box{
+  .rs-home-search-box {
     padding: 5px 5px 5px 10px;
     max-width: 300px;
-    gap:0;
+    gap: 0;
     margin-top: 0;
   }
-  .rs-home-title-animate .rs-line-one,
-.rs-home-title-animate .rs-line-two {
-  font-size: 0.5em;
-  height:5vh;
-}
-}
 
-@media (max-width: 390px) {
-  .rs-home-search-box{
-    gap: 0;
+  .rs-home-badge{
+    font-size: 12px;
+  }
+  .rs-home-title-animate .rs-line-one,
+  .rs-home-title-animate .rs-line-two {
+    font-size: 0.5em;
+    height: 5vh;
+  }
+  .rs-home-hero-mini-stats {
+    justify-content: left;
+    width: max-content;
+    flex-direction: column;
+  }
+
+  .rs-home-hero-mini-stats div {
+      font-size: 12px;
   }
 }
-
-
