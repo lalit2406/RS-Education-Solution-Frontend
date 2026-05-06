@@ -809,6 +809,25 @@
     padding: 25px 20px;
   }
 
+  .rs-home-stat-item,
+  .rs-home-success-card {
+    padding: 10px;
+}
+
+.rs-home-stat-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.rs-home-stat-item p{
+  font-size: 1rem;
+}
+
+.rs-home-stat-item h3 {
+    font-size: 1.5rem;
+}
+
   .rs-home-hero-subtitle {
     display: none;
   }
