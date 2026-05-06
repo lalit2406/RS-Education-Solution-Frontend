@@ -1,49 +1,28 @@
 import React from "react";
 import "../../styles/layout/ourpartner.css";
-import sharda from "../../assets/partners/sharda_uni.jpeg";
-import amity from "../../assets/partners/amity_uni.jpeg";
-import bennett from "../../assets/partners/bennet_uni.jpeg";
-import bits from "../../assets/partners/bits_uni.jpeg";
-import chandigarh from "../../assets/partners/chandigarh_uni.jpeg";
-import galgotias from "../../assets/partners/galgotia_uni.png";
-import gniot from "../../assets/partners/gniot_uni.jpeg";
-import jcbose from "../../assets/partners/jcbose_uni.png";
-import lpu from "../../assets/partners/lpu_uni.png";
-import manav from "../../assets/partners/manav_uni.jpeg";
-import niu from "../../assets/partners/noida_uni.jpeg";
-import srm from "../../assets/partners/srm_uni.png";
-import subharti from "../../assets/partners/subhbharti_uni.jpeg";
-import thapar from "../../assets/partners/thapar_uni.jpeg";
-import iilm from "../../assets/partners/iilm_uni.jpeg";
-import ipu from "../../assets/partners/inderprasth_uni.jpeg";
-import mangalyatan from "../../assets/partners/mangalyatan_uni.jpeg";
-import mangalmay from "../../assets/partners/mangamay_uni.jpeg";
-import shivnadar from "../../assets/partners/shivnadar_uni.jpeg";
-import smit from "../../assets/partners/smit-uni.jpeg";
-import vit from "../../assets/partners/vit_uni.jpeg";
 
 const partners = [
-  sharda,
-  amity,
-  bennett,
-  bits,
-  chandigarh,
-  galgotias,
-  gniot,
-  jcbose,
-  lpu,
-  manav,
-  niu,
-  srm,
-  subharti,
-  thapar,
-  iilm,
-  ipu,
-  mangalyatan,
-  mangalmay,
-  shivnadar,
-  smit,
-  vit,
+  "/images/partners/sharda_uni.png",
+  "/images/partners/amity_uni.png",
+  "/images/partners/bennet_uni.png",
+  "/images/partners/bits_uni.png",
+  "/images/partners/chandigarh_uni.png",
+  "/images/partners/galgotia_uni.png",
+  "/images/partners/gniot_uni.png",
+  "/images/partners/jcbose_uni.png",
+  "/images/partners/lpu_uni.png",
+  "/images/partners/manav_uni.png",
+  "/images/partners/noida_uni.png",
+  "/images/partners/srm_uni.png",
+  "/images/partners/subhbharti_uni.png",
+  "/images/partners/thapar_uni.png",
+  "/images/partners/iilm_uni.png",
+  "/images/partners/inderprasth_uni.png",
+  "/images/partners/mangalyatan_uni.png",
+  "/images/partners/mangamay_uni.png",
+  "/images/partners/shivnadar_uni.png",
+  "/images/partners/smit-uni.png",
+  "/images/partners/vit_uni.png",
 ];
 
 const OurPartner = () => {
@@ -59,6 +38,7 @@ const OurPartner = () => {
                 src={logo}
                 alt="partner logo"
                 className="op-logo"
+                loading="lazy"
               />
             </div>
           ))}
