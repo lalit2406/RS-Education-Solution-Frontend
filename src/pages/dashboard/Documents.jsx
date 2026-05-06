@@ -69,9 +69,10 @@ export default function Documents() {
       setUploading(true);
       setUploadProgress(0);
 
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}upload`, formData, {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/documents/upload`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (e) => {
           const percent = Math.round((e.loaded * 100) / e.total);
