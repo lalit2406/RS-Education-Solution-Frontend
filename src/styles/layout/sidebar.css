@@ -209,7 +209,7 @@
   .rs-sidebar {
     width: 260px;
     top: -40px;
-    height: calc(113vh - 120px);
+    height: 105vh;
   }
 
   .rs-sidebar-menu {
