@@ -34,21 +34,18 @@ export default function Login() {
 
     if (name === "email") {
       if (!value) error = "Email is required";
-      else if (!/\S+@\S+\.\S+/.test(value))
-        error = "Enter valid email";
+      else if (!/\S+@\S+\.\S+/.test(value)) error = "Enter valid email";
     }
 
     if (name === "password") {
-  if (!value) {
-    error = "Password is required";
-  } else if (value.length < 8) {
-    error = "Minimum 8 characters required";
-  } else if (
-    !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(value)
-  ) {
-    error = "Must include A, a, 1 and @";
-  }
-}
+      if (!value) {
+        error = "Password is required";
+      } else if (value.length < 8) {
+        error = "Minimum 8 characters required";
+      } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(value)) {
+        error = "Must include A, a, 1 and @";
+      }
+    }
 
     setErrors((prev) => ({ ...prev, [name]: error }));
     return error;
@@ -120,12 +117,13 @@ export default function Login() {
           toast.error(errorData.message);
 
           // 🔥 AUTO REDIRECT TO SIGNUP
-          if (errorData.message.toLowerCase().includes("account does not exist")) {
+          if (
+            errorData.message.toLowerCase().includes("account does not exist")
+          ) {
             setTimeout(() => {
               navigate("/signup");
             }, 1500);
           }
-
         } else {
           toast.error("Something went wrong. Try again.");
         }
@@ -146,43 +144,19 @@ export default function Login() {
         token: credentialResponse.credential,
       });
 
-      // 🆕 NEW USER → OTP
-      if (res.data.isNewUser) {
-        return navigate("/verify-otp", {
-          state: { email: res.data.email, type: "signup" },
-        });
-      }
-
-      // ✅ VERIFIED USER → LOGIN
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
+
         localStorage.setItem("user", JSON.stringify(res.data.user));
 
         await loginUserContext();
 
-        return navigate("/");
+        navigate("/");
       }
-
-      // ❌ fallback
-      toast.error("Something went wrong. Try again.");
     } catch (err) {
       console.log(err.response?.data || err);
-      const errorData = err.response?.data;
 
-      // ❗ NOT VERIFIED
-      if (errorData?.isVerified === false) {
-        toast.error("Please verify your email first");
-
-        navigate("/verify-otp", {
-          state: { email: errorData.email, type: "signup" },
-        });
-      } else {
-        if (errorData?.message) {
-          toast.error(errorData.message);
-        } else {
-          toast.error("Google login failed");
-        }
-      }
+      toast.error(err.response?.data?.message || "Google login failed");
     } finally {
       setGoogleLoading(false);
     }
@@ -191,10 +165,14 @@ export default function Login() {
   return (
     <div className="rs-login-container">
       <div className="rs-login-card">
-
         {/* LEFT */}
         <div className="rs-login-left">
-          <img src="/images/home/rs_login_bg.png" alt="background" className="rs-login-bg" loading="eager" />
+          <img
+            src="/images/home/rs_login_bg.png"
+            alt="background"
+            className="rs-login-bg"
+            loading="eager"
+          />
 
           <div className="rs-login-overlay">
             <h1 className="rs-login-brand">R. S Education</h1>
@@ -226,12 +204,13 @@ export default function Login() {
           </p>
 
           <form onSubmit={handleSubmit}>
-
             {/* EMAIL */}
             <div className="rs-login-input-group">
               <label>Email Address</label>
 
-              <div className={`rs-login-input-field ${errors.email ? "error" : ""}`}>
+              <div
+                className={`rs-login-input-field ${errors.email ? "error" : ""}`}
+              >
                 <FaEnvelope />
                 <input
                   ref={emailRef}
@@ -258,7 +237,9 @@ export default function Login() {
                 </Link>
               </div>
 
-              <div className={`rs-login-input-field ${errors.password ? "error" : ""}`}>
+              <div
+                className={`rs-login-input-field ${errors.password ? "error" : ""}`}
+              >
                 <FaLock />
                 <input
                   ref={passwordRef}
@@ -285,11 +266,7 @@ export default function Login() {
             </div>
 
             {/* BUTTON */}
-            <button
-              type="submit"
-              className="rs-login-btn"
-              disabled={loading}
-            >
+            <button type="submit" className="rs-login-btn" disabled={loading}>
               {loading ? "Signing In..." : "Sign In →"}
             </button>
           </form>
