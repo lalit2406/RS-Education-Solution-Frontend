@@ -615,12 +615,15 @@
   }
   
   .rs-search-box{
-    max-width: 100%;
+    max-width: 30vw;
   }
+
+}
+
+@media (max-width: 576px) {
   .rs-doc-actions{
     grid-template-columns: repeat(2,1fr);
   }
-
 }
 
 /* =========================
