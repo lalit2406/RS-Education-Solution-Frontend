@@ -310,32 +310,24 @@ export default function Signup() {
                       token: res.credential,
                     });
 
-                    if (data.data.isNewUser) {
-                      navigate("/verify-otp", {
-                        state: {
-                          email: data.data.email,
-                          type: "signup",
-                        },
-                      });
-                    } else {
-                      localStorage.setItem("token", data.data.token);
+                    localStorage.setItem("token", data.data.token);
 
-                      localStorage.setItem(
-                        "user",
-                        JSON.stringify(data.data.user),
-                      );
+                    localStorage.setItem(
+                      "user",
+                      JSON.stringify(data.data.user),
+                    );
 
-                      await loginUserContext();
+                    await loginUserContext();
 
-                      navigate("/");
-                    }
-                  } catch {
+                    navigate("/");
+                  } catch (err) {
                     console.log(err.response?.data || err);
-                    toast.error("Email Already Exists! Try Logging In.");
-                    navigate("/login");
+
+                    toast.error(
+                      err.response?.data?.message || "Google Sign In Failed",
+                    );
                   }
                 }}
-                onError={() => toast.error("Google Sign In Failed")}
               />
             </div>
 
