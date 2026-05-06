@@ -10,83 +10,70 @@ import {
 
 import "../../styles/home/topStudyPlaces.css";
 
-import biharImg from "../../assets/city/bihar.png";
-import delhiImg from "../../assets/city/delhi.png";
-import haryanaImg from "../../assets/city/haryana.png";
-import himachalImg from "../../assets/city/himachal.png";
-import karnatakaImg from "../../assets/city/karnataka.png";
-import madhyaPradeshImg from "../../assets/city/mp.png";
-import maharastraImg from "../../assets/city/maharastra.png";
-import punjabImg from "../../assets/city/punjab.png";
-import rajasthanImg from "../../assets/city/rajasthan.png";
-import tamilNaduImg from "../../assets/city/tamilnadu.png";
-import uttarPradeshImg from "../../assets/city/up.png";
-import uttarakhandImg from "../../assets/city/uttarakhand.png";
-
 const TopStudyPlaces = () => {
   const navigate = useNavigate();
   const sliderRef = useRef(null);
 
-  const places = [
-    {
-      name: "Bihar",
-      image: biharImg,
-      stateQuery: "bihar",
-    },
+const places = [
+  {
+    name: "Bihar",
+    image: "/images/cities/bihar.png",
+    stateQuery: "bihar",
+  },
   {
     id: 1,
     name: "Delhi",
-    image: delhiImg,
+    image: "/images/cities/delhi.png",
     stateQuery: "Delhi",
   },
   {
     name: "Haryana",
-    image: haryanaImg,
+    image: "/images/cities/haryana.png",
     stateQuery: "haryana",
   },
   {
     name: "Himachal Pradesh",
-    image: himachalImg,
+    image: "/images/cities/himachal.png",
     stateQuery: "himachal pradesh",
   },
   {
     name: "Karnataka",
-    image: karnatakaImg,
+    image: "/images/cities/karnataka.png",
     stateQuery: "karnataka",
   },
   {
     name: "Madhya Pradesh",
-    image: madhyaPradeshImg,
+    image: "/images/cities/mp.png",
     stateQuery: "madhya pradesh",
   },
   {
     name: "Maharashtra",
-    image: maharastraImg,
-   stateQuery: "maharashtra",
+    image: "/images/cities/maharastra.png",
+    stateQuery: "maharashtra",
   },
   {
     name: "Punjab",
-    image: punjabImg,
+    image: "/images/cities/punjab.png",
     stateQuery: "punjab",
   },
   {
     name: "Rajasthan",
-    image: rajasthanImg,
+    image: "/images/cities/rajasthan.png",
     stateQuery: "rajasthan",
   },
   {
     name: "Tamil Nadu",
-    image: tamilNaduImg,
+    image: "/images/cities/tamilnadu.png",
     stateQuery: "tamil nadu",
   },
   {
     name: "Uttar Pradesh",
-    image: uttarPradeshImg,
+    image: "/images/cities/up.png",
     stateQuery: "uttar pradesh",
   },
   {
     name: "Uttarakhand",
-    image: uttarakhandImg,
+    image: "/images/cities/uttarakhand.png",
     stateQuery: "uttarakhand",
   },
 ];
@@ -165,6 +152,7 @@ const TopStudyPlaces = () => {
                   src={place.image}
                   alt={place.name}
                   className="tsp-img"
+                  loading="lazy"
                 />
               </div>
 
