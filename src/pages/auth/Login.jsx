@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock } from "react-icons/fa";
 import { GoogleLogin } from "@react-oauth/google";
 import { googleAuthUser, loginUser } from "../../services/authService";
-import LoginBg from "/src/assets/images/rs_login_bg.png";
 import { useUser } from "../../context/UserContext";
 
 export default function Login() {
@@ -193,7 +192,7 @@ export default function Login() {
 
         {/* LEFT */}
         <div className="rs-login-left">
-          <img src={LoginBg} alt="background" className="rs-login-bg" />
+          <img src="/images/home/rs_login_bg.png" alt="background" className="rs-login-bg" loading="eager" />
 
           <div className="rs-login-overlay">
             <h1 className="rs-login-brand">R. S Education</h1>

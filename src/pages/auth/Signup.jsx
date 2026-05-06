@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth/signup.css";
 import { GoogleLogin } from "@react-oauth/google";
 import { googleAuthUser, signupUser } from "../../services/authService";
-import SignupBg from "/src/assets/images/signup_bg.png";
 import toast from "react-hot-toast";
 import { useUser } from "../../context/UserContext";
 
@@ -156,7 +155,7 @@ export default function Signup() {
 
         {/* LEFT */}
         <div className="rs-signup-left">
-          <img src={SignupBg} alt="bg" />
+          <img src="/images/home/signup_bg.png" alt="bg" loading="eager" />
           <div className="rs-signup-overlay">
             <p className="rs-signup-tagline">
               WELCOME TO THE EDUCATION WORLD
