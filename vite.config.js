@@ -3,7 +3,6 @@ import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import babel from "@rolldown/plugin-babel";
 import sitemap from "vite-plugin-sitemap";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -14,6 +13,21 @@ export default defineConfig({
 
     sitemap({
       hostname: "https://rseducationsolution.in",
+
+      dynamicRoutes: [
+        "/",
+        "/login",
+        "/signup",
+        "/forgot-password",
+        "/verify-otp",
+        "/reset-password",
+        "/set-password",
+        "/contact",
+        "/unsubscribe",
+        "/terms",
+        "/privacy",
+        "/disclaimer",
+      ],
     }),
   ],
 });
