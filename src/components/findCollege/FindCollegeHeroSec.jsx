@@ -3,13 +3,13 @@ import "../../styles/findCollege/findCollegeHeroSec.css";
 
 import { FaUniversity, FaUsers, FaBookOpen, FaAward } from "react-icons/fa";
 
+const slides = [
+  "/images/home/college11.png",
+  "/images/home/college12.png",
+  "/images/home/college10.png",
+  "/images/home/college13.png",
+];
 const FindCollegeHeroSec = () => {
-  const slides = [
-    "/images/home/college11.png",
-    "/images/home/college12.png",
-    "/images/home/college10.png",
-    "/images/home/college13.png",
-  ];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const FindCollegeHeroSec = () => {
     }, 4000);
 
     return () => clearInterval(autoSlide);
-  }, [slides.length]);
+  }, []);
 
   return (
     <>
@@ -42,7 +42,7 @@ const FindCollegeHeroSec = () => {
 
         {/* Main Content */}
         <div className="rs-fc-content">
-          <p className="rs-fc-mini-title">WELCOME TO</p>
+          <p className="rs-fc-mini-title">WELCOME TO RS EDUCATION</p>
 
           <h1 className="rs-fc-heading">
             Start Your Beautiful <br />
