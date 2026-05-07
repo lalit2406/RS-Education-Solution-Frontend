@@ -106,10 +106,6 @@ export default function AITools() {
 
   return (
     <div className="ai-tools-page">
-      {/* ===== HEADER TOP ===== */}
-      <div className="ai-header-top">
-        <h2>R. S Education Solution</h2>
-      </div>
 
       {/* ===== MAIN HEADER ===== */}
       <div className="ai-header">
