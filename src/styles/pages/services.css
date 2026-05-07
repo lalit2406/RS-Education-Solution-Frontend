@@ -699,8 +699,9 @@
     overflow: hidden;
   }
   .cta-image img {
-           height: 25vh;
+           height: 30vh;
         border-top-left-radius: 25px;
+        border-bottom-right-radius: 0;
 }
 
 }
@@ -765,7 +766,7 @@
     flex-direction: column;
   }
   .cta-image img {
-    height: 15vh;
+    height: 20vh;
   }
 
 }
