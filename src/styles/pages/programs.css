@@ -212,10 +212,7 @@
   background: #fff;
   border-radius: 26px;
   overflow: hidden;
-
-  box-shadow:
-    10px 10px 22px rgba(163, 138, 110, 0.16),
-    -10px -10px 22px rgba(255, 255, 255, 0.95);
+  border: 2px solid #8a5a3b;
 
   transition: 0.35s ease;
 }
