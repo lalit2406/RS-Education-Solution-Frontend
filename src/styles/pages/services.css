@@ -289,7 +289,7 @@
 }
 
 .cta-left {
-  margin: 20px 0 20px 60px;
+  margin: 20px ;
 }
 
 /* TEXT */
@@ -703,7 +703,7 @@
 /* ============ Mobile ============ */
 @media (max-width: 576px) {
   .services-page{
-    padding: 50px 20px;
+    padding: 85px 20px;
   }
 
   .services-hero-content {
@@ -758,7 +758,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top:3em;
   }
   .cta-image img {
     height: 15vh;
@@ -790,8 +789,7 @@
   }
 
   .services-badge {
-    font-size: 0.62rem;
-    padding: 0.3rem 0.6rem;
+    display: none;
   }
 
   .service-card h3 {
@@ -802,8 +800,8 @@
     font-size: 0.78rem;
   }
   .cta-content{
-    padding-top: 4em;
-    display:contents;
+    display: flex;
+flex-direction: column;
   }
   .cta-section{
     margin-bottom: 1em;
@@ -811,6 +809,7 @@
   .primary,
   .secondary {
     height:5.2vh;
+    font-weight: 200;
   }
 }
 

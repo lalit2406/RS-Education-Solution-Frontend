@@ -102,8 +102,6 @@ export default function Services() {
             </div>
           </div>
         </section>
-
-        {/* SERVICES GRID */}
         {/* SERVICES GRID */}
         <section className="services-grid">
           {rsServicesLoading
