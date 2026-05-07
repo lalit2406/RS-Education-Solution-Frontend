@@ -246,7 +246,7 @@
   width: 100%;
   margin-top: 22px;
   border: none;
-  border-radius: 20px;
+  border-radius: 30px;
   padding: 17px 20px;
   font-size: 1.08rem;
   font-weight: 800;
@@ -417,98 +417,6 @@
   margin-top: -4px;
 }
 
-/* TABLET */
-
-@media (max-width: 900px) {
-  .da-hero h1 {
-    font-size: 2.25rem;
-  }
-
-  .da-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .da-file-left h4 {
-    max-width: 320px;
-  }
-}
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-  .da-page {
-    padding: 100px 30px;
-  }
-
-  .da-topbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .da-back,
-  .da-badge {
-    justify-content: center;
-  }
-
-  .da-upload-card,
-  .da-result-card {
-    padding: 18px;
-    border-radius: 22px;
-  }
-
-  .da-hero h1 {
-    font-size: 1.9rem;
-    line-height: 1.15;
-  }
-
-  .da-hero p {
-    font-size: 0.97rem;
-  }
-
-  .da-dropzone {
-    padding: 40px 16px;
-    border-radius: 22px;
-  }
-
-  .da-dropzone h3 {
-    font-size: 1.45rem;
-  }
-
-  .da-file-box {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .da-file-left {
-    align-items: flex-start;
-  }
-
-  .da-file-left h4 {
-    max-width: 100%;
-    white-space: normal;
-    word-break: break-word;
-  }
-
-  .da-file-actions {
-    width: 100%;
-  }
-
-  .da-replace-btn,
-  .da-delete-btn {
-    flex: 1;
-    width: 100%;
-  }
-
-  .da-delete-btn {
-    height: 44px;
-  }
-
-  .da-analyze-btn,
-  .da-new-doc-btn {
-    font-size: 1rem;
-    padding: 15px;
-  }
-}
 
 /* =========================
    DOCUMENT ANALYZER SKELETON
@@ -567,4 +475,103 @@
 .rs-da-skeleton-btn {
   height: 50px;
   border-radius: 20px;
+}
+
+/* TABLET */
+
+@media (max-width: 992px) {
+  .da-hero h1 {
+    font-size: 2.25rem;
+  }
+
+  .da-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .da-file-left h4 {
+    max-width: 320px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+  .da-page {
+    padding: 100px 20px;
+  }
+
+  .da-topbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .da-back,
+  .da-badge {
+    width: auto;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .da-upload-card,
+  .da-result-card {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .da-dropzone h3,
+  .da-hero h1 {
+    font-size: 1.2rem;
+    line-height: 1.15;
+  }
+
+  .da-dropzone span,
+  .da-hero p {
+    font-size: 0.8rem;
+  }
+
+  .da-dropzone {
+    padding: 40px 16px;
+    border-radius: 22px;
+  }
+
+  .da-file-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .da-file-left {
+    align-items: flex-start;
+  }
+
+  .da-file-left h4 {
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .da-file-actions {
+    width: 100%;
+  }
+
+  .da-replace-btn,
+  .da-delete-btn {
+    flex: 1;
+    width: 100%;
+  }
+
+  .da-delete-btn {
+    height: 44px;
+  }
+
+  .da-analyze-btn,
+  .da-new-doc-btn {
+   font-size: 1rem;
+    font-weight: 400;
+  }
 }

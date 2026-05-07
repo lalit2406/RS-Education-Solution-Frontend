@@ -500,7 +500,7 @@
 @media (max-width: 768px) {
   /* CONTAINER */
   .roadmapGen-container {
-    padding: 70px 30px;
+    padding: 100px 30px;
   }
 
   /* HERO */
@@ -585,13 +585,14 @@
    SMALL MOBILE (480px)
 ========================= */
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
   .roadmapGen-container {
-    padding: 60px 15px;
+    padding: 100px 20px;
   }
 
   .roadmapGen-heroTitle {
-    font-size: 24px;
+    font-size: 20px;
+    margin-bottom: 0;
   }
 
   .roadmapGen-heroDesc {
@@ -623,11 +624,5 @@
 
   .roadmapGen-stepContent h2 {
     font-size: 16px;
-  }
-}
-
-@media (max-width: 768px) {
-  .roadmapGen-container {
-    padding: 6em 1.5em;
   }
 }
