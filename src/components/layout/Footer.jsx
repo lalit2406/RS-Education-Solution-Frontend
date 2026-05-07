@@ -4,7 +4,7 @@ import "../../styles/layout/footer.css";
 import {
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
+  FaXTwitter,
   FaWhatsapp,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -27,16 +27,35 @@ export default function Footer() {
           </p>
 
           <div className="footer-socials">
-            <a href="#">
+            <a
+              href="https://www.facebook.com/share/15qmQU3Uj43/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaFacebookF />
             </a>
-            <a href="#">
+
+            <a
+              href="https://www.instagram.com/r.sedusolution/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaInstagram />
             </a>
-            <a href="#">
-              <FaTwitter />
+
+            <a
+              href="https://x.com/RSedusolution"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaXTwitter />
             </a>
-            <a href="#">
+
+            <a
+              href="https://wa.me/917982131324"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaWhatsapp />
             </a>
           </div>
@@ -86,12 +105,12 @@ export default function Footer() {
 
       <div className="footer-bottom">
         © {currentYear} R. S Education Solution. All rights reserved.
-    <div className="legal-link">
-        <Link to="/terms">Terms & Conditions</Link>
-        <Link to="/privacy">Privacy Policy</Link>
-        <Link to="/disclaimer">Disclaimer</Link>
-        <Link to="/contact">Contact & Support</Link>
-      </div>
+        <div className="legal-link">
+          <Link to="/terms">Terms & Conditions</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/disclaimer">Disclaimer</Link>
+          <Link to="/contact">Contact & Support</Link>
+        </div>
       </div>
       {showModal && (
         <InterestModal email={email} onClose={() => setShowModal(false)} />
