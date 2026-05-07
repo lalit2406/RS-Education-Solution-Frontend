@@ -35,7 +35,7 @@ export default function Bookings({ showControls = true }) {
     return () => {
       socket.off("new-booking", handleNewBooking);
     };
-  },);
+  },[]);
 
   const fetchBookings = async () => {
     try {

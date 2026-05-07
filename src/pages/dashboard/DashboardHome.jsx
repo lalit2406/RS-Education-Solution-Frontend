@@ -12,6 +12,23 @@ export default function DashboardHome() {
   const navigate = useNavigate(); // ✅ added
   const location = useLocation();
 
+  const recommendedColleges = [
+    {
+      id: 1,
+      name: "IIT Delhi",
+      location: "New Delhi",
+      tag: "Top Engineering",
+      image: "/images/colleges/iit-delhi.webp",
+    },
+    {
+      id: 2,
+      name: "BITS Pilani",
+      location: "Rajasthan",
+      tag: "Innovation Focus",
+      image: "/images/colleges/bits-pilani.webp",
+    },
+  ];
+
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
@@ -274,19 +291,25 @@ export default function DashboardHome() {
         <div className="rs-dashboard-recommend-section">
           <h3>Recommended for You</h3>
           <div className="rs-dashboard-section-header">
-            <div className="rs-dashboard-recommend-card">
-              <div className="rs-dashboard-recommend-img"></div>
-              <h4>Stanford School of Design</h4>
-              <p>Palo Alto, CA • Top 1% in Design</p>
-              <button>View Details</button>
-            </div>
+            {recommendedColleges.map((college) => (
+              <div key={college.id} className="rs-dashboard-recommend-card">
+                <img
+                  src={college.image}
+                  alt={college.name}
+                  className="rs-dashboard-recommend-img"
+                />
 
-            <div className="rs-dashboard-recommend-card">
-              <div className="rs-dashboard-recommend-img alt"></div>
-              <h4>MIT Architecture Lab</h4>
-              <p>Cambridge, MA • Research Excellence</p>
-              <button>View Details</button>
-            </div>
+                <h4>{college.name}</h4>
+
+                <p>
+                  {college.location} • {college.tag}
+                </p>
+
+                <button onClick={() => navigate("/find-college")}>
+                  View Details
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
