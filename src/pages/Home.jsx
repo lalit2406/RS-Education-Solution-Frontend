@@ -62,33 +62,61 @@ const Home = () => {
       desc: "AI, coding and modern software systems.",
       image: "/images/home/Computer_Science.webp",
     },
+
     {
       id: 2,
       category: "Engineering",
-      title: "Electronics",
-      desc: "Embedded systems and smart hardware.",
-      image: "/images/home/Electrical.webp",
+      title: "AI & Machine Learning",
+      desc: "Build smart systems using modern AI.",
+      image: "/images/home/AI_ML.webp",
     },
+
     {
       id: 3,
       category: "Engineering",
-      title: "Mechanical",
-      desc: "Machines, robotics and innovation.",
-      image: "/images/home/Mechanical.webp",
+      title: "Cyber Security",
+      desc: "Protect systems from cyber threats.",
+      image: "/images/home/Cyber_Security.webp",
     },
+
     {
       id: 4,
-      category: "Business",
-      title: "Management",
-      desc: "Leadership, finance and growth strategy.",
-      image: "/images/home/MBA_BusinessAnalytics.webp",
+      category: "Engineering",
+      title: "Electronics & Communication",
+      desc: "Work with embedded and communication systems.",
+      image: "/images/home/Electronics_Communication.webp",
     },
+
     {
       id: 5,
-      category: "Healthcare",
-      title: "Medical",
-      desc: "Healthcare, patient care and medicine.",
+      category: "Management",
+      title: "MBA in Finance",
+      desc: "Learn investments, banking and finance.",
+      image: "/images/home/MBA_Finance.webp",
+    },
+
+    {
+      id: 6,
+      category: "Management",
+      title: "MBA in Marketing",
+      desc: "Master branding and market strategy.",
+      image: "/images/home/MBA_Marketing.webp",
+    },
+
+    {
+      id: 7,
+      category: "Medical",
+      title: "MBBS",
+      desc: "Become a doctor and healthcare professional.",
       image: "/images/home/medical.webp",
+    },
+
+    {
+      id: 8,
+      category: "Technology",
+      title: "Data Science",
+      desc: "Analyze data and build predictive systems.",
+      image: "/images/home/Data_Science.webp",
     },
   ];
 
@@ -451,7 +479,11 @@ const Home = () => {
         <section className="rs-home-about rs-home-container">
           <div className="rs-home-about-left">
             <div className="rs-home-about-img-card">
-              <img src="/images/home/college2.webp" alt="About" loading="lazy" />
+              <img
+                src="/images/home/college2.webp"
+                alt="About"
+                loading="lazy"
+              />
             </div>
           </div>
 
