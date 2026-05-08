@@ -4,10 +4,10 @@ import "../../styles/findCollege/findCollegeHeroSec.css";
 import { FaUniversity, FaUsers, FaBookOpen, FaAward } from "react-icons/fa";
 
 const slides = [
-  "/images/home/college11.png",
-  "/images/home/college12.png",
-  "/images/home/college10.png",
-  "/images/home/college13.png",
+  "/images/home/college11.webp",
+  "/images/home/college12.webp",
+  "/images/home/college10.webp",
+  "/images/home/college13.webp",
 ];
 const FindCollegeHeroSec = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

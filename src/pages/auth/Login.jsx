@@ -168,7 +168,7 @@ export default function Login() {
         {/* LEFT */}
         <div className="rs-login-left">
           <img
-            src="/images/home/rs_login_bg.png"
+            src="/images/home/rs_login_bg.webp"
             alt="background"
             className="rs-login-bg"
             loading="eager"

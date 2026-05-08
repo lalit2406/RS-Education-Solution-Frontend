@@ -95,7 +95,7 @@ export default function Contact() {
         )}
 
         <div className="rs-contact-bg">
-          <img src="/images/home/contact_bg.png" alt="background" loading="eager" />
+          <img src="/images/home/contact_bg.webp" alt="background" loading="eager" />
         </div>
       </section>
 

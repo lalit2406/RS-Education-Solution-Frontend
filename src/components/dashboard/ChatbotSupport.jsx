@@ -301,7 +301,7 @@ const speakText = (text) => {
         <div className="rs-chatbotsupport-header-new">
           <div className="rs-chatbotsupport-header-left">
             <img
-              src="/images/home/avatar.png"
+              src="/images/home/avatar.webp"
               alt="avatar"
               className="rs-chatbotsupport-avatar-img"
               loading="eager"
@@ -409,7 +409,7 @@ const speakText = (text) => {
         <div className="rs-chatbotsupport-header-new">
           <div className="rs-chatbotsupport-header-left">
             <img
-              src="/images/home/avatar.png"
+              src="/images/home/avatar.webp"
               alt="avatar"
               className="rs-chatbotsupport-avatar-img"
               loading="eager"
