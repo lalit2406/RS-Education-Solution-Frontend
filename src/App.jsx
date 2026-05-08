@@ -19,7 +19,8 @@ function App() {
       {/* 🔥 Loader OR Routes */}
       {loading ? (
         <div className="rs-loader">
-          <div className="spinner"></div>
+          <img src="./images/home/logo.webp" alt="RS Education" className="rs-loader-logo" />
+
           <p>Loading your profile...</p>
         </div>
       ) : (
@@ -28,17 +29,11 @@ function App() {
           <AppRoutes />
 
           {/* ✅ Floating chatbot button */}
-          <FloatingChatButton 
-  setShowChat={setShowChat} 
-  showChat={showChat}
-/>
+          <FloatingChatButton setShowChat={setShowChat} showChat={showChat} />
 
           {/* ✅ Chatbot modal */}
           {showChat && (
-           <ChatbotSupport 
-  onClose={() => setShowChat(false)} 
-  mode="widget" 
-/>
+            <ChatbotSupport onClose={() => setShowChat(false)} mode="widget" />
           )}
         </>
       )}
