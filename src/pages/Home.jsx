@@ -27,11 +27,11 @@ import {
 
 /* HERO IMAGES */
 const rsHeroSlides = [
-  "/images/home/college1.png",
-  "/images/home/college2.png",
-  "/images/home/college3.png",
-  "/images/home/college4.png",
-  "/images/home/college5.png",
+  "/images/home/college1.webp",
+  "/images/home/college2.webp",
+  "/images/home/college3.webp",
+  "/images/home/college4.webp",
+  "/images/home/college5.webp",
 ];
 
 const rsHeroTitles = [
@@ -60,35 +60,35 @@ const Home = () => {
       category: "Engineering",
       title: "Computer Science",
       desc: "AI, coding and modern software systems.",
-      image: "/images/home/Computer_Science.png",
+      image: "/images/home/Computer_Science.webp",
     },
     {
       id: 2,
       category: "Engineering",
       title: "Electronics",
       desc: "Embedded systems and smart hardware.",
-      image: "/images/home/Electrical.png",
+      image: "/images/home/Electrical.webp",
     },
     {
       id: 3,
       category: "Engineering",
       title: "Mechanical",
       desc: "Machines, robotics and innovation.",
-      image: "/images/home/Mechanical.png",
+      image: "/images/home/Mechanical.webp",
     },
     {
       id: 4,
       category: "Business",
       title: "Management",
       desc: "Leadership, finance and growth strategy.",
-      image: "/images/home/MBA_BusinessAnalytics.png",
+      image: "/images/home/MBA_BusinessAnalytics.webp",
     },
     {
       id: 5,
       category: "Healthcare",
       title: "Medical",
       desc: "Healthcare, patient care and medicine.",
-      image: "/images/home/medical.png",
+      image: "/images/home/medical.webp",
     },
   ];
 
@@ -451,7 +451,7 @@ const Home = () => {
         <section className="rs-home-about rs-home-container">
           <div className="rs-home-about-left">
             <div className="rs-home-about-img-card">
-              <img src="/images/home/college2.png" alt="About" loading="lazy" />
+              <img src="/images/home/college2.webp" alt="About" loading="lazy" />
             </div>
           </div>
 
