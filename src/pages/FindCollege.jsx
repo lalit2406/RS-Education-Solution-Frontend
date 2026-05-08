@@ -1,11 +1,6 @@
 // src/pages/FindCollege.jsx
 
-import {
-  useMemo,
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import collegeData from "../data/colleges.json";
@@ -20,91 +15,87 @@ import PhotoGallery from "../components/findCollege/PhotoGallery";
 
 import filterColleges from "../utils/filterColleges";
 import sortColleges from "../utils/sortColleges";
-
+import parseSearchQuery from "../utils/parseSearchQuery";
 
 const FindCollege = () => {
   const location = useLocation();
-  
+
   const resultsRef = useRef(null);
 
-  const params = new URLSearchParams(
-    location.search
-  );
+  const params = new URLSearchParams(location.search);
 
- const selectedStateRaw = params.get("state") || "";
+  const selectedStateRaw = params.get("state") || "";
 
-const selectedState = selectedStateRaw
-  .split("-")
-  .map(
-    (w) =>
-      w.charAt(0).toUpperCase() +
-      w.slice(1)
-  )
-  .join(" ");
+  const selectedState = selectedStateRaw
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
 
-  const selectedCity =
-    params.get("city") || "";
+  const selectedCity = params.get("city") || "";
 
+  const selectedSearch = params.get("search") || "";
+
+  const parsedSearch = parseSearchQuery(selectedSearch);
 
   /* =========================
      FILTERS
   ========================= */
 
-  const [filters, setFilters] =
-    useState({
-      city: selectedCity,
-      state: selectedState,
-      type: "",
-      search: "",
-      course: "",
-      branch: "",
-      hostel: "",
-      maxFees: "",
-      minPlacement: "",
-    });
+  const [filters, setFilters] = useState({
+    city: selectedCity || parsedSearch.city,
+    state: selectedState,
+    type: parsedSearch.type,
+    search: selectedSearch,
+    course: parsedSearch.course,
+    branch: "",
+    hostel: "",
+    maxFees: "",
+    minPlacement: "",
+  });
 
-  const [sortBy, setSortBy] =
-    useState("");
+  const [sortBy, setSortBy] = useState("");
 
   /* =========================
      COMPARE
   ========================= */
 
-  const [
-    compareItems,
-    setCompareItems,
-  ] = useState([]);
+  const [compareItems, setCompareItems] = useState([]);
 
-  const [
-    showCompareResult,
-    setShowCompareResult,
-  ] = useState(false);
+  const [showCompareResult, setShowCompareResult] = useState(false);
 
   /* =========================
      PAGINATION
   ========================= */
 
-  const [
-    currentPage,
-    setCurrentPage,
-  ] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-  if (location.state?.fromTopPlaces) {
-    resultsRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    const hasSearch = params.get("search");
 
-    // prevent repeat scroll
-    window.history.replaceState({}, document.title);
-  } else {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }
-}, [location]);
+    /* FROM TOP STUDY PLACES */
+    if (location.state?.fromTopPlaces) {
+      resultsRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      window.history.replaceState({}, document.title);
+    } else if (hasSearch) {
+      /* FROM SEARCH BAR */
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 200);
+    } else {
+      /* NORMAL PAGE OPEN */
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [location]);
 
   const cardsPerPage = 12;
 
@@ -113,59 +104,36 @@ const selectedState = selectedStateRaw
   ========================= */
 
   const colleges = useMemo(() => {
-    return (
-      collegeData.colleges || []
-    );
+    return collegeData.colleges || [];
   }, []);
 
   /* FILTER */
-  const filteredColleges =
-    useMemo(() => {
-      return filterColleges(
-        colleges,
-        filters
-      );
-    }, [colleges, filters]);
+  const filteredColleges = useMemo(() => {
+    return filterColleges(colleges, filters);
+  }, [colleges, filters]);
 
   /* SORT */
-  const finalColleges =
-    useMemo(() => {
-      return sortColleges(
-        filteredColleges,
-        sortBy
-      );
-    }, [
-      filteredColleges,
-      sortBy,
-    ]);
+  const finalColleges = useMemo(() => {
+    return sortColleges(filteredColleges, sortBy);
+  }, [filteredColleges, sortBy]);
 
   /* =========================
      TOTAL PAGES
   ========================= */
 
-  const totalPages =
-    Math.max(
-      1,
-      Math.ceil(
-        finalColleges.length /
-          cardsPerPage
-      )
-    );
+  const totalPages = Math.max(
+    1,
+    Math.ceil(finalColleges.length / cardsPerPage),
+  );
 
   /* SAFE PAGE VALUE */
-  const safeCurrentPage =
-    currentPage > totalPages
-      ? 1
-      : currentPage;
+  const safeCurrentPage = currentPage > totalPages ? 1 : currentPage;
 
   /* PAGINATED DATA */
-  const paginatedColleges =
-    finalColleges.slice(
-      (safeCurrentPage - 1) *
-        cardsPerPage,
-      safeCurrentPage *
-        cardsPerPage
-    );
+  const paginatedColleges = finalColleges.slice(
+    (safeCurrentPage - 1) * cardsPerPage,
+    safeCurrentPage * cardsPerPage,
+  );
 
   /* =========================
      ACTIONS
@@ -188,22 +156,13 @@ const selectedState = selectedStateRaw
     setCurrentPage(1);
   };
 
-  const removeCompareItem = (
-    id
-  ) => {
-    setCompareItems((prev) =>
-      prev.filter(
-        (item) =>
-          item.id !== id
-      )
-    );
+  const removeCompareItem = (id) => {
+    setCompareItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const clearCompare = () => {
     setCompareItems([]);
-    setShowCompareResult(
-      false
-    );
+    setShowCompareResult(false);
   };
 
   /* =========================
@@ -213,66 +172,44 @@ const selectedState = selectedStateRaw
   return (
     <main className="find-college-page">
       <FindCollegeHeroSec />
-
-      <CollegeFilters
-        filters={filters}
-        setFilters={(value) => {
-          setCurrentPage(1);
-          setFilters(value);
-        }}
-        sortBy={sortBy}
-        setSortBy={(value) => {
-          setCurrentPage(1);
-          setSortBy(value);
-        }}
-        resetFilters={
-          resetFilters
-        }
-      />
-
-      <CompareDrawer
-        compareItems={
-          compareItems
-        }
-        removeCompareItem={
-          removeCompareItem
-        }
-        clearCompare={
-          clearCompare
-        }
-        setShowCompareResult={
-          setShowCompareResult
-        }
-      />
-
-      {showCompareResult && (
-        <CompareResultSec
-          compareItems={
-            compareItems
-          }
+      <div ref={resultsRef}>
+        <CollegeFilters
+          filters={filters}
+          setFilters={(value) => {
+            setCurrentPage(1);
+            setFilters(value);
+          }}
+          sortBy={sortBy}
+          setSortBy={(value) => {
+            setCurrentPage(1);
+            setSortBy(value);
+          }}
+          resetFilters={resetFilters}
         />
-      )}
 
-      {finalColleges.length >
-      0 ? (
-       <div ref={resultsRef}>
-  <CollegeGrid
-    colleges={paginatedColleges}
-    totalCount={finalColleges.length}
-    compareItems={compareItems}
-    setCompareItems={setCompareItems}
-    currentPage={safeCurrentPage}
-    totalPages={totalPages}
-    setCurrentPage={setCurrentPage}
-  />
-</div>
-      ) : (
-        <EmptyState
-          resetFilters={
-            resetFilters
-          }
+        <CompareDrawer
+          compareItems={compareItems}
+          removeCompareItem={removeCompareItem}
+          clearCompare={clearCompare}
+          setShowCompareResult={setShowCompareResult}
         />
-      )}
+
+        {showCompareResult && <CompareResultSec compareItems={compareItems} />}
+
+        {finalColleges.length > 0 ? (
+          <CollegeGrid
+            colleges={paginatedColleges}
+            totalCount={finalColleges.length}
+            compareItems={compareItems}
+            setCompareItems={setCompareItems}
+            currentPage={safeCurrentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        ) : (
+          <EmptyState resetFilters={resetFilters} />
+        )}
+      </div>
       <PhotoGallery />
     </main>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pages/home.css";
 import Footer from "../../src/components/layout/Footer";
@@ -6,7 +6,7 @@ import OurPartner from "../components/layout/OurPartner";
 import SuccessStories from "../components/layout/SuccessStories";
 import TopCollegesSection from "../components/home/TopCollegesSection";
 import TopStudyPlaces from "../components/home/TopStudyPlaces";
-
+import collegesData from "../data/colleges.json";
 import { FaMoneyBillWave, FaHeadphones, FaStar } from "react-icons/fa6";
 
 import {
@@ -96,18 +96,78 @@ const Home = () => {
   const [rsHeroMode, setRsHeroMode] = useState("grid");
   const [rsTitleIndex, setRsTitleIndex] = useState(0);
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeSuggestion, setActiveSuggestion] = useState(-1);
+  const suggestionRefs = useRef([]);
+  const suggestions = [
+    /* COLLEGE NAMES */
+    ...collegesData.colleges.map((college) => college.name),
 
-  /* Add inside useEffect section */
+    /* CITIES */
+    ...collegesData.colleges.map((college) => college.city),
 
-useEffect(() => {
-  const titleTimer = setInterval(() => {
-    setRsTitleIndex((prev) =>
-      prev === rsHeroTitles.length - 1 ? 0 : prev + 1
-    );
-  }, 4000);
+    /* STATES */
+    ...collegesData.colleges.map((college) => college.state),
 
-  return () => clearInterval(titleTimer);
-}, []);
+    /* COURSES */
+    ...collegesData.colleges.flatMap((college) => college.courses || []),
+
+    /* BRANCHES */
+    ...collegesData.colleges.flatMap((college) => college.branches || []),
+  ];
+
+  const filteredSuggestions = searchQuery.trim()
+    ? [
+        ...new Set(
+          suggestions
+            .filter(
+              (item) =>
+                item && item.toLowerCase().includes(searchQuery.toLowerCase()),
+            )
+
+            .sort((a, b) => {
+              const aStarts = a
+                .toLowerCase()
+                .startsWith(searchQuery.toLowerCase());
+
+              const bStarts = b
+                .toLowerCase()
+                .startsWith(searchQuery.toLowerCase());
+
+              if (aStarts && !bStarts) return -1;
+
+              if (!aStarts && bStarts) return 1;
+
+              return a.length - b.length;
+            }),
+        ),
+      ]
+    : [];
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return;
+
+    navigate(`/find-college?search=${encodeURIComponent(searchQuery)}`);
+  };
+
+  useEffect(() => {
+    if (activeSuggestion >= 0 && suggestionRefs.current[activeSuggestion]) {
+      suggestionRefs.current[activeSuggestion].scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [activeSuggestion]);
+
+  useEffect(() => {
+    const titleTimer = setInterval(() => {
+      setRsTitleIndex((prev) =>
+        prev === rsHeroTitles.length - 1 ? 0 : prev + 1,
+      );
+    }, 4000);
+
+    return () => clearInterval(titleTimer);
+  }, []);
 
   /* HERO ANIMATION */
   useEffect(() => {
@@ -211,9 +271,73 @@ useEffect(() => {
               <input
                 type="text"
                 placeholder="Search colleges, exams, scholarships, programs..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+
+                  setActiveSuggestion(-1);
+                }}
+                onKeyDown={(e) => {
+                  /* DOWN */
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+
+                    setActiveSuggestion((prev) =>
+                      prev < filteredSuggestions.length - 1 ? prev + 1 : 0,
+                    );
+                  } else if (e.key === "ArrowUp") {
+                    /* UP */
+                    e.preventDefault();
+
+                    setActiveSuggestion((prev) =>
+                      prev > 0 ? prev - 1 : filteredSuggestions.length - 1,
+                    );
+                  } else if (e.key === "Enter") {
+                    /* ENTER */
+                    /* Select active suggestion */
+                    if (
+                      activeSuggestion >= 0 &&
+                      filteredSuggestions[activeSuggestion]
+                    ) {
+                      const selected = filteredSuggestions[activeSuggestion];
+
+                      setSearchQuery(selected);
+
+                      navigate(
+                        `/find-college?search=${encodeURIComponent(selected)}`,
+                      );
+                    } else {
+                      /* Normal search */
+                      handleSearch();
+                    }
+                  }
+                }}
               />
 
-              <button>Search</button>
+              <button onClick={handleSearch}>Search</button>
+
+              {searchQuery && filteredSuggestions.length > 0 && (
+                <div className="rs-home-search-suggestions">
+                  {filteredSuggestions.map((item, index) => (
+                    <div
+                      key={item}
+                      ref={(el) => (suggestionRefs.current[index] = el)}
+                      className={`rs-home-suggestion-item ${
+                        activeSuggestion === index ? "active" : ""
+                      }`}
+                      onClick={() => {
+                        setSearchQuery(item);
+
+                        navigate(
+                          `/find-college?search=${encodeURIComponent(item)}`,
+                        );
+                      }}
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="rs-home-hero-mini-stats">

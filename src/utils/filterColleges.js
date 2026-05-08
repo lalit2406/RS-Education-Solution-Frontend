@@ -18,26 +18,17 @@ const includesText = (value, text) => {
   if (!text) return true;
   if (!value) return false;
 
-  return normalize(value).includes(
-    normalize(text)
-  );
+  return normalize(value).includes(normalize(text));
 };
 
 /* =========================
    ARRAY MATCH
 ========================= */
 
-const includesInArray = (
-  arr = [],
-  value
-) => {
+const includesInArray = (arr = [], value) => {
   if (!value) return true;
 
-  return arr.some((item) =>
-    normalize(item).includes(
-      normalize(value)
-    )
-  );
+  return arr.some((item) => normalize(item).includes(normalize(value)));
 };
 
 /* =========================
@@ -45,6 +36,26 @@ const includesInArray = (
 ========================= */
 
 const courseMap = {
+  btech: [
+    "btech",
+    "b tech",
+    "b.tech",
+    "b.tech",
+    "b.tech.",
+    "bachelor of technology",
+    "engineering",
+  ],
+
+  "b.tech": [
+    "btech",
+    "b tech",
+    "b.tech",
+    "bachelor of technology",
+    "engineering",
+  ],
+
+  cse: ["cse", "computer science", "computer science engineering", "cs"],
+
   "computer science": [
     "computer science",
     "cse",
@@ -52,28 +63,15 @@ const courseMap = {
     "computer science engineering",
   ],
 
-  "information technology": [
-    "information technology",
-    "it",
-  ],
+  cs: ["computer science", "cse", "computer science engineering"],
 
-  mechanical: [
-    "mechanical",
-    "me",
-    "mechanical engineering",
-  ],
+  it: ["information technology", "it"],
 
-  civil: [
-    "civil",
-    "ce",
-    "civil engineering",
-  ],
+  mechanical: ["mechanical", "me", "mechanical engineering"],
 
-  electrical: [
-    "electrical",
-    "ee",
-    "electrical engineering",
-  ],
+  civil: ["civil", "ce", "civil engineering"],
+
+  electrical: ["electrical", "ee", "electrical engineering"],
 
   electronics: [
     "electronics",
@@ -82,45 +80,31 @@ const courseMap = {
     "electronics engineering",
   ],
 
-  mba: ["mba"],
-  bba: ["bba"],
-  bca: ["bca"],
-  mca: ["mca"],
-};
+  mba: ["mba", "management", "business"],
 
+  bba: ["bba", "business administration"],
+
+  bca: ["bca", "computer application"],
+
+  mca: ["mca", "computer application"],
+};
 /* =========================
    SMART COURSE FILTER
 ========================= */
 
-const matchSmartCourse = (
-  college = {},
-  selectedCourse = ""
-) => {
+const matchSmartCourse = (college = {}, selectedCourse = "") => {
   if (!selectedCourse) return true;
 
-  const courseKey =
-    normalize(selectedCourse);
+  const courseKey = normalize(selectedCourse);
 
-  const possibleTerms =
-    courseMap[courseKey] || [
-      courseKey,
-    ];
+  const possibleTerms = courseMap[courseKey] || [courseKey];
 
-  const allFields = [
-    ...(college.courses || []),
-    ...(college.branches || []),
-  ];
+  const allFields = [...(college.courses || []), ...(college.branches || [])];
 
   return allFields.some((item) => {
-    const cleanItem =
-      normalize(item);
+    const cleanItem = normalize(item);
 
-    return possibleTerms.some(
-      (term) =>
-        cleanItem.includes(
-          normalize(term)
-        )
-    );
+    return possibleTerms.some((term) => cleanItem.includes(normalize(term)));
   });
 };
 
@@ -128,102 +112,77 @@ const matchSmartCourse = (
    MAIN FILTER
 ========================= */
 
-const filterColleges = (
-  colleges = [],
-  filters = {}
-) => {
-  return colleges.filter(
-    (college) => {
-      const {
-        city = "",
-        state = "",
-        type = "",
-        search = "",
-        course = "",
-        branch = "",
-        hostel = "",
-        maxFees = "",
-        minPlacement = "",
-      } = filters;
+const filterColleges = (colleges = [], filters = {}) => {
+  return colleges.filter((college) => {
+    const {
+      city = "",
+      state = "",
+      type = "",
+      search = "",
+      course = "",
+      branch = "",
+      hostel = "",
+      maxFees = "",
+      minPlacement = "",
+    } = filters;
 
-      const matchSearch =
-        includesText(
-          college.name,
-          search
-        ) ||
-        includesText(
-          college.city,
-          search
-        ) ||
-        includesText(
-          college.state,
-          search
+    const searchWords = normalize(search).split(" ").filter(Boolean);
+
+    const searchableContent = [
+      college.name,
+      college.city,
+      college.state,
+      college.type,
+      college.description,
+      ...(college.courses || []),
+      ...(college.branches || []),
+    ].join(" ");
+
+    const normalizedSearchableContent = normalize(searchableContent);
+
+    const matchSearch =
+      !search ||
+      searchWords.some((word) => {
+        /* all searchable aliases */
+        const relatedTerms = [word, ...(courseMap[word] || [])];
+
+        return relatedTerms.some((term) =>
+          normalizedSearchableContent.includes(normalize(term)),
         );
+      });
 
-      const matchCity =
-        !city ||
-        normalize(
-          college.city
-        ).includes(
-          normalize(city)
-        );
+    const matchCity =
+      !city || normalize(college.city).includes(normalize(city));
 
-      const matchState =
-  !state ||
-  normalize(
-    college.state
-  ).includes(
-    normalize(state)
-  );
+    const matchState =
+      !state || normalize(college.state).includes(normalize(state));
 
-      const matchType =
-        !type ||
-        college.type === type;
+    const matchType = !type || college.type === type;
 
-      const matchCourse =
-        matchSmartCourse(
-          college,
-          course
-        );
+    const matchCourse = matchSmartCourse(college, course);
 
-      const matchBranch =
-        includesInArray(
-          college.branches,
-          branch
-        );
+    const matchBranch = includesInArray(college.branches, branch);
 
-      const matchHostel =
-        hostel === ""
-          ? true
-          : college.hostel ===
-            (hostel === "yes");
+    const matchHostel =
+      hostel === "" ? true : college.hostel === (hostel === "yes");
 
-      const matchFees =
-        !maxFees ||
-        college.fees_per_year <=
-          Number(maxFees);
+    const matchFees = !maxFees || college.fees_per_year <= Number(maxFees);
 
-      const matchPlacement =
-        !minPlacement ||
-        college
-          .placement_avg_lpa >=
-          Number(
-            minPlacement
-          );
+    const matchPlacement =
+      !minPlacement || college.placement_avg_lpa >= Number(minPlacement);
 
-      return (
-        matchSearch &&
-        matchCity &&
-        matchState &&
-        matchType &&
-        matchCourse &&
-        matchBranch &&
-        matchHostel &&
-        matchFees &&
-        matchPlacement
-      );
-    }
-  );
+    return (
+      matchSearch &&
+      matchCity &&
+      matchState &&
+      matchType &&
+      matchCourse &&
+      matchBranch &&
+      matchHostel &&
+      matchFees &&
+      matchPlacement
+    );
+  });
 };
 
 export default filterColleges;
