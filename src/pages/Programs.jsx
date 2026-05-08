@@ -247,7 +247,7 @@ export default function Program() {
             {rsProgramLoading ? (
               <div className="rs-program-skeleton-hero-img"></div>
             ) : (
-              <img src="/images/home/student-success.png" alt="Student"
+              <img src="/images/home/student-success.webp" alt="Student"
               loading="eager" />
             )}
           </div>
@@ -297,7 +297,7 @@ export default function Program() {
           ) : (
             <>
               <div className="rs-program-philo-image">
-                <img src="/images/home/office.png" alt="Office"
+                <img src="/images/home/office.webp" alt="Office"
                 loading="lazy" />
               </div>
 

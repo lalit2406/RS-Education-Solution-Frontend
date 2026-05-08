@@ -17,63 +17,63 @@ const TopStudyPlaces = () => {
 const places = [
   {
     name: "Bihar",
-    image: "/images/cities/bihar.png",
+    image: "/images/cities/bihar.webp",
     stateQuery: "bihar",
   },
   {
     id: 1,
     name: "Delhi",
-    image: "/images/cities/delhi.png",
+    image: "/images/cities/delhi.webp",
     stateQuery: "Delhi",
   },
   {
     name: "Haryana",
-    image: "/images/cities/haryana.png",
+    image: "/images/cities/haryana.webp",
     stateQuery: "haryana",
   },
   {
     name: "Himachal Pradesh",
-    image: "/images/cities/himachal.png",
+    image: "/images/cities/himachal.webp",
     stateQuery: "himachal pradesh",
   },
   {
     name: "Karnataka",
-    image: "/images/cities/karnataka.png",
+    image: "/images/cities/karnataka.webp",
     stateQuery: "karnataka",
   },
   {
     name: "Madhya Pradesh",
-    image: "/images/cities/mp.png",
+    image: "/images/cities/mp.webp",
     stateQuery: "madhya pradesh",
   },
   {
     name: "Maharashtra",
-    image: "/images/cities/maharastra.png",
+    image: "/images/cities/maharastra.webp",
     stateQuery: "maharashtra",
   },
   {
     name: "Punjab",
-    image: "/images/cities/punjab.png",
+    image: "/images/cities/punjab.webp",
     stateQuery: "punjab",
   },
   {
     name: "Rajasthan",
-    image: "/images/cities/rajasthan.png",
+    image: "/images/cities/rajasthan.webp",
     stateQuery: "rajasthan",
   },
   {
     name: "Tamil Nadu",
-    image: "/images/cities/tamilnadu.png",
+    image: "/images/cities/tamilnadu.webp",
     stateQuery: "tamil nadu",
   },
   {
     name: "Uttar Pradesh",
-    image: "/images/cities/up.png",
+    image: "/images/cities/up.webp",
     stateQuery: "uttar pradesh",
   },
   {
     name: "Uttarakhand",
-    image: "/images/cities/uttarakhand.png",
+    image: "/images/cities/uttarakhand.webp",
     stateQuery: "uttarakhand",
   },
 ];

@@ -94,7 +94,7 @@ export default function Services() {
                 <div className="rs-services-skeleton-hero-img"></div>
               ) : (
                 <img
-                  src="/images/home/service_right2.png"
+                  src="/images/home/service_right2.webp"
                   alt="Career Services"
                   loading="eager"
                 />
@@ -197,7 +197,7 @@ export default function Services() {
                   <div className="rs-services-skeleton-cta-img"></div>
                 ) : (
                   <img
-                    src="/images/home/Services_blog.png"
+                    src="/images/home/Services_blog.webp"
                     alt="Students discussion"
                     loading="lazy"
                   />

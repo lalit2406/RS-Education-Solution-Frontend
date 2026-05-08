@@ -147,7 +147,7 @@ export default function Signup() {
       <div className="rs-signup-card">
         {/* LEFT */}
         <div className="rs-signup-left">
-          <img src="/images/home/signup_bg.png" alt="bg" loading="eager" />
+          <img src="/images/home/signup_bg.webp" alt="bg" loading="eager" />
           <div className="rs-signup-overlay">
             <p className="rs-signup-tagline">WELCOME TO THE EDUCATION WORLD</p>
             <h2 className="rs-signup-title">R. S Education Solution.</h2>
