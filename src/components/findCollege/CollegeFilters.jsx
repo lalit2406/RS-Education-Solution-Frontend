@@ -88,19 +88,22 @@ const CollegeFilters = ({
       .sort();
   }, [colleges]);
 
-  /* Smart Course Master List */
-  const courses = [
-    "Computer Science",
-    "Information Technology",
-    "Mechanical",
-    "Civil",
-    "Electrical",
-    "Electronics",
-    "MBA",
-    "BBA",
-    "BCA",
-    "MCA",
-  ];
+  /* =========================
+   COURSE OPTIONS
+========================= */
+
+const courses = [
+  "B.Tech",
+  "M.Tech",
+  "MBA",
+  "BBA",
+  "BCA",
+  "MCA",
+  "B.Com",
+  "M.Com",
+  "B.Sc",
+  "M.Sc",
+];
 
   const placementOptions = [
     "2",
