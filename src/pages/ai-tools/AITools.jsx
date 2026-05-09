@@ -14,6 +14,7 @@ import {
   FaBell,
 } from "react-icons/fa";
 import { useUser } from "../../context/UserContext";
+import SEO from "../../components/seo/SEO";
 
 const tools = [
   {
@@ -114,6 +115,14 @@ export default function AITools() {
   };
 
   return (
+    <>
+    <SEO
+      title="AI Tools for Students | RS Education"
+      description="Explore AI-powered resume builder, roadmap generator, scholarship predictor and career tools."
+      keywords="AI education tools, resume builder, scholarship predictor"
+      url="https://rseducationsolution.in/Ai-tools"
+      image="https://rseducationsolution.in/preview.webp"
+    />
     <div className="ai-tools-page">
       {/* ===== MAIN HEADER ===== */}
       <div className="ai-header">
@@ -173,5 +182,6 @@ export default function AITools() {
             ))}
       </div>
     </div>
+    </>
   );
 }

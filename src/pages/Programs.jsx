@@ -7,6 +7,7 @@ import Footer from "../components/layout/Footer";
 import "../../src/styles/pages/programs.css";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import SEO from "../components/seo/SEO";
 
 export default function Program() {
   const navigate = useNavigate();
@@ -210,6 +211,13 @@ export default function Program() {
   ===================================== */
   return (
     <>
+      <SEO
+        title="Programs | RS Education"
+        description="Explore Engineering, Medical, Management, Design and Technology programs with expert career guidance."
+        keywords="engineering programs, medical courses, MBA programs, career guidance"
+        url="https://rseducationsolution.in/programs"
+        image="https://rseducationsolution.in/preview.webp"
+      />
       <div className="rs-program-page">
         {/* HERO */}
         <section className="rs-program-hero">
