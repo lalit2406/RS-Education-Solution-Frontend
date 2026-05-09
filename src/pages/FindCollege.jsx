@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+import SEO from "../components/seo/SEO";
 import collegeData from "../data/colleges.json";
 
 import FindCollegeHeroSec from "../components/findCollege/FindCollegeHeroSec";
@@ -170,48 +170,59 @@ const FindCollege = () => {
   ========================= */
 
   return (
-    <main className="find-college-page">
-      <FindCollegeHeroSec />
-      <div ref={resultsRef}>
-        <CollegeFilters
-          filters={filters}
-          setFilters={(value) => {
-            setCurrentPage(1);
-            setFilters(value);
-          }}
-          sortBy={sortBy}
-          setSortBy={(value) => {
-            setCurrentPage(1);
-            setSortBy(value);
-          }}
-          resetFilters={resetFilters}
-        />
-
-        <CompareDrawer
-          compareItems={compareItems}
-          removeCompareItem={removeCompareItem}
-          clearCompare={clearCompare}
-          setShowCompareResult={setShowCompareResult}
-        />
-
-        {showCompareResult && <CompareResultSec compareItems={compareItems} />}
-
-        {finalColleges.length > 0 ? (
-          <CollegeGrid
-            colleges={paginatedColleges}
-            totalCount={finalColleges.length}
-            compareItems={compareItems}
-            setCompareItems={setCompareItems}
-            currentPage={safeCurrentPage}
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
+    <>
+      <SEO
+        title="Find Colleges | RS Education"
+        description="Search and compare colleges by courses, fees, placements, city, and scholarships."
+        keywords="find colleges, engineering colleges, college comparison"
+        url="https://rseducationsolution.in/find-college"
+        image="https://rseducationsolution.in/preview.webp"
+      />
+      <main className="find-college-page">
+        <FindCollegeHeroSec />
+        <div ref={resultsRef}>
+          <CollegeFilters
+            filters={filters}
+            setFilters={(value) => {
+              setCurrentPage(1);
+              setFilters(value);
+            }}
+            sortBy={sortBy}
+            setSortBy={(value) => {
+              setCurrentPage(1);
+              setSortBy(value);
+            }}
+            resetFilters={resetFilters}
           />
-        ) : (
-          <EmptyState resetFilters={resetFilters} />
-        )}
-      </div>
-      <PhotoGallery />
-    </main>
+
+          <CompareDrawer
+            compareItems={compareItems}
+            removeCompareItem={removeCompareItem}
+            clearCompare={clearCompare}
+            setShowCompareResult={setShowCompareResult}
+          />
+
+          {showCompareResult && (
+            <CompareResultSec compareItems={compareItems} />
+          )}
+
+          {finalColleges.length > 0 ? (
+            <CollegeGrid
+              colleges={paginatedColleges}
+              totalCount={finalColleges.length}
+              compareItems={compareItems}
+              setCompareItems={setCompareItems}
+              currentPage={safeCurrentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
+          ) : (
+            <EmptyState resetFilters={resetFilters} />
+          )}
+        </div>
+        <PhotoGallery />
+      </main>
+    </>
   );
 };
 

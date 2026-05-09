@@ -6,6 +6,7 @@ import BookCallModal from "../components/dashboard/BookCallModal";
 import { servicesData } from "../data/servicesData";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import SEO from "../components/seo/SEO";
 
 export default function Services() {
   /* =========================
@@ -69,6 +70,13 @@ export default function Services() {
 
   return (
     <>
+      <SEO
+        title="Education Services | RS Education"
+        description="Get expert counseling, admission guidance, career planning and educational support services."
+        keywords="education counseling, admission guidance, study abroad support"
+        url="https://rseducationsolution.in/services"
+        image="https://rseducationsolution.in/preview.webp"
+      />
       <div className="services-page">
         {/* HERO */}
         <section className="services-hero fade-up">
