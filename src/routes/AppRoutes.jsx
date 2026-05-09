@@ -49,19 +49,30 @@ export default function AppRoutes() {
   return (
     <Routes>
       {/* ================= PUBLIC ROUTES ================= */}
+
+      {/* AUTH */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/" element={<Home />} />
       <Route path="/verify-otp" element={<VerifyOtp />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/set-password" element={<SetPassword />} />
 
+      {/* Home */}
+      <Route path="/" element={<Home />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/programs" element={<Programs />} />
+      <Route path="/Ai-tools" element={<AITools />} />
+      <Route path="/find-college" element={<FindCollege />} />
+
+      {/* LEGAL */}
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/disclaimer" element={<Disclaimer />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/unsubscribe" element={<Unsubscribe />} />
+
       {/* ================= PROTECTED ROUTES ================= */}
-    <Route path="/services" element={<Services />} />
-    <Route path="/programs" element={<Programs />} />
-    <Route path="/Ai-tools" element={<AITools />} />
-    <Route path="/find-college" element={<FindCollege />} />
 
       <Route
         path="/admin"
@@ -120,15 +131,6 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
-      {/* LEGAL */}
-      <Route path="/terms" element={<Terms />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/disclaimer" element={<Disclaimer />} />
-
-      <Route path="/contact" element={<Contact />} />
-
-      <Route path="/unsubscribe" element={<Unsubscribe />} />
 
       <Route
         path="/dashboard/saved-colleges"
