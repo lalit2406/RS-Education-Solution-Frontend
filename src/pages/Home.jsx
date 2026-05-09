@@ -8,7 +8,7 @@ import TopCollegesSection from "../components/home/TopCollegesSection";
 import TopStudyPlaces from "../components/home/TopStudyPlaces";
 import collegesData from "../data/colleges.json";
 import { FaMoneyBillWave, FaHeadphones, FaStar } from "react-icons/fa6";
-
+import SEO from "../components/seo/SEO";
 import {
   Bot,
   BotMessageSquare,
@@ -220,300 +220,313 @@ const Home = () => {
   }, [rsHeroMode]);
 
   return (
-    <div className="rs-home-wrapper">
-      <main className="rs-home-main-content">
-        {/* HERO */}
-        <section className="rs-home-hero-banner">
-          {/* BACKGROUND */}
-          <div className="rs-home-hero-bg-layer">
-            {rsHeroMode === "grid" ? (
-              <div className="rs-home-hero-grid-view">
-                <div
-                  className="rs-home-grid-img"
-                  style={{
-                    backgroundImage: `url(${rsHeroSlides[0]})`,
-                  }}
-                />
-                <div
-                  className="rs-home-grid-img"
-                  style={{
-                    backgroundImage: `url(${rsHeroSlides[1]})`,
-                  }}
-                />
-                <div
-                  className="rs-home-grid-img"
-                  style={{
-                    backgroundImage: `url(${rsHeroSlides[2]})`,
-                  }}
-                />
-                <div
-                  className="rs-home-grid-img"
-                  style={{
-                    backgroundImage: `url(${rsHeroSlides[3]})`,
-                  }}
-                />
-              </div>
-            ) : (
-              rsHeroSlides.map((img, index) => (
-                <div
-                  key={index}
-                  className={`rs-home-single-slide ${
-                    index === rsCurrentSlide ? "rs-home-slide-active" : ""
-                  }`}
-                  style={{
-                    backgroundImage: `url(${img})`,
-                  }}
-                />
-              ))
-            )}
-          </div>
-
-          {/* DARK OVERLAY */}
-          <div className="rs-home-hero-dark-layer"></div>
-
-          {/* CONTENT */}
-          <div className="rs-home-hero-overlay">
-            <div className="rs-home-badge">✨ Trusted by 5,000+ Students</div>
-
-            <h1
-              key={rsTitleIndex}
-              className="rs-home-hero-main-title rs-home-title-animate"
-            >
-              <span className="rs-line-one">
-                {rsHeroTitles[rsTitleIndex].line1}
-              </span>
-
-              <span className="rs-line-two">
-                {rsHeroTitles[rsTitleIndex].line2}
-              </span>
-            </h1>
-
-            <p className="rs-home-hero-subtitle">
-              AI-powered guidance, scholarships, admissions support, and
-              personalized career solutions for every student.
-            </p>
-
-            <div className="rs-home-search-box">
-              <Search size={20} />
-
-              <input
-                type="text"
-                placeholder="Search colleges, exams, scholarships, programs..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-
-                  setActiveSuggestion(-1);
-                }}
-                onKeyDown={(e) => {
-                  /* DOWN */
-                  if (e.key === "ArrowDown") {
-                    e.preventDefault();
-
-                    setActiveSuggestion((prev) =>
-                      prev < filteredSuggestions.length - 1 ? prev + 1 : 0,
-                    );
-                  } else if (e.key === "ArrowUp") {
-                    /* UP */
-                    e.preventDefault();
-
-                    setActiveSuggestion((prev) =>
-                      prev > 0 ? prev - 1 : filteredSuggestions.length - 1,
-                    );
-                  } else if (e.key === "Enter") {
-                    /* ENTER */
-                    /* Select active suggestion */
-                    if (
-                      activeSuggestion >= 0 &&
-                      filteredSuggestions[activeSuggestion]
-                    ) {
-                      const selected = filteredSuggestions[activeSuggestion];
-
-                      setSearchQuery(selected);
-
-                      navigate(
-                        `/find-college?search=${encodeURIComponent(selected)}`,
-                      );
-                    } else {
-                      /* Normal search */
-                      handleSearch();
-                    }
-                  }
-                }}
-              />
-
-              <button onClick={handleSearch}>Search</button>
-
-              {searchQuery && filteredSuggestions.length > 0 && (
-                <div className="rs-home-search-suggestions">
-                  {filteredSuggestions.map((item, index) => (
-                    <div
-                      key={item}
-                      ref={(el) => (suggestionRefs.current[index] = el)}
-                      className={`rs-home-suggestion-item ${
-                        activeSuggestion === index ? "active" : ""
-                      }`}
-                      onClick={() => {
-                        setSearchQuery(item);
-
-                        navigate(
-                          `/find-college?search=${encodeURIComponent(item)}`,
-                        );
-                      }}
-                    >
-                      {item}
-                    </div>
-                  ))}
+    <>
+      <SEO
+        title="RS Education | Find Colleges & Career Guidance"
+        description="Explore colleges, programs, admissions, scholarships and AI-powered career guidance with RS Education."
+        keywords="college admissions, engineering colleges, AI education, scholarships, study abroad"
+        url="https://rseducationsolution.in"
+        image="https://rseducationsolution.in/preview.webp"
+      />
+      <div className="rs-home-wrapper">
+        <main className="rs-home-main-content">
+          {/* HERO */}
+          <section className="rs-home-hero-banner">
+            {/* BACKGROUND */}
+            <div className="rs-home-hero-bg-layer">
+              {rsHeroMode === "grid" ? (
+                <div className="rs-home-hero-grid-view">
+                  <div
+                    className="rs-home-grid-img"
+                    style={{
+                      backgroundImage: `url(${rsHeroSlides[0]})`,
+                    }}
+                  />
+                  <div
+                    className="rs-home-grid-img"
+                    style={{
+                      backgroundImage: `url(${rsHeroSlides[1]})`,
+                    }}
+                  />
+                  <div
+                    className="rs-home-grid-img"
+                    style={{
+                      backgroundImage: `url(${rsHeroSlides[2]})`,
+                    }}
+                  />
+                  <div
+                    className="rs-home-grid-img"
+                    style={{
+                      backgroundImage: `url(${rsHeroSlides[3]})`,
+                    }}
+                  />
                 </div>
+              ) : (
+                rsHeroSlides.map((img, index) => (
+                  <div
+                    key={index}
+                    className={`rs-home-single-slide ${
+                      index === rsCurrentSlide ? "rs-home-slide-active" : ""
+                    }`}
+                    style={{
+                      backgroundImage: `url(${img})`,
+                    }}
+                  />
+                ))
               )}
             </div>
 
-            <div className="rs-home-hero-mini-stats">
-              <div>⭐ 4.9 Rating</div>
-              <div>🎓 1500+ Colleges</div>
-              <div>💰 1200+ Scholarships</div>
-            </div>
-          </div>
-        </section>
+            {/* DARK OVERLAY */}
+            <div className="rs-home-hero-dark-layer"></div>
 
-        {/* ================= FEATURED PROGRAMS ================= */}
-        <section className="rs-home-program-preview">
-          {/* Top Header */}
-          <div className="rs-home-program-top">
-            <div className="rs-home-program-heading">
-              <h2>Featured Programs</h2>
-              <p>
-                Explore career-focused programs designed for future success.
+            {/* CONTENT */}
+            <div className="rs-home-hero-overlay">
+              <div className="rs-home-badge">✨ Trusted by 5,000+ Students</div>
+
+              <h1
+                key={rsTitleIndex}
+                className="rs-home-hero-main-title rs-home-title-animate"
+              >
+                <span className="rs-line-one">
+                  {rsHeroTitles[rsTitleIndex].line1}
+                </span>
+
+                <span className="rs-line-two">
+                  {rsHeroTitles[rsTitleIndex].line2}
+                </span>
+              </h1>
+
+              <p className="rs-home-hero-subtitle">
+                AI-powered guidance, scholarships, admissions support, and
+                personalized career solutions for every student.
               </p>
+
+              <div className="rs-home-search-box">
+                <Search size={20} />
+
+                <input
+                  type="text"
+                  placeholder="Search colleges, exams, scholarships, programs..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+
+                    setActiveSuggestion(-1);
+                  }}
+                  onKeyDown={(e) => {
+                    /* DOWN */
+                    if (e.key === "ArrowDown") {
+                      e.preventDefault();
+
+                      setActiveSuggestion((prev) =>
+                        prev < filteredSuggestions.length - 1 ? prev + 1 : 0,
+                      );
+                    } else if (e.key === "ArrowUp") {
+                      /* UP */
+                      e.preventDefault();
+
+                      setActiveSuggestion((prev) =>
+                        prev > 0 ? prev - 1 : filteredSuggestions.length - 1,
+                      );
+                    } else if (e.key === "Enter") {
+                      /* ENTER */
+                      /* Select active suggestion */
+                      if (
+                        activeSuggestion >= 0 &&
+                        filteredSuggestions[activeSuggestion]
+                      ) {
+                        const selected = filteredSuggestions[activeSuggestion];
+
+                        setSearchQuery(selected);
+
+                        navigate(
+                          `/find-college?search=${encodeURIComponent(selected)}`,
+                        );
+                      } else {
+                        /* Normal search */
+                        handleSearch();
+                      }
+                    }
+                  }}
+                />
+
+                <button onClick={handleSearch}>Search</button>
+
+                {searchQuery && filteredSuggestions.length > 0 && (
+                  <div className="rs-home-search-suggestions">
+                    {filteredSuggestions.map((item, index) => (
+                      <div
+                        key={item}
+                        ref={(el) => (suggestionRefs.current[index] = el)}
+                        className={`rs-home-suggestion-item ${
+                          activeSuggestion === index ? "active" : ""
+                        }`}
+                        onClick={() => {
+                          setSearchQuery(item);
+
+                          navigate(
+                            `/find-college?search=${encodeURIComponent(item)}`,
+                          );
+                        }}
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="rs-home-hero-mini-stats">
+                <div>⭐ 4.9 Rating</div>
+                <div>🎓 1500+ Colleges</div>
+                <div>💰 1200+ Scholarships</div>
+              </div>
             </div>
-            <button
-              className="rs-home-program-viewall"
-              onClick={() => {
-                navigate("/programs");
+          </section>
 
-                setTimeout(() => {
-                  const section = document.querySelector(".rs-program-section");
-                  if (section) {
-                    section.scrollIntoView({ behavior: "smooth" });
-                  }
-                }, 100);
-              }}
-            >
-              View All Programs
-            </button>
-          </div>
+          {/* ================= FEATURED PROGRAMS ================= */}
+          <section className="rs-home-program-preview">
+            {/* Top Header */}
+            <div className="rs-home-program-top">
+              <div className="rs-home-program-heading">
+                <h2>Featured Programs</h2>
+                <p>
+                  Explore career-focused programs designed for future success.
+                </p>
+              </div>
+              <button
+                className="rs-home-program-viewall"
+                onClick={() => {
+                  navigate("/programs");
 
-          {/* Cards */}
-          <div className="rs-home-program-slider">
-            {featuredPrograms.map((item) => (
-              <div className="rs-home-program-preview-card" key={item.id}>
-                <div className="rs-home-program-image-wrap">
-                  <img src={item.image} alt={item.title} loading="lazy" />
+                  setTimeout(() => {
+                    const section = document.querySelector(
+                      ".rs-program-section",
+                    );
+                    if (section) {
+                      section.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }, 100);
+                }}
+              >
+                View All Programs
+              </button>
+            </div>
+
+            {/* Cards */}
+            <div className="rs-home-program-slider">
+              {featuredPrograms.map((item) => (
+                <div className="rs-home-program-preview-card" key={item.id}>
+                  <div className="rs-home-program-image-wrap">
+                    <img src={item.image} alt={item.title} loading="lazy" />
+                  </div>
+
+                  <div className="rs-home-program-content">
+                    <span className="rs-home-program-badge">
+                      {item.category}
+                    </span>
+
+                    <h3>{item.title}</h3>
+
+                    <p>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* WHY CHOOSE */}
+          <section className="rs-home-highlights">
+            <div className="rs-home-container">
+              <div className="rs-home-section-header">
+                <h2>Why Choose R. S Education?</h2>
+                <p>
+                  Trusted guidance powered by experience, technology, and
+                  student success.
+                </p>
+              </div>
+
+              <div className="rs-home-stats-grid">
+                <div className="rs-home-stat-item">
+                  <span className="rs-home-stat-icon">
+                    <GraduationCap size={26} />
+                  </span>
+                  <h3>2000+</h3>
+                  <p>GLOBAL COLLEGES</p>
                 </div>
 
-                <div className="rs-home-program-content">
-                  <span className="rs-home-program-badge">{item.category}</span>
+                <div className="rs-home-stat-item">
+                  <span className="rs-home-stat-icon">
+                    <FaMoneyBillWave size={24} />
+                  </span>
+                  <h3>1200+</h3>
+                  <p>SCHOLARSHIPS</p>
+                </div>
 
-                  <h3>{item.title}</h3>
+                <div className="rs-home-stat-item">
+                  <span className="rs-home-stat-icon">
+                    <FaHeadphones size={24} />
+                  </span>
+                  <h3>24/7</h3>
+                  <p>COUNSELING</p>
+                </div>
 
-                  <p>{item.desc}</p>
+                <div className="rs-home-stat-item">
+                  <span className="rs-home-stat-icon">
+                    <Bot size={28} />
+                  </span>
+                  <h3>AI</h3>
+                  <p>GUIDANCE</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
 
-        {/* WHY CHOOSE */}
-        <section className="rs-home-highlights">
-          <div className="rs-home-container">
-            <div className="rs-home-section-header">
-              <h2>Why Choose R. S Education?</h2>
+          {/* PARTNERS */}
+          <OurPartner />
+          <TopCollegesSection />
+          <TopStudyPlaces />
+
+          {/* ABOUT */}
+          <section className="rs-home-about rs-home-container">
+            <div className="rs-home-about-left">
+              <div className="rs-home-about-img-card">
+                <img
+                  src="/images/home/college2.webp"
+                  alt="About"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div className="rs-home-about-right">
+              <h2>Redefining Education Consulting for the Digital Age</h2>
+
               <p>
-                Trusted guidance powered by experience, technology, and student
-                success.
+                Every student deserves a personalized roadmap. We combine
+                traditional counseling with AI tools.
               </p>
+
+              <ul className="rs-home-about-list">
+                <li>✔ Personalized mentorship</li>
+                <li>✔ Global university partnerships</li>
+                <li>✔ Visa & document support</li>
+              </ul>
+
+              <button className="rs-home-link-btn">
+                Learn Our Story
+                <ArrowRight size={18} />
+              </button>
             </div>
+          </section>
 
-            <div className="rs-home-stats-grid">
-              <div className="rs-home-stat-item">
-                <span className="rs-home-stat-icon">
-                  <GraduationCap size={26} />
-                </span>
-                <h3>2000+</h3>
-                <p>GLOBAL COLLEGES</p>
-              </div>
+          {/* TESTIMONIALS */}
+          <SuccessStories />
+        </main>
 
-              <div className="rs-home-stat-item">
-                <span className="rs-home-stat-icon">
-                  <FaMoneyBillWave size={24} />
-                </span>
-                <h3>1200+</h3>
-                <p>SCHOLARSHIPS</p>
-              </div>
-
-              <div className="rs-home-stat-item">
-                <span className="rs-home-stat-icon">
-                  <FaHeadphones size={24} />
-                </span>
-                <h3>24/7</h3>
-                <p>COUNSELING</p>
-              </div>
-
-              <div className="rs-home-stat-item">
-                <span className="rs-home-stat-icon">
-                  <Bot size={28} />
-                </span>
-                <h3>AI</h3>
-                <p>GUIDANCE</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* PARTNERS */}
-        <OurPartner />
-        <TopCollegesSection />
-        <TopStudyPlaces />
-
-        {/* ABOUT */}
-        <section className="rs-home-about rs-home-container">
-          <div className="rs-home-about-left">
-            <div className="rs-home-about-img-card">
-              <img
-                src="/images/home/college2.webp"
-                alt="About"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div className="rs-home-about-right">
-            <h2>Redefining Education Consulting for the Digital Age</h2>
-
-            <p>
-              Every student deserves a personalized roadmap. We combine
-              traditional counseling with AI tools.
-            </p>
-
-            <ul className="rs-home-about-list">
-              <li>✔ Personalized mentorship</li>
-              <li>✔ Global university partnerships</li>
-              <li>✔ Visa & document support</li>
-            </ul>
-
-            <button className="rs-home-link-btn">
-              Learn Our Story
-              <ArrowRight size={18} />
-            </button>
-          </div>
-        </section>
-
-        {/* TESTIMONIALS */}
-        <SuccessStories />
-      </main>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 
