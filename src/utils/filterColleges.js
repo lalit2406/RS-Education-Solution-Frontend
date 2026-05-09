@@ -10,16 +10,6 @@ const normalize = (value = "") => {
     .trim();
 };
 
-/* =========================
-   TEXT MATCH
-========================= */
-
-const includesText = (value, text) => {
-  if (!text) return true;
-  if (!value) return false;
-
-  return normalize(value).includes(normalize(text));
-};
 
 /* =========================
    ARRAY MATCH
