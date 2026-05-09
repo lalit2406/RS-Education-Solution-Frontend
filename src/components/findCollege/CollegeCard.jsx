@@ -15,6 +15,7 @@ import { GiGraduateCap } from "react-icons/gi";
 import "../../styles/findCollege/collegeCard.css";
 import formatCurrency from "../../utils/formatCurrency";
 
+
 const CollegeCard = ({
   college,
   compareItems = [],

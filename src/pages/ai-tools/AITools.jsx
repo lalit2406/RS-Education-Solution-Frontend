@@ -7,12 +7,13 @@ import {
   FaFileAlt,
   FaDatabase,
   FaMapSigns,
-  FaUniversity, 
+  FaUniversity,
   FaBook,
   FaMoneyBillWave,
   FaSearch,
   FaBell,
 } from "react-icons/fa";
+import { useUser } from "../../context/UserContext";
 
 const tools = [
   {
@@ -82,19 +83,27 @@ const tools = [
 
 export default function AITools() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useUser();
   const [rsAiLoading, setRsAiLoading] = useState(true);
 
   /* =========================
      LOADING STATE (ADDED)
   ========================= */
- useEffect(() => {
-  const timer = setTimeout(() => {
-    setRsAiLoading(false);
-  }, 500);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRsAiLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
-  return () => clearTimeout(timer);
-}, []);
+  const handleProtectedNavigation = (route) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    navigate(route);
+  };
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -106,7 +115,6 @@ export default function AITools() {
 
   return (
     <div className="ai-tools-page">
-
       {/* ===== MAIN HEADER ===== */}
       <div className="ai-header">
         {rsAiLoading ? (
@@ -155,7 +163,9 @@ export default function AITools() {
 
                 <button
                   className="ai-btn"
-                  onClick={() => tool.route && navigate(tool.route)}
+                  onClick={() =>
+                    tool.route && handleProtectedNavigation(tool.route)
+                  }
                 >
                   {tool.action} →
                 </button>

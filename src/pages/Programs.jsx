@@ -5,8 +5,12 @@ import programsData from "../data/programsData";
 import ProgramGuidanceModal from "../components/programs/ProgramGuidanceModal";
 import Footer from "../components/layout/Footer";
 import "../../src/styles/pages/programs.css";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Program() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   /* =====================================
      LOADING STATE
   ===================================== */
@@ -27,6 +31,15 @@ export default function Program() {
       setRsProgramLoading(false);
     });
   }, []);
+
+  const handleProtectedAction = (callback) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    callback();
+  };
 
   /* =====================================
      REFS
@@ -168,7 +181,11 @@ export default function Program() {
 
                     <button
                       className="rs-program-card-btn"
-                      onClick={() => rsProgramOpenModal(program.title)}
+                      onClick={() => {
+                        handleProtectedAction(() => {
+                          rsProgramOpenModal(program.title);
+                        });
+                      }}
                     >
                       Get Guidance
                     </button>
@@ -232,9 +249,11 @@ export default function Program() {
 
                   <button
                     className="rs-program-btn rs-program-btn-secondary"
-                    onClick={() =>
-                      rsProgramOpenModal("General Career Guidance")
-                    }
+                    onClick={() => {
+                      handleProtectedAction(() => {
+                        rsProgramOpenModal("General Career Guidance");
+                      });
+                    }}
                   >
                     Speak to Counselor
                   </button>
@@ -247,8 +266,11 @@ export default function Program() {
             {rsProgramLoading ? (
               <div className="rs-program-skeleton-hero-img"></div>
             ) : (
-              <img src="/images/home/student-success.webp" alt="Student"
-              loading="eager" />
+              <img
+                src="/images/home/student-success.webp"
+                alt="Student"
+                loading="eager"
+              />
             )}
           </div>
         </section>
@@ -297,8 +319,11 @@ export default function Program() {
           ) : (
             <>
               <div className="rs-program-philo-image">
-                <img src="/images/home/office.webp" alt="Office"
-                loading="lazy" />
+                <img
+                  src="/images/home/office.webp"
+                  alt="Office"
+                  loading="lazy"
+                />
               </div>
 
               <div className="rs-program-philo-content">

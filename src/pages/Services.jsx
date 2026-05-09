@@ -5,6 +5,7 @@ import ServiceDetailModal from "../components/services/ServiceDetailModal";
 import BookCallModal from "../components/dashboard/BookCallModal";
 import { servicesData } from "../data/servicesData";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 export default function Services() {
   /* =========================
@@ -20,7 +21,16 @@ export default function Services() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const navigate = useNavigate();
+  const { user } = useUser();
 
+  const handleProtectedAction = (callback) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    callback();
+  };
   /* =========================
    REAL LOADING (STATIC DATA)
 ========================= */
@@ -128,8 +138,10 @@ export default function Services() {
                   <button
                     className="primary"
                     onClick={() => {
-                      setSelectedService(service);
-                      setIsServiceModalOpen(true);
+                      handleProtectedAction(() => {
+                        setSelectedService(service);
+                        setIsServiceModalOpen(true);
+                      });
                     }}
                   >
                     Learn More →
@@ -163,10 +175,13 @@ export default function Services() {
                       <button
                         className="primary"
                         onClick={() => {
-                          setSelectedService({
-                            title: "General Consultation",
+                          handleProtectedAction(() => {
+                            setSelectedService({
+                              title: "General Consultation",
+                            });
+
+                            setIsBookingOpen(true);
                           });
-                          setIsBookingOpen(true);
                         }}
                       >
                         Schedule a Free Call

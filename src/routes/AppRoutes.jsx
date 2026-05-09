@@ -58,14 +58,10 @@ export default function AppRoutes() {
       <Route path="/set-password" element={<SetPassword />} />
 
       {/* ================= PROTECTED ROUTES ================= */}
-      <Route
-        path="/services"
-        element={
-          <ProtectedRoute>
-            <Services />
-          </ProtectedRoute>
-        }
-      />
+    <Route path="/services" element={<Services />} />
+    <Route path="/programs" element={<Programs />} />
+    <Route path="/Ai-tools" element={<AITools />} />
+    <Route path="/find-college" element={<FindCollege />} />
 
       <Route
         path="/admin"
@@ -76,23 +72,6 @@ export default function AppRoutes() {
         }
       />
 
-      <Route
-        path="/programs"
-        element={
-          <ProtectedRoute>
-            <Programs />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/Ai-tools"
-        element={
-          <ProtectedRoute>
-            <AITools />
-          </ProtectedRoute>
-        }
-      />
       <Route
         path="/tools/career-chatbot"
         element={
@@ -150,15 +129,6 @@ export default function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
 
       <Route path="/unsubscribe" element={<Unsubscribe />} />
-
-      <Route
-        path="/find-college"
-        element={
-          <ProtectedRoute>
-            <FindCollege />
-          </ProtectedRoute>
-        }
-      />
 
       <Route
         path="/dashboard/saved-colleges"

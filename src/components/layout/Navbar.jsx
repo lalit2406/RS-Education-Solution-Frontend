@@ -38,12 +38,12 @@ export default function Navbar() {
         {/* CENTER */}
         <div className="nav-center">
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/services">Services</NavLink>
           <NavLink to="/programs">Programs</NavLink>
+          <NavLink to="/services">Services</NavLink>
+          <NavLink to="/find-college">Find College</NavLink>
           <NavLink to="/ai-tools">AI Tools</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/dashboard">Dashboard</NavLink>
-          <NavLink to="/find-college">Find College</NavLink>
 
           {/* 🔥 ADMIN BUTTON */}
           {user?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
@@ -84,11 +84,14 @@ export default function Navbar() {
             <NavLink to="/" onClick={closeMenu}>
               Home
             </NavLink>
+            <NavLink to="/programs" onClick={closeMenu}>
+              Programs
+            </NavLink>
             <NavLink to="/services" onClick={closeMenu}>
               Services
             </NavLink>
-            <NavLink to="/programs" onClick={closeMenu}>
-              Programs
+            <NavLink to="/find-college" onClick={closeMenu}>
+              Find College
             </NavLink>
             <NavLink to="/ai-tools" onClick={closeMenu}>
               AI Tools
@@ -98,9 +101,6 @@ export default function Navbar() {
             </NavLink>
             <NavLink to="/dashboard" onClick={closeMenu}>
               Dashboard
-            </NavLink>
-            <NavLink to="/find-college" onClick={closeMenu}>
-              Find College
             </NavLink>
 
             {user?.role === "admin" && (
