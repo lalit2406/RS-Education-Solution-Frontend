@@ -16,14 +16,11 @@ export default defineConfig({
 
       dynamicRoutes: [
         "/",
-        "/login",
-        "/signup",
-        "/forgot-password",
-        "/verify-otp",
-        "/reset-password",
-        "/set-password",
+        "/find-college",
+        "/programs",
+        "/services",
+        "/Ai-tools",
         "/contact",
-        "/unsubscribe",
         "/terms",
         "/privacy",
         "/disclaimer",
