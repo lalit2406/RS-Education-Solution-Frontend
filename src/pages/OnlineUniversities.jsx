@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 import "../../src/styles/pages/onlineUniversities.css";
 
-const API_BASE_URL = "http://localhost:5000/api/universities";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL;
 
 export default function OnlineUniversities() {
   const [universities, setUniversities] = useState([]);
