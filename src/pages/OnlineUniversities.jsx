@@ -13,7 +13,7 @@ import {
 import "../../src/styles/pages/onlineUniversities.css";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL;
+  `${import.meta.env.VITE_API_BASE_URL}/api/universities`;
 
 export default function OnlineUniversities() {
   const [universities, setUniversities] = useState([]);
