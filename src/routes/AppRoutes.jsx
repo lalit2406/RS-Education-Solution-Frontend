@@ -10,6 +10,7 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import VerifyOtp from "../pages/auth/VerifyOtp";
 import ResetPassword from "../pages/auth/ResetPassword";
 import SetPassword from "../pages/auth/SetPassword";
+import OnlineUniversities from "../pages/OnlineUniversities";
 
 // Protected Route
 import ProtectedRoute from "./ProtectedRoute";
@@ -130,6 +131,7 @@ export default function AppRoutes() {
       <Route path="/disclaimer" element={<Disclaimer />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/unsubscribe" element={<Unsubscribe />} />
+      <Route path="/online-universities" element={<OnlineUniversities />} />
 
       {/* ================= PROTECTED ROUTES ================= */}
 
