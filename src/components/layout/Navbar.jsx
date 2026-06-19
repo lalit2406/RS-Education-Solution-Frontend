@@ -44,6 +44,7 @@ export default function Navbar() {
           <NavLink to="/ai-tools">AI Tools</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/online-universities">Online Universities</NavLink>
 
           {/* 🔥 ADMIN BUTTON */}
           {user?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
@@ -101,6 +102,9 @@ export default function Navbar() {
             </NavLink>
             <NavLink to="/dashboard" onClick={closeMenu}>
               Dashboard
+            </NavLink>
+            <NavLink to="/online-universities" onClick={closeMenu}>
+              Online Universities
             </NavLink>
 
             {user?.role === "admin" && (
